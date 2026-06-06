@@ -3,7 +3,7 @@ class DecksController < ApplicationController
   VALID_FORMATS = %w[md tcg].freeze
 
   def index
-    @decks = Deck.all
+    @decks = Deck.includes(counter_recommendations: { card: :card_images })
     @decks = @decks.search(params[:q]) if params[:q].present?
     @decks = @decks.by_format(params[:format]) if params[:format].present?
     @decks = @decks.order(:name)
@@ -11,7 +11,7 @@ class DecksController < ApplicationController
   end
 
   def show
-    @deck = Deck.includes(counter_recommendations: :card).find_by!(slug: params[:slug])
+    @deck = Deck.includes(counter_recommendations: { card: :card_images }).find_by!(slug: params[:slug])
     @format = VALID_FORMATS.include?(params[:format]) ? params[:format] : "md"
   end
 end

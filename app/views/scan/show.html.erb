@@ -23,10 +23,19 @@
     <% if @result.error %>
       <p class="rounded-lg border border-rose-700 bg-rose-950 px-4 py-3 text-sm text-rose-300"><%= @result.error %></p>
     <% elsif @result.matched? %>
-      <div class="rounded-xl border border-emerald-700 bg-emerald-950/40 p-4">
-        <div class="text-xs uppercase tracking-wide text-emerald-400">Identified (<%= (@result.score * 100).round %>% match)</div>
-        <div class="mt-1 text-xl font-bold"><%= @result.card.name %></div>
-        <div class="text-sm text-slate-400"><%= @result.card.card_kind %> · TCG <%= @result.card.banlist_status("tcg") %> · MD <%= @result.card.banlist_status("md") %></div>
+      <div class="flex gap-4 rounded-xl border border-emerald-700 bg-emerald-950/40 p-4">
+        <%= render "shared/card_thumb", card: @result.card, size: :lg %>
+        <div class="min-w-0">
+          <div class="text-xs uppercase tracking-wide text-emerald-400">Identified (<%= (@result.score * 100).round %>% match)</div>
+          <div class="mt-1 text-xl font-bold"><%= @result.card.name %></div>
+          <div class="mt-1 text-sm text-slate-400"><%= @result.card.card_kind %></div>
+          <div class="mt-2 flex flex-wrap items-center gap-1.5">
+            <% %w[tcg md].each do |fmt| %>
+              <span class="text-[10px] uppercase text-slate-500"><%= fmt %></span>
+              <%= render "shared/ban_badge", status: @result.card.banlist_status(fmt) %>
+            <% end %>
+          </div>
+        </div>
       </div>
 
       <% if @result.counters_for.any? %>

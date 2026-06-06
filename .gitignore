@@ -31,8 +31,11 @@
 /public/assets
 
 # Self-hosted card images downloaded from YGOPRODeck (no hotlinking per their terms).
+# The .jpg art IS committed so it ships in the Docker image (Render/DO free tiers
+# have an ephemeral filesystem and cannot re-download at runtime).
 /public/card_images/*
 !/public/card_images/.keep
+!/public/card_images/*.jpg
 
 # Ignore key files for decrypting credentials and more.
 /config/*.key

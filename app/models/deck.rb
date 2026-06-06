@@ -22,6 +22,11 @@ class Deck < ApplicationRecord
   def hand_traps = counter_recommendations.select { |r| r.category == CounterRecommendation::HAND_TRAP }
   def board_breakers = counter_recommendations.select { |r| r.category == CounterRecommendation::BOARD_BREAKER }
 
+  # Distinct signature cards (with art) for the index cover strip.
+  def preview_cards(limit = 4)
+    key_cards.filter_map(&:card).select { |c| c.primary_image&.ygo_image_id }.uniq.first(limit)
+  end
+
   def interruption_points
     Array(super)
   end

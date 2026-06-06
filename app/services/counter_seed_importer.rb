@@ -1,10 +1,57 @@
 # Loads the drafted meta-deck counter data (db/seeds/meta_counters.json) into
-# Deck + CounterRecommendation rows. Each counter card is linked to a catalog
-# Card when the name matches; otherwise the free-text name is kept so Rafii can
-# review/fix it later. Everything imported is marked status="draft" pending
-# human verification (see the admin "verify" action).
+# Deck + CounterRecommendation rows.
+#
+# A counter entry's "card" field is often a shorthand or lists several cards in
+# one string ("Effect Veiler / Infinite Impermanence", "Kaijus / Lava Golem").
+# This importer SPLITS those into one recommendation per card so each links to a
+# catalog Card and shows its own banlist badge, and resolves names via:
+#   exact -> alias -> case-insensitive -> pg_trgm fuzzy.
+# Truly descriptive entries ("floodgate breakers post-board") stay as free text.
+# Everything imported is status="draft" pending human verification.
 class CounterSeedImporter
   SEED_PATH = Rails.root.join("db", "seeds", "meta_counters.json")
+  FUZZY_THRESHOLD = 0.55
+
+  # Common shorthand -> catalog name. Keys are downcased.
+  ALIASES = {
+    "maxx c" => 'Maxx "C"',
+    'maxx "c"' => 'Maxx "C"',
+    "imperm" => "Infinite Impermanence",
+    "infinite imperm" => "Infinite Impermanence",
+    "veiler" => "Effect Veiler",
+    "ash" => "Ash Blossom & Joyous Spring",
+    "ash blossom" => "Ash Blossom & Joyous Spring",
+    "belle" => "Ghost Belle & Haunted Mansion",
+    "ghost ogre" => "Ghost Ogre & Snow Rabbit",
+    "mst" => "Mystical Space Typhoon",
+    "ttt" => "Triple Tactics Talent",
+    "droplet" => "Forbidden Droplet",
+    "duster" => "Harpie's Feather Duster",
+    "harpie's feather duster" => "Harpie's Feather Duster",
+    "called" => "Called by the Grave",
+    "crossout" => "Crossout Designator",
+    "nibiru" => "Nibiru, the Primal Being",
+    "lava golem" => "Lava Golem",
+    "evenly" => "Evenly Matched",
+    "drnm" => "Dark Ruler No More",
+    "super poly" => "Super Polymerization",
+    # Fix common misspellings in the drafted seed so high-traffic staples link.
+    "dd crow" => "D.D. Crow",
+    "d.d crow" => "D.D. Crow",
+    "nibiru, the primordial being" => "Nibiru, the Primal Being",
+    "nibiru the primal being" => "Nibiru, the Primal Being",
+    "ghost bell & haunted mansion" => "Ghost Belle & Haunted Mansion",
+    "ash blossom & spring breeze" => "Ash Blossom & Joyous Spring",
+    "ghost ogre & snow rabbit" => "Ghost Ogre & Snow Rabbit",
+    "twin twister" => "Twin Twisters"
+  }.freeze
+
+  # Looks like a role/strategy description, not a single card name.
+  DESCRIPTIVE = /
+    post-board | enabler | floodgate\ breakers | \bremoval\b | \bline\)?$ |
+    \bengine\b | \benablers?\b | level\ \d | \betc\.? | spell-trap\ removal |
+    negate-all | tribute\ removal | \bpieces?\b
+  /xi
 
   Result = Struct.new(:decks, :recommendations, :linked, :unlinked, keyword_init: true)
 
@@ -48,27 +95,56 @@ class CounterSeedImporter
 
   def add_recs(deck, items, category, position)
     Array(items).each do |item|
-      card_name, note, timing = yield(item)
-      next if card_name.blank?
+      raw, note, timing = yield(item)
+      next if raw.blank?
 
-      card = match_card(card_name)
-      deck.counter_recommendations.create!(
-        category: category,
-        card: card,
-        card_name: card_name,
-        note: note,
-        timing: timing,
-        position: position
-      )
-      position += 1
-      @result.recommendations += 1
-      card ? (@result.linked += 1) : (@result.unlinked += 1)
+      names = split_names(raw)
+      names.each_with_index do |name, idx|
+        card = match_card(name)
+        deck.counter_recommendations.create!(
+          category: category,
+          card: card,
+          card_name: name,
+          # Keep the explanation on the first split part only (the rest render adjacent).
+          note: idx.zero? ? note : nil,
+          timing: idx.zero? ? timing : nil,
+          position: position
+        )
+        position += 1
+        @result.recommendations += 1
+        card ? (@result.linked += 1) : (@result.unlinked += 1)
+      end
     end
     position
   end
 
-  # Exact, then case-insensitive match against the catalog.
+  # "Effect Veiler / Infinite Impermanence (when they search)" -> ["Effect Veiler", "Infinite Impermanence"]
+  # A descriptive blob is returned whole (one element) so it stays as free text.
+  def split_names(raw)
+    base = raw.to_s.gsub(/\s*\([^)]*\)\s*/, " ").strip   # drop parenthetical notes
+    return [raw.strip] if base.match?(DESCRIPTIVE)         # description: keep verbatim
+
+    parts = base.split(%r{\s*/\s*}).map(&:strip).reject(&:blank?)
+    parts = [base] if parts.empty?
+    # Drop overly long "parts" that are clearly prose, not card names.
+    parts.map { |p| p.length > 45 ? p : p }.reject(&:blank?)
+  end
+
+  # exact -> alias -> case-insensitive -> pg_trgm fuzzy. Never links descriptions.
   def match_card(name)
-    Card.find_by(name: name) || Card.where("name ILIKE ?", name).first
+    return nil if name.to_s.match?(DESCRIPTIVE)
+
+    canonical = ALIASES[name.downcase.strip] || name
+    Card.find_by(name: canonical) ||
+      Card.where("lower(name) = ?", canonical.downcase).first ||
+      Card.where("name ILIKE ?", canonical).first ||
+      fuzzy(canonical)
+  end
+
+  def fuzzy(name)
+    quoted = ActiveRecord::Base.connection.quote(name)
+    Card.where("similarity(name, ?) >= ?", name, FUZZY_THRESHOLD)
+        .order(Arel.sql("similarity(name, #{quoted}) DESC"))
+        .first
   end
 end

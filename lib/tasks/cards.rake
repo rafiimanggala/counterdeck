@@ -23,13 +23,35 @@ namespace :cards do
     "Cosmic Cyclone",
     "Dimension Shifter",
     "Gameciel, the Sea Turtle Kaiju",
-    "Kurikara Divincarnate"
+    "Kurikara Divincarnate",
+    # Standalone removal / floodgates / boss monsters that counter sheets cite by name.
+    "Lava Golem",
+    "Twin Twisters",
+    "Mystical Space Typhoon",
+    "Transaction Rollback",
+    "Imperial Iron Wall",
+    "Dimensional Fissure",
+    "Macro Cosmos",
+    "Mulcharmy Fuwalos",
+    "Mulcharmy Purulia",
+    "Diabellstar the Black Witch",
+    "Aluber the Jester of Despia",
+    "Dogmatika Fleurdelis, the Knighted",
+    "Baronne de Montmorency",
+    "Herald of the Arc Light",
+    "Thunder Dragon Colossus",
+    "Thunder King, the Lightningstrike Kaiju",
+    "Radian, the Multidimensional Kaiju",
+    "Mulcharmy Meowls"
   ].freeze
 
-  # Real, currently-relevant archetypes available in YGOPRODeck.
+  # Real, currently-relevant archetypes available in YGOPRODeck. Covers every
+  # deck a counter sheet references so the deck's own cards land in the catalog.
   META_ARCHETYPES = [
     "Sky Striker", "Branded", "Labrynth", "Snake-Eye", "Fiendsmith",
-    "Tearlaments", "Yummy", "Blue-Eyes", "Mitsurugi"
+    "Tearlaments", "Yummy", "Blue-Eyes", "Mitsurugi",
+    "Maliss", "Vanquish Soul", "Dracotail", "Magnet Warrior", "K9",
+    "Mulcharmy", "Centur-Ion", "Ryzeal", "Memento", "Voiceless Voice"
   ].freeze
 
   desc "Ingest cards by filter, e.g. rake 'cards:ingest[archetype,Blue-Eyes]'"
@@ -64,8 +86,54 @@ namespace :cards do
     puts "archetypes done"
   end
 
-  desc "Ingest everything CounterDeck needs (staples + meta archetypes)"
-  task ingest_meta: %i[environment ingest_staples ingest_archetypes] do
+  desc "Ingest every distinct card NAME referenced by the counter sheets (fills gaps archetypes miss)"
+  task ingest_counter_cards: :environment do
+    data = JSON.parse(File.read(Rails.root.join("db", "seeds", "meta_counters.json")))
+    raw_names = []
+    Array(data["counters"]).each do |e|
+      %w[key_cards hand_traps board_breakers].each do |sec|
+        Array(e[sec]).each { |c| raw_names << c["card"] }
+      end
+    end
+
+    cleaned = raw_names.flat_map do |raw|
+      base = raw.to_s.gsub(/\s*\([^)]*\)\s*/, " ").strip
+      next [] if base.match?(CounterSeedImporter::DESCRIPTIVE)
+      base.split(%r{\s*/\s*}).map(&:strip)
+    end.reject(&:blank?)
+    cleaned = cleaned.map { |n| CounterSeedImporter::ALIASES[n.downcase.strip] || n }.uniq
+
+    client = YgoprodeckClient.new
+    ingestor = CardIngestor.new
+    added = 0
+    miss = []
+    cleaned.each do |name|
+      next if name.length < 3 || name.match?(CounterSeedImporter::DESCRIPTIVE)
+      next if Card.where("lower(name) = ?", name.downcase).exists?
+
+      cards = client.cards(name: name)
+      cards = client.cards(fname: name) if cards.empty?
+      # Broad fname can over-match; keep only cards clearly related to the query.
+      if cards.size > 3
+        key = name.downcase
+        cards = cards.select { |c| c["name"].to_s.downcase.include?(key) || key.include?(c["name"].to_s.downcase.split(/[,(]/).first.to_s.strip) }
+      end
+      if cards.empty?
+        miss << name
+      else
+        ingestor.call(cards)
+        added += cards.size
+        print "."
+      end
+      sleep 0.06 # respect 20 req/s
+    end
+    puts ""
+    puts "counter cards: +#{added} card rows ingested, #{miss.size} unresolved"
+    puts "unresolved (likely role text / nicknames): #{miss.first(40).join(' | ')}" if miss.any?
+  end
+
+  desc "Ingest everything CounterDeck needs (staples + meta archetypes + counter card names)"
+  task ingest_meta: %i[environment ingest_staples ingest_archetypes ingest_counter_cards] do
     puts "Catalog: #{Card.count} cards, #{Printing.count} printings, #{Price.count} prices, #{BanlistEntry.count} banlist entries"
   end
 
