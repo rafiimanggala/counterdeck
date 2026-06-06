@@ -45,8 +45,31 @@ class CardScanner
     raise "Tesseract not installed" unless tesseract_bin
 
     band = name_band_text(image_path)
-    full = ocr_bytes(File.binread(image_path), psm: "6")
+    full = ocr_bytes(downscaled_for_ocr(image_path), psm: "6")
     [band, full].reject(&:blank?).join("\n").force_encoding("UTF-8").scrub
+  end
+
+  # Tesseract runtime is roughly linear in pixel count; raw phone photos are
+  # 3-4k px wide and take 30s+ on a 1GB box. Downscale the full image to a sane
+  # width before the full-image OCR pass (the name-band pass keeps full detail
+  # for the title, this fallback only needs to read body text on off-angle shots).
+  def downscaled_for_ocr(image_path, max_w: 1400)
+    vbin = vips_bin
+    hbin = vipsheader_bin
+    return File.binread(image_path) unless vbin && hbin
+
+    width = capture_int(hbin, "-f", "width", image_path)
+    return File.binread(image_path) if width.zero? || width <= max_w
+
+    tmp = Tempfile.new(["cd_full", ".png"])
+    tmp.close
+    _o, _e, st = Open3.capture3(vbin, "thumbnail", image_path, tmp.path, max_w.to_s)
+    st.success? ? File.binread(tmp.path) : File.binread(image_path)
+  rescue => e
+    @logger.warn("[CardScanner] downscale failed: #{e.message}")
+    File.binread(image_path)
+  ensure
+    tmp&.unlink
   end
 
   # Pipe bytes to tesseract via STDIN (the binary cannot always fopen arbitrary
