@@ -90,20 +90,14 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: counterdeck_production
-    username: counterdeck
-    password: <%= ENV["COUNTERDECK_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: counterdeck_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: counterdeck_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: counterdeck_production_cable
-    migrations_paths: db/cable_migrate
+  adapter: postgresql
+  encoding: unicode
+  # Neon gives a single connection string. The URL supplies host, port, db,
+  # user and password; everything else (Solid Cache/Queue/Cable) is disabled
+  # in production.rb so one database is all this app needs.
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # Neon's pooled (pgbouncer) endpoint does not keep prepared-statement caches
+  # across connections. Disabling avoids "prepared statement does not exist"
+  # errors. Harmless (no-op cost) on the direct endpoint too.
+  prepared_statements: false

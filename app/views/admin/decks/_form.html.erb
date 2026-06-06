@@ -27,7 +27,7 @@
     </label>
     <label class="block">
       <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Confidence</span>
-      <%= f.select :confidence, Deck::CONFIDENCE, { include_blank: "—" }, class: field_class %>
+      <%= f.select :confidence, Deck::CONFIDENCE, { include_blank: "(none)" }, class: field_class %>
     </label>
     <label class="block">
       <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Status</span>

@@ -14,18 +14,18 @@ and an OCR card scanner. Built by someone who actually plays the game.
 
 ## Features
 
-- **Counter cheat-sheet** — per meta deck: interruption points (STOP), hand traps
+- **Counter cheat-sheet**: per-deck interruption points (STOP), hand traps
   (HOLD), board breakers (BREAK), key cards, going-first-vs-second, beginner notes.
   Mobile-first, format toggle (Master Duel vs TCG) that re-checks legality live.
-- **Ingestion pipeline** — pulls cards from YGOPRODeck, normalizes one-card →
+- **Ingestion pipeline**: pulls cards from YGOPRODeck, normalizes one-card →
   many-printings → many-vendor-prices, dedups alt-arts, self-hosts images. Idempotent.
-- **Derived Master Duel banlist** — reconciled against the TCG list to surface
+- **Derived Master Duel banlist**: reconciled against the TCG list to surface
   divergences (e.g. Maxx "C": Forbidden in TCG, Limited in Master Duel).
-- **Versioned JSON API** — `/api/v1/cards` and `/api/v1/decks` with pagination,
+- **Versioned JSON API**: `/api/v1/cards` and `/api/v1/decks` with pagination,
   filtering, ETags, rate limiting, and an OpenAPI spec.
-- **OCR card scanner** — snap a physical card → Tesseract OCR (name-band crop) →
+- **OCR card scanner**: snap a physical card → Tesseract OCR (name-band crop) →
   `pg_trgm` fuzzy match → see what it counters. 12/12 on staples, zero false positives.
-- **Admin tooling** — fast counter input (nested form with card autolink) and a
+- **Admin tooling**: fast counter input (nested form with card autolink) and a
   data-quality dashboard (banlist divergences, unlinked counters, drafts).
 
 ## Stack
@@ -83,6 +83,24 @@ Spec: `public/api/openapi.yaml`. Card responses include the format-aware banlist
 ```json
 { "name": "Maxx \"C\"", "banlist": { "tcg": "forbidden", "ocg": "unlimited", "md": "limited" } }
 ```
+
+## Deploy
+
+Containerized (`Dockerfile`) and deployable to [Render](https://render.com) on the
+free plan, backed by a free [Neon](https://neon.tech) Postgres. A `render.yaml`
+Blueprint provisions the web service; the image entrypoint runs `db:prepare`
+(schema load, `pg_trgm`, counter sheets) on first boot. Card data is loaded once
+from a shell:
+
+```bash
+bin/rails cards:ingest_meta       # cards, printings, prices, banlists (YGOPRODeck)
+bin/rails cards:import_md_banlist  # derive + reconcile the Master Duel banlist
+bin/rails db:seed                  # (re)link the counter sheets to the catalog
+```
+
+Tuned for the 512MB free tier: single-process Puma, `MALLOC_ARENA_MAX=2`, jemalloc,
+in-process jobs (`:async`) and cache (`:memory_store`), so no Redis or worker dyno
+is needed. SSL is forced behind Render's proxy; `*.onrender.com` is host-allowed.
 
 ## Tests
 

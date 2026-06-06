@@ -1,0 +1,35 @@
+# Render Blueprint for CounterDeck (Rails 8, Docker runtime, free plan).
+# Database is external (Neon free Postgres) and supplied via DATABASE_URL.
+# Deploy: Render dashboard > New > Blueprint > pick this repo.
+services:
+  - type: web
+    name: counterdeck
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    region: singapore
+    plan: free
+    healthCheckPath: /up
+    autoDeploy: true
+    # Run Puma directly so it binds Render's injected $PORT (puma.rb reads PORT).
+    # The image entrypoint still runs db:prepare because the final two tokens
+    # are exactly "./bin/rails server". This skips Thruster (redundant behind
+    # Render's TLS-terminating proxy) and avoids a fixed :80 port mismatch.
+    dockerCommand: ./bin/rails server
+    envVars:
+      # Secrets, entered manually in the Render dashboard (not synced):
+      - key: RAILS_MASTER_KEY   # value of config/master.key
+        sync: false
+      - key: DATABASE_URL       # Neon direct connection string (?sslmode=require)
+        sync: false
+      - key: COUNTERDECK_HOST   # set after the URL is assigned, e.g. counterdeck-xxxx.onrender.com
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: RAILS_LOG_LEVEL
+        value: info
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "true"
+      - key: RAILS_MAX_THREADS
+        value: "2"
