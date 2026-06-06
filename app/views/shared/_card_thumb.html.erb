@@ -2,14 +2,15 @@
     Locals: card (Card or nil), size (:sm default | :md | :lg). %>
 <%
   size ||= :sm
-  dims = { sm: "h-16 w-[46px]", md: "h-[88px] w-[60px]", lg: "h-28 w-20" }[size] || "h-16 w-[46px]"
+  # Dimensions use only design-scale tokens (44/64/96/80/128px) at ~Yu-Gi-Oh card ratio.
+  dims = { sm: "h-16 w-11", md: "h-24 w-16", lg: "h-32 w-20" }[size] || "h-16 w-11"
   img = card&.primary_image
 %>
 <% if img&.ygo_image_id %>
   <%= image_tag img.local_path, alt: card.name, loading: "lazy",
-        class: "#{dims} shrink-0 rounded-md object-cover bg-slate-900 ring-1 ring-slate-800" %>
+        class: "#{dims} shrink-0 rounded-lg border border-slate-800 object-cover bg-slate-900" %>
 <% else %>
-  <div class="<%= dims %> shrink-0 rounded-md bg-slate-900 ring-1 ring-slate-800 grid place-items-center text-[9px] font-semibold uppercase tracking-wide text-slate-600">
+  <div class="<%= dims %> shrink-0 rounded-lg border border-slate-800 bg-slate-900 grid place-items-center text-xs font-semibold uppercase tracking-wide text-slate-600">
     <%= card ? card.name.to_s[0, 2] : "?" %>
   </div>
 <% end %>
