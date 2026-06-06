@@ -48,10 +48,13 @@
 <%# ---- Key cards to recognize ---- %>
 <% if @deck.key_cards.any? %>
   <section class="mt-6">
-    <h2 class="mb-2 text-lg font-bold">Cards to recognize</h2>
-    <div class="flex flex-wrap gap-2">
+    <h2 class="mb-3 text-lg font-bold">Cards to recognize</h2>
+    <div class="grid grid-cols-3 gap-3 sm:grid-cols-4">
       <% @deck.key_cards.each do |kc| %>
-        <span class="rounded-lg border border-slate-800 bg-slate-900 px-3 py-1.5 text-sm" title="<%= kc.note %>"><%= kc.display_name %></span>
+        <div class="flex flex-col items-center gap-1.5 text-center" title="<%= kc.note %>">
+          <%= render "shared/card_thumb", card: kc.card, size: :md %>
+          <span class="text-xs leading-tight text-slate-400"><%= kc.display_name %></span>
+        </div>
       <% end %>
     </div>
   </section>
