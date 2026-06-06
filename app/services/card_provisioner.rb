@@ -41,7 +41,7 @@ class CardProvisioner
   # Returns a persisted Card for ygo_id, ingesting it from YGOPRODeck if absent.
   def ensure(ygo_id)
     id = ygo_id.to_i
-    return nil if id.zero?
+    return nil if id < 1
 
     existing = Card.find_by(ygo_id: id)
     return existing if existing

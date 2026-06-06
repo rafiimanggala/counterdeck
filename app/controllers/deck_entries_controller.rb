@@ -8,7 +8,7 @@ class DeckEntriesController < ApplicationController
   def create
     card = CardProvisioner.new.ensure(params[:ygo_id])
     if card.nil?
-      return respond_error("Couldn't find that card on YGOPRODeck.")
+      return respond_error("Couldn't add that card (not found, or YGOPRODeck is unavailable).")
     end
 
     zone = normalize_zone(params[:zone], card)
@@ -52,13 +52,16 @@ class DeckEntriesController < ApplicationController
   # Extra-deck monster frame types belong in the extra zone unless told otherwise.
   EXTRA_FRAMES = %w[fusion synchro xyz link].freeze
   def normalize_zone(zone, card)
+    zone = zone.to_s.downcase
     return zone if UserDeck::ZONES.include?(zone)
 
     EXTRA_FRAMES.any? { |f| card.frame_type.to_s.include?(f) } ? "extra" : "main"
   end
 
+  # Re-fetch with associations eager-loaded (reload alone would drop the
+  # includes and make DeckMatchup / RelatedCards N+1 on entry.card).
   def rebuild_and_render
-    @deck.reload
+    @deck = UserDeck.includes(deck_entries: { card: :card_images }).find(@deck.id)
     @editable = true
     @matchups = DeckMatchup.new(@deck).matchups
     @related = RelatedCards.new(@deck).suggestions
