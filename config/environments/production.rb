@@ -85,6 +85,7 @@ Rails.application.configure do
   # before COUNTERDECK_HOST is set.
   config.hosts << ENV["COUNTERDECK_HOST"] if ENV["COUNTERDECK_HOST"].present?
   config.hosts << /.*\.onrender\.com/
+  config.hosts << /.*\.ondigitalocean\.app/
 
   # Skip DNS rebinding protection for the default health check endpoint.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
