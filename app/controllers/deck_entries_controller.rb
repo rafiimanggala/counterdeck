@@ -1,48 +1,60 @@
-# Add / adjust / remove cards in a user deck. Adding a card resolves it through
-# CardProvisioner, ingesting it from YGOPRODeck on demand if it is not already in
-# the local catalog. Responds with Turbo Streams so the builder updates in place.
+# Add / adjust / remove cards in a user deck. The builder UI is optimistic and
+# client-side, so these endpoints just PERSIST and return light JSON - they never
+# recompute matchups (that is a separate, lazily-loaded endpoint). Adding a card
+# resolves it through CardProvisioner, ingesting it from YGOPRODeck on demand if
+# it is not already in the local catalog.
 class DeckEntriesController < ApplicationController
   before_action :set_deck
   before_action :require_owner
 
+  # Idempotent upsert keyed by (card, zone):
+  #   no quantity param -> increment by one (capped at 3)
+  #   quantity = N       -> set to N (0 removes the card)
   def create
     card = CardProvisioner.new.ensure(params[:ygo_id])
-    if card.nil?
-      return respond_error("Couldn't add that card (not found, or YGOPRODeck is unavailable).")
-    end
+    return render(json: { ok: false, error: "Card not found or YGOPRODeck unavailable." }, status: :unprocessable_entity) if card.nil?
 
     zone = normalize_zone(params[:zone], card)
     entry = @deck.deck_entries.find_or_initialize_by(card_id: card.id, zone: zone)
-    if entry.new_record?
-      entry.position = @deck.deck_entries.size
-      entry.quantity = 1
+
+    if params.key?(:quantity)
+      qty = params[:quantity].to_i
+      if qty < 1
+        entry.destroy unless entry.new_record?
+        return render json: { ok: true, ygo_id: card.ygo_id, zone: zone, quantity: 0 }
+      end
+      entry.quantity = [qty, 3].min
     else
-      entry.quantity = [entry.quantity + 1, 3].min
+      entry.quantity = entry.new_record? ? 1 : [entry.quantity + 1, 3].min
     end
+
+    entry.position ||= @deck.deck_entries.size
     entry.save!
-    rebuild_and_render
+    render json: entry_json(entry, card)
   end
 
   def update
     entry = @deck.deck_entries.find(params[:id])
     qty = params[:quantity].to_i
-    if qty <= 0
+    if qty < 1
       entry.destroy
+      render json: { ok: true, id: entry.id, quantity: 0 }
     else
       entry.update(quantity: [qty, 3].min)
+      render json: { ok: true, id: entry.id, quantity: entry.quantity }
     end
-    rebuild_and_render
   end
 
   def destroy
-    @deck.deck_entries.find(params[:id]).destroy
-    rebuild_and_render
+    entry = @deck.deck_entries.find(params[:id])
+    entry.destroy
+    render json: { ok: true, id: entry.id, quantity: 0 }
   end
 
   private
 
   def set_deck
-    @deck = UserDeck.includes(deck_entries: { card: :card_images }).find_by!(slug: params[:user_deck_slug])
+    @deck = UserDeck.find_by!(slug: params[:user_deck_slug])
   end
 
   def require_owner
@@ -58,23 +70,17 @@ class DeckEntriesController < ApplicationController
     EXTRA_FRAMES.any? { |f| card.frame_type.to_s.include?(f) } ? "extra" : "main"
   end
 
-  # Re-fetch with associations eager-loaded (reload alone would drop the
-  # includes and make DeckMatchup / RelatedCards N+1 on entry.card).
-  def rebuild_and_render
-    @deck = UserDeck.includes(deck_entries: { card: :card_images }).find(@deck.id)
-    @editable = true
-    @matchups = DeckMatchup.new(@deck).matchups
-    @related = RelatedCards.new(@deck).suggestions
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to @deck }
-    end
-  end
-
-  def respond_error(message)
-    respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.update("builder_flash", %(<p class="rounded-lg border border-rose-700 bg-rose-950 px-3 py-2 text-sm text-rose-300">#{ERB::Util.html_escape(message)}</p>).html_safe) }
-      format.html { redirect_to @deck, alert: message }
-    end
+  def entry_json(entry, card)
+    {
+      ok: true,
+      id: entry.id,
+      card_id: card.id,
+      ygo_id: card.ygo_id,
+      zone: entry.zone,
+      quantity: entry.quantity,
+      name: card.name,
+      kind: card.card_kind,
+      img: card.primary_image&.ygo_image_id
+    }
   end
 end

@@ -17,41 +17,46 @@ class DeckBuilderTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "add a catalog card via turbo stream, then increment on re-add" do
+  test "add a catalog card returns json, then increment on re-add" do
     post user_decks_path, params: { user_deck: { name: "My Deck" } }
     deck = UserDeck.last
 
-    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }, as: :turbo_stream
+    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }
     assert_response :success
+    body = JSON.parse(response.body)
+    assert body["ok"]
+    assert_equal @ash.ygo_id, body["ygo_id"]
+    assert_equal 1, body["quantity"]
     assert_equal 1, deck.deck_entries.count
     assert_equal 1, deck.deck_entries.first.quantity
 
-    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }, as: :turbo_stream
+    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }
     assert_equal 1, deck.deck_entries.count, "re-adding the same card should not duplicate"
     assert_equal 2, deck.deck_entries.first.reload.quantity
   end
 
-  test "matchup shows a card the user runs as a covered out" do
+  test "matchups endpoint shows a card the user runs as a covered out" do
     post user_decks_path, params: { user_deck: { name: "My Deck" } }
     deck = UserDeck.last
-    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }, as: :turbo_stream
+    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }
 
-    get user_deck_path(deck)
+    # Matchups are loaded lazily through a dedicated frame endpoint, not the show body.
+    get matchups_user_deck_path(deck)
     assert_response :success
-    assert_select "a", text: "Branded Despia"
+    assert_match(/Branded Despia/, response.body)
     assert_match(/Ash Blossom/, response.body)
   end
 
   test "update quantity and delete an entry" do
     post user_decks_path, params: { user_deck: { name: "My Deck" } }
     deck = UserDeck.last
-    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }, as: :turbo_stream
+    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }
     entry = deck.deck_entries.first
 
-    patch user_deck_deck_entry_path(deck, entry), params: { quantity: 3 }, as: :turbo_stream
+    patch user_deck_deck_entry_path(deck, entry), params: { quantity: 3 }
     assert_equal 3, entry.reload.quantity
 
-    delete user_deck_deck_entry_path(deck, entry), as: :turbo_stream
+    delete user_deck_deck_entry_path(deck, entry)
     assert_equal 0, deck.deck_entries.count
   end
 
@@ -60,7 +65,7 @@ class DeckBuilderTest < ActionDispatch::IntegrationTest
     deck = UserDeck.last
 
     other = open_session
-    other.post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }, as: :turbo_stream
+    other.post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }
     assert_equal 403, other.response.status
     assert_equal 0, deck.deck_entries.count
 
@@ -71,9 +76,11 @@ class DeckBuilderTest < ActionDispatch::IntegrationTest
   test "unknown card add reports an error without 500" do
     post user_decks_path, params: { user_deck: { name: "My Deck" } }
     deck = UserDeck.last
-    # ygo_id 0 short-circuits in the provisioner (no network), returns nil -> error stream.
-    post user_deck_deck_entries_path(deck), params: { ygo_id: 0, zone: "main" }, as: :turbo_stream
-    assert_response :success
+    # ygo_id 0 short-circuits in the provisioner (no network), returns nil -> json error.
+    post user_deck_deck_entries_path(deck), params: { ygo_id: 0, zone: "main" }
+    assert_response :unprocessable_entity
+    body = JSON.parse(response.body)
+    assert_not body["ok"]
     assert_equal 0, deck.deck_entries.count
   end
 end

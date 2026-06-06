@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+/* Gaming display face for headings/brand (TCG identity); body stays system sans. */
+@theme {
+  --font-display: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Card art keeps its aspect while loading (no layout jump). */
+img[loading="lazy"] {
+  background-color: theme(--color-slate-900);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

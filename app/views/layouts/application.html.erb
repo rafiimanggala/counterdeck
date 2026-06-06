@@ -10,16 +10,19 @@
     <%= csp_meta_tag %>
     <%= yield :head %>
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-full bg-slate-950 text-slate-100 antialiased">
+  <body class="h-full bg-slate-950 text-slate-100 antialiased" data-controller="card-modal">
     <header class="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
       <div class="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
         <%= link_to root_path, class: "flex items-center gap-2 font-bold tracking-tight" do %>
           <span class="inline-block h-5 w-5 rounded bg-violet-500"></span>
-          <span class="text-lg">Counter<span class="text-violet-400">Deck</span></span>
+          <span class="font-display text-lg tracking-wide">Counter<span class="text-violet-400">Deck</span></span>
         <% end %>
         <nav class="-my-2 flex items-center gap-1 text-sm text-slate-400">
           <%= link_to "Decks", root_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
@@ -43,5 +46,15 @@
     <footer class="mx-auto max-w-3xl px-4 py-10 text-xs text-slate-600">
       CounterDeck. Card data via YGOPRODeck. Not affiliated with Konami.
     </footer>
+
+    <%# Global card-detail modal (opened by any element with data-action="card-modal#open" data-url="/cards/:id"). %>
+    <div data-card-modal-target="overlay" data-action="click->card-modal#backdrop"
+         class="hidden fixed inset-0 z-50 grid place-items-start overflow-y-auto bg-slate-950/80 p-4 backdrop-blur-sm sm:place-items-center">
+      <div class="relative w-full max-w-md">
+        <button type="button" data-action="card-modal#close" aria-label="Close"
+                class="absolute -top-2 -right-2 z-10 grid h-8 w-8 place-items-center rounded-full border border-slate-700 bg-slate-900 text-slate-400 hover:text-slate-100">✕</button>
+        <div data-card-modal-target="content"></div>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,7 +1,7 @@
 # The visitor's own deck builder. Decks are owned by an anonymous cookie token;
 # anyone with the slug can view a deck, only the owner can edit it.
 class UserDecksController < ApplicationController
-  before_action :set_deck, only: %i[show edit update destroy]
+  before_action :set_deck, only: %i[show edit update destroy matchups]
   before_action :require_owner, only: %i[edit update destroy]
 
   def index
@@ -23,8 +23,13 @@ class UserDecksController < ApplicationController
 
   def show
     @editable = @deck.owned_by?(builder_token)
+  end
+
+  # Loaded lazily (and refreshed after edits) so the expensive reverse
+  # counter-match never blocks an add. Renders just the matchups frame.
+  def matchups
     @matchups = DeckMatchup.new(@deck).matchups
-    @related = RelatedCards.new(@deck).suggestions
+    render :matchups, layout: false
   end
 
   def edit; end
