@@ -1,0 +1,5 @@
+<% content_for :title, "New deck · CounterDeck" %>
+
+<%= link_to "← My decks", user_decks_path, class: "-ml-2 inline-flex min-h-[44px] items-center px-2 text-sm text-slate-400 hover:text-slate-200" %>
+<h1 class="mb-4 mt-3 text-3xl font-bold tracking-tight">New deck</h1>
+<%= render "form", deck: @deck, url: user_decks_path %>

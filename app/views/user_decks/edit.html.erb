@@ -1,0 +1,5 @@
+<% content_for :title, "Rename #{@deck.name} · CounterDeck" %>
+
+<%= link_to "← Back to deck", user_deck_path(@deck), class: "-ml-2 inline-flex min-h-[44px] items-center px-2 text-sm text-slate-400 hover:text-slate-200" %>
+<h1 class="mb-4 mt-3 text-3xl font-bold tracking-tight">Rename deck</h1>
+<%= render "form", deck: @deck, url: user_deck_path(@deck) %>

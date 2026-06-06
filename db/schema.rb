@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_06_130029) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_07_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -76,6 +76,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_130029) do
     t.index ["deck_id"], name: "index_counter_recommendations_on_deck_id"
   end
 
+  create_table "deck_entries", force: :cascade do |t|
+    t.bigint "card_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "position", default: 0, null: false
+    t.integer "quantity", default: 1, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_deck_id", null: false
+    t.string "zone", default: "main", null: false
+    t.index ["card_id"], name: "index_deck_entries_on_card_id"
+    t.index ["user_deck_id", "card_id", "zone"], name: "index_deck_entries_unique_card_per_zone", unique: true
+    t.index ["user_deck_id"], name: "index_deck_entries_on_user_deck_id"
+  end
+
   create_table "decks", force: :cascade do |t|
     t.string "archetype"
     t.text "beginner_explanation"
@@ -120,10 +133,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_130029) do
     t.index ["set_code"], name: "index_printings_on_set_code"
   end
 
+  create_table "user_decks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.string "owner_token", null: false
+    t.string "slug", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_token"], name: "index_user_decks_on_owner_token"
+    t.index ["slug"], name: "index_user_decks_on_slug", unique: true
+  end
+
   add_foreign_key "banlist_entries", "cards"
   add_foreign_key "card_images", "cards"
   add_foreign_key "counter_recommendations", "cards"
   add_foreign_key "counter_recommendations", "decks"
+  add_foreign_key "deck_entries", "cards"
+  add_foreign_key "deck_entries", "user_decks"
   add_foreign_key "prices", "cards"
   add_foreign_key "printings", "cards"
 end

@@ -1,0 +1,23 @@
+<%# Locals: deck, editable %>
+<div class="mt-5 space-y-5">
+  <% UserDeck::ZONES.each do |zone| %>
+    <% entries = deck.entries_in(zone) %>
+    <section>
+      <h2 class="mb-2 flex items-baseline gap-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+        <%= zone %>
+        <span class="text-xs font-normal text-slate-600"><%= deck.card_count(zone) %> cards</span>
+      </h2>
+      <% if entries.any? %>
+        <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <% entries.each do |entry| %>
+            <%= render "user_decks/entry", entry: entry, editable: editable %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="rounded-lg border border-dashed border-slate-800 px-3 py-4 text-center text-xs text-slate-600">
+          No <%= zone %> cards yet<%= editable ? " — search above to add." : "." %>
+        </p>
+      <% end %>
+    </section>
+  <% end %>
+</div>

@@ -1,0 +1,64 @@
+<% content_for :title, "#{@deck.name} · My Deck · CounterDeck" %>
+
+<%= link_to "← My decks", user_decks_path, class: "-ml-2 inline-flex min-h-[44px] items-center px-2 text-sm text-slate-400 hover:text-slate-200" %>
+
+<div class="mt-3 flex items-start justify-between gap-3">
+  <div class="min-w-0">
+    <h1 class="truncate text-3xl font-bold tracking-tight"><%= @deck.name %></h1>
+    <p class="mt-1 text-sm text-slate-500">
+      <%= @deck.card_count("main") %> main · <%= @deck.card_count("extra") %> extra · <%= @deck.card_count("side") %> side
+    </p>
+  </div>
+  <% if @editable %>
+    <div class="flex shrink-0 items-center gap-2">
+      <%= link_to "Rename", edit_user_deck_path(@deck), class: "inline-flex min-h-[40px] items-center rounded-lg border border-slate-800 px-3 text-sm text-slate-300 hover:border-violet-600" %>
+      <%= button_to "Delete", @deck, method: :delete, form: { data: { turbo_confirm: "Delete this deck?" } }, class: "inline-flex min-h-[40px] items-center rounded-lg border border-rose-900 px-3 text-sm text-rose-300 hover:border-rose-600" %>
+    </div>
+  <% end %>
+</div>
+
+<% unless @editable %>
+  <p class="mt-3 rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-slate-500">You're viewing a shared deck (read-only).</p>
+<% end %>
+
+<% if @editable %>
+  <%# ---- Card search / add ---- %>
+  <section class="mt-5" data-controller="card-search"
+           data-card-search-url-value="<%= cards_search_path %>"
+           data-card-search-add-url-value="<%= user_deck_deck_entries_path(@deck) %>">
+    <div class="relative">
+      <input type="search" placeholder="Search any Yu-Gi-Oh card to add…" autocomplete="off"
+             data-card-search-target="input" data-action="input->card-search#search keydown->card-search#nav"
+             class="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-base focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500">
+      <div data-card-search-target="results"
+           class="absolute z-30 mt-1 hidden max-h-80 w-full overflow-auto rounded-xl border border-slate-700 bg-slate-950 shadow-lg"></div>
+    </div>
+    <div class="mt-2 flex gap-1 text-xs">
+      <span class="text-slate-500 self-center mr-1">Add to:</span>
+      <% UserDeck::ZONES.each_with_index do |z, i| %>
+        <label class="cursor-pointer rounded-md border border-slate-800 px-2 py-1 text-slate-400 has-[:checked]:border-violet-500 has-[:checked]:text-violet-300">
+          <input type="radio" name="cs-zone" value="<%= z %>" class="hidden" data-card-search-target="zone" <%= "checked" if i.zero? %>>
+          <%= z.capitalize %>
+        </label>
+      <% end %>
+    </div>
+  </section>
+  <div id="builder_flash" class="mt-2 empty:hidden"></div>
+<% end %>
+
+<%# ---- Deck zones ---- %>
+<%= turbo_frame_tag "deck_zones" do %>
+  <%= render "zones", deck: @deck, editable: @editable %>
+<% end %>
+
+<% if @editable %>
+  <%# ---- Related suggestions ---- %>
+  <%= turbo_frame_tag "related" do %>
+    <%= render "related", deck: @deck, related: @related, editable: @editable %>
+  <% end %>
+<% end %>
+
+<%# ---- Matchups (the headline feature) ---- %>
+<%= turbo_frame_tag "matchups" do %>
+  <%= render "matchups", deck: @deck, matchups: @matchups %>
+<% end %>

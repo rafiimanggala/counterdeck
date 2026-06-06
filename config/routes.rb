@@ -6,6 +6,15 @@ Rails.application.routes.draw do
   resources :decks, only: %i[index show], param: :slug
   resource :scan, only: %i[show create], controller: "scan"
 
+  # ---- Build your own deck (reverse counter-match) ----
+  resources :user_decks, param: :slug, path: "my-decks" do
+    resources :deck_entries, only: %i[create update destroy]
+  end
+  get "cards/search", to: "cards#search", as: :cards_search
+
+  # Lazy fallback for card art not on disk (static middleware serves the hits).
+  get "card_images/:ygo_image_id", to: "card_images#show", constraints: { ygo_image_id: /\d+/ }
+
   # ---- Admin (Rafii inputs counters here) ----
   namespace :admin do
     root "decks#index"

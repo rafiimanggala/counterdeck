@@ -1,0 +1,20 @@
+<%# Locals: entry, editable %>
+<div class="flex gap-2 rounded-lg border border-slate-800 bg-slate-950 p-2">
+  <%= render "shared/card_thumb", card: entry.card, size: :sm %>
+  <div class="flex min-w-0 flex-1 flex-col justify-between">
+    <div class="truncate text-xs font-medium text-slate-200" title="<%= entry.name %>"><%= entry.name %></div>
+    <% if editable %>
+      <div class="mt-1 flex items-center gap-1">
+        <%= button_to "−", user_deck_deck_entry_path(entry.user_deck, entry, quantity: entry.quantity - 1),
+              method: :patch, class: "grid h-7 w-7 place-items-center rounded border border-slate-800 text-slate-300 hover:border-violet-600" %>
+        <span class="w-5 text-center text-sm font-semibold"><%= entry.quantity %></span>
+        <%= button_to "+", user_deck_deck_entry_path(entry.user_deck, entry, quantity: entry.quantity + 1),
+              method: :patch, class: "grid h-7 w-7 place-items-center rounded border border-slate-800 text-slate-300 hover:border-violet-600" %>
+        <%= button_to "✕", user_deck_deck_entry_path(entry.user_deck, entry),
+              method: :delete, class: "ml-auto grid h-7 w-7 place-items-center rounded border border-slate-800 text-slate-500 hover:border-rose-600 hover:text-rose-300" %>
+      </div>
+    <% else %>
+      <div class="mt-1 text-xs text-slate-500">×<%= entry.quantity %></div>
+    <% end %>
+  </div>
+</div>

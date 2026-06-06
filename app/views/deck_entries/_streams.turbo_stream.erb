@@ -1,0 +1,11 @@
+<%# Re-renders every part of the builder that an add/remove/qty change affects. %>
+<%= turbo_stream.update "deck_zones" do %>
+  <%= render "user_decks/zones", deck: @deck, editable: @editable %>
+<% end %>
+<%= turbo_stream.update "related" do %>
+  <%= render "user_decks/related", deck: @deck, related: @related, editable: @editable %>
+<% end %>
+<%= turbo_stream.update "matchups" do %>
+  <%= render "user_decks/matchups", deck: @deck, matchups: @matchups %>
+<% end %>
+<%= turbo_stream.update "builder_flash", "" %>

@@ -23,6 +23,7 @@
         <% end %>
         <nav class="-my-2 flex items-center gap-1 text-sm text-slate-400">
           <%= link_to "Decks", root_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
+          <%= link_to "My Decks", user_decks_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
           <%= link_to "Scan", scan_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
           <%= link_to "Admin", admin_root_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
         </nav>
