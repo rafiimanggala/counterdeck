@@ -26,6 +26,21 @@ class Deck < ApplicationRecord
     Array(super)
   end
 
+  # Textarea-friendly view of interruption points ("timing :: action" per line),
+  # so Rafii can edit them quickly without a nested form.
+  def interruption_points_text
+    interruption_points.map { |ip| "#{ip['timing']} :: #{ip['action']}" }.join("\n")
+  end
+
+  def interruption_points_text=(str)
+    self.interruption_points = str.to_s.split("\n").filter_map do |line|
+      timing, action = line.split("::", 2).map(&:strip)
+      next if timing.blank? && action.blank?
+
+      { "timing" => timing, "action" => action }
+    end
+  end
+
   def format_list
     formats.to_s.split(/[,\/]/).map(&:strip).reject(&:blank?)
   end

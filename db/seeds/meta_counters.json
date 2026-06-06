@@ -1,0 +1,2406 @@
+{
+  "meta_decks": [
+    {
+      "name": "Kewl Tune",
+      "archetype": "Kewl Tune (Synchro toolbox)",
+      "formats": [
+        "TCG",
+        "MasterDuel"
+      ],
+      "tier": "Tier 1",
+      "note": "Format-defining best deck both sides; TCG ~27.5% of tops, MD Power 19, only deck in MD Tier 1."
+    },
+    {
+      "name": "Branded",
+      "archetype": "Branded / Despia (Fusion)",
+      "formats": [
+        "TCG",
+        "MasterDuel"
+      ],
+      "tier": "Tier 1 (TCG) / Tier 3 (MD)",
+      "note": "TCG #2 at ~16.5%; Branded Dracotail won YCS Columbus. Weaker in MD (Power 4)."
+    },
+    {
+      "name": "DoomZ",
+      "archetype": "DoomZ (Destrius / End Times)",
+      "formats": [
+        "TCG"
+      ],
+      "tier": "Tier 1",
+      "note": "TCG #3 (~10%); GY/field-based combo that plays through interruption, hard to hand-trap."
+    },
+    {
+      "name": "Dracotail",
+      "archetype": "Dracotail",
+      "formats": [
+        "TCG",
+        "MasterDuel"
+      ],
+      "tier": "Tier 2 (TCG) / Tier 3 (MD)",
+      "note": "Strong engine/standalone; fueled the YCS Columbus winning Branded Dracotail build."
+    },
+    {
+      "name": "Elfnote",
+      "archetype": "Elfnote (Synchro Singers)",
+      "formats": [
+        "TCG",
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "note": "Synchro-climb combo; flexible starters. Splashable Elfnote Engine is a top MD piece (Power 8.5)."
+    },
+    {
+      "name": "Sky Striker",
+      "archetype": "Sky Striker (Spell control)",
+      "formats": [
+        "TCG",
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "note": "Consistent control/grind pick in both; MD Power 8, TCG ~4%. Resilient to current hand traps."
+    },
+    {
+      "name": "Mitsurugi",
+      "archetype": "Mitsurugi (Ritual/Warrior)",
+      "formats": [
+        "TCG"
+      ],
+      "tier": "Tier 2",
+      "note": "Reliable TCG performer (~4.3%), Top 32 at YCS Columbus."
+    },
+    {
+      "name": "Maliss",
+      "archetype": "Maliss (Alice-themed)",
+      "formats": [
+        "TCG"
+      ],
+      "tier": "Tier 2",
+      "note": "Still topping and winning TCG events in 2026 (~3.8% of tops)."
+    },
+    {
+      "name": "K9 Engine",
+      "archetype": "K9 (Beast)",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "note": "Top MD non-engine/engine package (Power 9); also fuels Vanquish Soul K9 hybrids."
+    },
+    {
+      "name": "Vanquish Soul K9",
+      "archetype": "Vanquish Soul + K9",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "note": "VS control merged with K9 engine; strong MD ladder pick (Power 8)."
+    },
+    {
+      "name": "Magnet Warrior",
+      "archetype": "Magnet Warrior / Valkyrion",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "note": "Surging MD combo deck (Power 7) off recent support."
+    },
+    {
+      "name": "Radiant Typhoon",
+      "archetype": "Radiant Typhoon",
+      "formats": [
+        "TCG",
+        "MasterDuel"
+      ],
+      "tier": "Tier 3",
+      "note": "Newer engine seeing fringe play both formats (MD Power 4)."
+    },
+    {
+      "name": "Yummy",
+      "archetype": "Yummy",
+      "formats": [
+        "MasterDuel",
+        "TCG"
+      ],
+      "tier": "Tier 3",
+      "note": "Yummy Engine (Power 3) splashed widely; standalone and Snake-Eye Yummy variants exist."
+    },
+    {
+      "name": "Fiendsmith Engine",
+      "archetype": "Fiendsmith",
+      "formats": [
+        "MasterDuel",
+        "TCG"
+      ],
+      "tier": "Tier 3 / engine",
+      "note": "Ubiquitous LIGHT Fiend splash; powers Elfnote, Snake-Eye and control shells."
+    },
+    {
+      "name": "Counter Fairies",
+      "archetype": "Counter Fairy (control)",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 3 / rogue",
+      "note": "Counter-trap control fringe pick in MD; off-meta but tracked."
+    },
+    {
+      "name": "Snake-Eye Fiendsmith",
+      "archetype": "Snake-Eye + Fiendsmith",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 3",
+      "note": "Post-hit Snake-Eye still rogue-viable in MD via Fiendsmith package (Power ~1)."
+    },
+    {
+      "name": "Labrynth",
+      "archetype": "Labrynth (Trap control)",
+      "formats": [
+        "MasterDuel",
+        "TCG"
+      ],
+      "tier": "Rogue",
+      "note": "Evergreen trap-control grind deck; low rep but persistent ladder presence."
+    }
+  ],
+  "counters": [
+    {
+      "deck_name": "Kewl Tune",
+      "archetype": "Synchro toolbox (all-Tuner \"Hand Synchro\" combo/control)",
+      "formats": [
+        "TCG",
+        "Master Duel"
+      ],
+      "tier": "Tier 1 (June 2026 meta; most-represented deck at YCS Columbus, full-power in Master Duel as of April 2026)",
+      "game_plan": "Kewl Tune is an almost-all-Tuner Synchro toolbox that uses the \"Hand Synchro\" mechanic: on-field Kewl Tune monsters let you use Tuners from your HAND as Synchro material, so it climbs to bosses with very few cards and rarely bricks. It abuses information asymmetry (Rotary peeks the opponent's hand, Cue/Crackle manipulate the opponent's draw and Extra Deck), then ends on the omni-negate boss Zalen plus a Kewl Tune Synchro held in hand for \"Turn 0\" disruption on the opponent's turn. It adapts its end board to exactly what it saw in your hand, making it a control deck that knows your outs before you draw them.",
+      "key_cards": [
+        {
+          "card": "Kewl Tune Cue",
+          "role": "Primary starter. Normal Summon recruits any Tuner from Deck and can manipulate the opponent's next draw; the core 1-card line begins here."
+        },
+        {
+          "card": "Kewl Tune Rotary",
+          "role": "Information engine. Reveals the opponent's hand turn 1 so the deck tailors its negates to your specific hand traps and breakers."
+        },
+        {
+          "card": "Kewl Tune Remix",
+          "role": "GY recursion + Turn-0 Synchro. Recovers Tuners (including used hand traps) from GY and can Synchro Summon during the opponent's turn. This is why GY shutdown hurts so much."
+        },
+        {
+          "card": "Kewl Tune Clip",
+          "role": "Quick-Effect 'Hand Synchro' enabler. Lets the deck Synchro Summon on the opponent's turn for reactive interaction; the backbone of their going-first disruption."
+        },
+        {
+          "card": "Zalen the Shackled Dragon",
+          "role": "Main boss. A tricky omni-negate that is built to play around chain blocking; also negates Ash Blossom aimed at their searches. The card you must answer to win."
+        },
+        {
+          "card": "Kewl Tune Synchro",
+          "role": "Held-in-hand interaction piece. Chained to your disruption (e.g. Nibiru) so they can then resolve Zalen's negate; key to how they survive going first."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On the Normal Summon of Kewl Tune Cue (the search)",
+          "action": "Ash Blossom or Droll here is the cleanest stop, BUT be aware an established Zalen negates Ash. If they have no negate up yet, denying the first search slows the line dramatically."
+        },
+        {
+          "timing": "Before / during the first 1-2 Synchro Summons (the climb)",
+          "action": "Imperm/Veiler on the on-field Hand-Synchro monster is weak: they simply Hand-Synchro using a DIFFERENT Tuner from hand. Aim disruption at the SEARCH/recursion engine, not the climbing monster."
+        },
+        {
+          "timing": "On a second/third search or special summon (heavy chain)",
+          "action": "Droll & Lock Bird freezes the heavy searching chain after the first search, often crippling extension. One of the few single hand traps that meaningfully stops them."
+        },
+        {
+          "timing": "At the 5th total summon of the turn",
+          "action": "Nibiru window. They mitigate by ending before summon 5 or by making/holding Zalen + Kewl Tune Synchro to chain-negate the Nibiru. Effective only if they over-extended without a negate ready."
+        },
+        {
+          "timing": "When Zalen tries to omni-negate your play",
+          "action": "Zalen's negate only protects the 2 most recent chain links. Bait it, then chain a SECOND effect as CL3 when priority returns to you so your real CL1 effect resolves around it."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Dimension Shifter",
+          "when": "Drawn turn 1, activate before they start (ideally going second, or in response to first effect).",
+          "why": "Best single counter. Banishing-instead-of-GY shuts off Kewl Tune Remix's GY recovery of Tuners/used hand traps, which is core to their grind and Turn-0 plays. Dimensional Fissure / Macro Cosmos do similar work."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "when": "After their FIRST search resolves (do not waste it before any search).",
+          "why": "Freezes the search-heavy chains the deck relies on to extend; one of the very few single hand traps that can stop the combo outright. Note they may chain-block it, so timing matters."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "when": "Turn 1 before they commit, mainly Master Duel.",
+          "why": "Punishes the special-summon-heavy line; even if they 'play around' it, they often must short-stop the combo. In TCG it is banned; relevant in Master Duel only. Expect them to fight it with Called by / Crossout."
+        },
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "when": "On Cue's first search, before any negate is established.",
+          "why": "Stops the opening search, but loses value once Zalen is up (Zalen negates Ash on their searches). Best as an early-window answer, not a save vs an established board."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "when": "Held until their 5th summon of the turn.",
+          "why": "Wipes an over-extended board, but they actively play around it (stop at summon 4, or chain Kewl Tune Synchro -> Zalen to negate). Treat as a punish for greedy lines, not a guaranteed stop."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit / Effect Veiler / Infinite Impermanence",
+          "when": "Veiler/Imperm on a Hand-Synchro monster's on-field effect; Ogre on a key Synchro.",
+          "why": "Weakest options. Negating one on-field Tuner just lets them Hand-Synchro with another Tuner from hand; Imperm/Dark Ruler does not stop the core mechanic. Use only to bait or as backup, not your main answer."
+        },
+        {
+          "card": "Herald-type / Fairy hand traps (e.g. Herald of Orange Light)",
+          "when": "Going second, to protect your own Shifter/Droll/Maxx from their Ash/Crossout.",
+          "why": "Used to defend your key hand traps from being Crossout/Called/Ashed, since the deck sees your hand and targets your best out first."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Lightning Storm",
+          "why": "Going second, forces out Zalen's negate and can clear their backrow/attack-position monsters. Caveat: needs a near-empty field of your own to activate, so lead with it before committing."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Strong going second since you end with no cards; they keep only one card. Also baits/eats the omni-negate. Same empty-field-side requirement as Lightning Storm."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Clears their backrow support (Playlist / continuous traps / field spell layer) cheaply; pair with a follow-up to push through Zalen."
+        },
+        {
+          "card": "Kaijus / Lava Golem",
+          "why": "Tribute away Zalen (and Synchro bosses) ignoring its negate, since tributing is not an effect they can stop. Reliable single-card answer to the omni-negate body."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Negates Zalen plus other monsters at once; cost (sending cards) is acceptable to open a push. Good multi-negate disabler before your main play."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Uncounterable in chain (they can't respond), removes their Synchro material(s) and bypasses Zalen. Note they often MAIN their own Super Poly, so watch for the mirror."
+        },
+        {
+          "card": "Dimensional Fissure / Macro Cosmos (floodgate breakers post-board)",
+          "why": "Not a one-time clear but neuters the rebuild: shutting off GY stops Remix from recovering their pieces after you break the board, so your push sticks."
+        }
+      ],
+      "going_first_vs_second": "GOING FIRST is their preferred line: they set Zalen + a held Kewl Tune Synchro/Clip for Turn-0 interaction and read your hand via Rotary, then negate your single best out. To beat them on the draw, you must end on MULTIPLE threats/negates, not one, because they tailor disruption to whatever they saw. GOING SECOND, they still threaten Turn-0 Hand Synchro (Clip/Remix make Synchros on your turn), so do not assume an empty board is safe; lead with going-second breakers (Evenly/Lightning Storm) BEFORE summoning, use Super Poly/Kaiju to ignore Zalen, and protect your key hand trap (Shifter/Droll) from Crossout/Ash with Herald-type cards. Mulligan toward Shifter, Droll, or a board breaker + a way to bait the negate.",
+      "beginner_explanation": "Think of Kewl Tune as a deck of all \"Tuners\" that builds Synchro monsters using cards from its HAND, so it almost never bricks, and it cheats by looking at your hand and even your draws. The one card you really must answer is its boss Zalen (a negate). Rule of thumb: do not waste Effect Veiler/Impermanence on their little monsters, they just use a different card from hand instead. Your best plain-English plan: (1) if you have Dimension Shifter, use it early, it shuts off their recycling; (2) Droll & Lock Bird right after their first search is a great stop; (3) hold Nibiru for their 5th monster of the turn, but know they may dodge it; (4) when going second, swing with Lightning Storm or Evenly Matched FIRST while your field is empty, or use a Kaiju/Super Polymerization to remove Zalen since those ignore its negate. Bait their negate with a throwaway play, then do your real play.",
+      "confidence": "low"
+    },
+    {
+      "deck_name": "Branded / Despia",
+      "archetype": "Fusion combo-control (Albaz / Branded Fusion engine)",
+      "formats": [
+        "TCG",
+        "MasterDuel"
+      ],
+      "tier": "Tier 1 (TCG) / Tier 3 (MD)",
+      "game_plan": "Spam Fusion Summons off one starter (usually Branded Fusion) to assemble a grindy board headlined by Mirrorjade the Iceblade Dragon (quick-effect non-targeting banish) plus a quickplay spell and often a Dogmatika negate. It recurs materials from GY/banish, so it grinds you out over multiple turns rather than going for a single huge OTK. Going second it pivots to Branded in Red / Super Poly OTK lines.",
+      "key_cards": [
+        {
+          "card": "Branded Fusion",
+          "role": "#1 starter and main chokepoint. Sends Albaz + Bystial Lubellion (or Despia) from deck to summon Albion the Branded Dragon, which chains into Lubellion the Searing Dragon and the whole engine. Stop this and the turn often collapses."
+        },
+        {
+          "card": "Aluber the Jester of Despia",
+          "role": "Secondary starter. On summon searches any Branded card, almost always Branded Fusion. Negating Aluber cuts off the deck's access to its starter when they don't already have it."
+        },
+        {
+          "card": "Fallen of Albaz / Bystial Lubellion",
+          "role": "Core Fusion material / extender. Albaz fuses with opponent's monsters (and powers Super Poly); Bystial Lubellion self-revives by sending Albion, extending past one interruption."
+        },
+        {
+          "card": "Albion the Branded Dragon",
+          "role": "The pivot Fusion. Banishes Albaz + a Branded card to summon Lubellion the Searing Dragon and sets up loops; its GY effect sets a Branded card for next turn."
+        },
+        {
+          "card": "Mirrorjade the Iceblade Dragon",
+          "role": "The payoff / main interruption. Once per turn quick-effect SENDS a monster to GY (non-targeting banish-tier removal). This is the card you usually need to play around or out-resource."
+        },
+        {
+          "card": "Despia, Theater of the Branded",
+          "role": "Field Spell engine. Extra Fusion Summon and revives a Fusion destroyed by battle/effect. Adds resilience, not the thing to negate first."
+        },
+        {
+          "card": "Dogmatika Fleurdelis, the Knighted",
+          "role": "Common board piece providing a non-targeting monster effect negate on your turn. Plan your push around one negate."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On Branded Fusion activation (the fusion summon)",
+          "action": "This is THE chokepoint. Negate / disrupt here. Without a backup starter or extra Albaz access, the turn usually dies. Best single point to spend Ash."
+        },
+        {
+          "timing": "On Aluber the Jester of Despia summon (search effect)",
+          "action": "Negate the search to deny Branded Fusion access, but ONLY if they don't already have Branded Fusion in hand and have no GY recursion (Branded Retribution / Despian Tragedy / Albion GY set)."
+        },
+        {
+          "timing": "On Albion the Branded Dragon's effect (banish to summon Lubellion the Searing Dragon)",
+          "action": "Stops the chain into Lubellion and the recursion loop. Veiler / Imperm here is strong since Albion is the engine pivot."
+        },
+        {
+          "timing": "After ~5 summons in their turn",
+          "action": "Nibiru window. Branded does many summons; if they over-extend before resolving Mirrorjade, Nibiru wipes the board. They can play around it by leading with Mirrorjade early, so timing matters."
+        },
+        {
+          "timing": "On the second Branded search / second Special Summon engine activation",
+          "action": "Droll & Lock Bird window. Branded leans on searching and adding multiple cards from deck per turn, so Droll mid-combo strands their hand."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "when": "On Branded Fusion (best), or on Aluber's search if they lack Branded Fusion + GY recursion.",
+          "why": "Negates the #1 starter at its activation. Devastating against a hand with no extender; the engine cannot continue. Read whether they have backup before choosing the target."
+        },
+        {
+          "card": "Effect Veiler / Infinite Impermanence",
+          "when": "On Albaz/Albion/Lubellion engine monster, or on Mirrorjade to disable its banish during your push.",
+          "why": "Veiler/Imperm shut down the pivot monster's effect (no chain into the next fusion). Imperm doubles as your-turn removal of Mirrorjade's negate. Note: Imperm column restriction matters going second."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "when": "After they make 5+ summons but BEFORE they lock in Mirrorjade.",
+          "why": "Branded summons a lot, so the window usually opens. Wipes the whole board into one token. Weakness: good players sequence Mirrorjade early to dodge it, so it is not a guaranteed answer."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "when": "After their first add-to-hand (e.g. after the first search), to brick the rest of the combo.",
+          "why": "Branded chains multiple adds/searches per turn; Droll strands their hand once you cut further adds. One of the harder hand traps for them to play through."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "when": "On Despia, Theater of the Branded (field spell) or on a key engine Fusion when its effect resolves.",
+          "why": "Destroys the field spell engine or a board piece, costing them an extra summon/recur. Decent but not as backbreaking as Ash on Branded Fusion."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "when": "Before they start summoning (in MD especially).",
+          "why": "Punishes the multi-summon turn. Branded CAN play through it by stopping early on a Mirrorjade end board, so it is a tax/deterrent more than a hard stop. Banned/limited in TCG; mainly an MD consideration."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Super Polymerization",
+          "why": "Best dedicated answer. Their board is DARK/dragon Fusions; Super Poly fuses Mirrorjade and others away into your fusion, and its activation cannot be responded to. Branded itself plays it, so it's a known weakness."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Negates AND lowers ATK of multiple monsters at once, including Mirrorjade, opening the board for an attack. Strong going second; pitching cards is the cost."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "Going second into a board of face-up monsters (and no spells/traps set), wipes all their attack-position monsters including Mirrorjade. Dead if they have a set backrow up."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "End-of-your-turn or going second, forces them to banish down to one card. Excellent against their wide grind board since it ignores effects."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Clears the quickplay spell(s) Branded leaves up (Branded in Red / removal / Branded Retribution), removing their disruption before you push."
+        },
+        {
+          "card": "Kaijus / Lava Golem",
+          "why": "Tribute away Mirrorjade (gets around its 'cannot be destroyed' style protection by sending/tributing instead of destroying), neutralizing the key threat so you can attack over the rest."
+        }
+      ],
+      "going_first_vs_second": "Against you going FIRST: their threat is Mirrorjade's quick banish plus a possible Dogmatika negate, so end on a board that survives one removal and one negate; bait the negate with a non-essential effect, then commit your real play. Hold an interrupt for their follow-up turn since they grind. Against you going SECOND: expect Mirrorjade + a quickplay + sometimes a negate. Lead with a board breaker (Super Poly / Droplet / Evenly / Feather Duster / Kaiju) to clear BEFORE you combo, and respect a possible set Branded card. Hand traps are far better in the going-first matchup; going second, prioritize breakers over reactive traps.",
+      "beginner_explanation": "Think of Branded as a deck that starts almost everything from ONE card, Branded Fusion, and you usually want to stop that exact card. If they activate Branded Fusion, that is the moment to drop Ash Blossom. If they search with Aluber first, Ash can hit that instead, but only if you think they don't already have Branded Fusion. Their scariest finished monster is Mirrorjade, which can banish one of your monsters whenever it wants, so don't dump your whole hand into a board it can pick apart. If you are going second and they already have a board, do NOT try to out-combo them, just blow up the board first with a card like Super Polymerization, Forbidden Droplet, Lightning Storm, or a Kaiju, THEN make your plays. Watch out: they can play through a single hand trap and through Maxx C by stopping early, so one interruption is often not enough, save the right one for the right card.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "DoomZ",
+      "archetype": "DoomZ (DARK Dragon main deck / WIND Machine Xyz boss). Note: card names appear with translation variants (Drastia/Drastea, Amalthe/Amarut, Elara/Erara). Boss = DoomZ XII End - Drastrius.",
+      "formats": [
+        "TCG",
+        "OCG",
+        "Master Duel"
+      ],
+      "tier": "Tier 1",
+      "game_plan": "Self-destruction combo deck: it destroys its own DoomZ cards to trigger searches, special summons, and free spell/trap setting, then converts monsters into WIND Machine Xyz. Goal is to end on the Rank 8 boss Drastrius (a monster-effect omni-negate that also steals your monster as an equip) plus the DoomZ Destruction floodgate trap and assorted equip-based protection. It is a resource-looping deck that floats through disruption rather than going wide.",
+      "key_cards": [
+        {
+          "card": "DoomZ XII End - Drastrius",
+          "role": "End-board boss. Rank 8 WIND Machine Xyz (2700 ATK). Quick-effect negate of opponent monster effects on FIELD or GY, then equips (steals) one of your monsters. Survives first destruction each turn. CRITICAL LIMIT: it cannot negate hand-activated effects, so Nibiru and hand traps still resolve during their combo."
+        },
+        {
+          "card": "DoomZ Change",
+          "role": "Primary 1-card starter. Destroys a DoomZ monster (e.g. Amalthe/Amarut) from Deck to start the search-and-summon chain. Prime Ash Blossom / Droll target."
+        },
+        {
+          "card": "DoomZ V Five - Amalthe (a.k.a. Amarut)",
+          "role": "Level 4 DARK Dragon. When destroyed/sent it searches/adds DoomZ pieces (notably Drastia) from Deck. Ash Blossom hits this GY search. Veiler/Imperm can stop it on field."
+        },
+        {
+          "card": "DoomZ XII Zero - Drastia (a.k.a. Drastea)",
+          "role": "Level 8 DARK Dragon. Self-Special-Summons by destroying a DoomZ card; equips and converts into a same-Rank WIND Machine Xyz (the bridge to Drastrius). Veiler/Imperm shuts it off."
+        },
+        {
+          "card": "DoomZ VII Seven - Elara (a.k.a. Erara)",
+          "role": "Level 4 DARK Dragon Normal-Summon starter. On summon/destruction sets DoomZ spell/trap from Deck or extends. Alternative single-card opener."
+        },
+        {
+          "card": "Power Patron DoomZ",
+          "role": "Level 1 WIND Machine. Floodgate/enabler: restricts Extra Deck summons to Xyz only and converts effect monsters into Xyz. Part of the engine and a self-imposed lock you can exploit (they cannot make non-Xyz plays)."
+        },
+        {
+          "card": "DoomZ Destruction",
+          "role": "Normal Trap floodgate on the end board. Prevents opponent from adding cards from Main Deck to hand except by drawing; floats a DoomZ monster as equip when destroyed. Soft floodgate, not a negate."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On the opening DoomZ Change activation / the destroy-from-Deck cost",
+          "action": "This is the 1-card-combo ignition. Ash Blossom the resulting Deck-to-hand search (Amalthe/Drastia add). Droll & Lock Bird here shuts off all further Deck searches for the turn."
+        },
+        {
+          "timing": "On Amalthe/Amarut's GY add-from-Deck trigger",
+          "action": "Ash Blossom negates the search and chokes the line at its weakest link. Crossout the Ash if you fear they have Called by/Crossout themselves."
+        },
+        {
+          "timing": "On Drastia/Drastea's self-Special-Summon and equip/Xyz-conversion",
+          "action": "Effect Veiler or Infinite Impermanence on Drastia stops the climb into the Rank 8 Xyz. This is the cleanest spot for a negate-on-field hand trap."
+        },
+        {
+          "timing": "After they have Special Summoned 5+ monsters this turn (extended lines only)",
+          "action": "Nibiru, the Primal Being tributes their board. Works because Drastrius negates only FIELD/GY effects, never hand effects. Note: the streamlined DoomZ Change line may only make ~2 summons, so Nibiru can whiff vs the short combo."
+        },
+        {
+          "timing": "Before/while they set up the floodgate",
+          "action": "Ghost Ogre & Snow Rabbit can destroy a key Xyz/equipped piece or a continuous DoomZ spell, or detach material so Drastrius's negate runs dry."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Hits the core engine: DoomZ Change's destroy-search, Amalthe's GY add-from-Deck, or any DoomZ Deck-to-hand/Deck-summon effect. Single best one-card answer.",
+          "when": "Hold for the FIRST add-from-Deck or SS-from-Deck of the combo (usually DoomZ Change or Amalthe)."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Drastrius and the whole archetype have NO hand-activated negation, so Nibiru resolves freely. Wipes the board after the 5th summon.",
+          "when": "Only when they cross 5 summons. Count carefully: the short DoomZ Change line can stop at ~2 SS and dodge it. Better vs the extended Elara/pendulum line."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "After their first search, Droll locks out every further Deck-add for the turn, collapsing a deck that chains multiple searches.",
+          "when": "Activate after they resolve the first search (let DoomZ Change add, then Droll the next add)."
+        },
+        {
+          "card": "Effect Veiler",
+          "why": "Negates Drastia/Amalthe on the field, breaking the bridge into the Rank 8 boss.",
+          "when": "On Drastia's self-summon/conversion effect, or on Amalthe if it triggers on field."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "Same role as Veiler plus it works going second and can stop a spell/trap column. Strong on the normal-summoned starter (Elara) or Drastia.",
+          "when": "On the first DoomZ monster effect resolving on the field; set it pre-emptively going second for the column-negate upside."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "why": "Punishes the special-summon-heavy combo; forces them to either over-draw you or stop short of the full board.",
+          "when": "Activate at the very start of their turn before they commit. Beware Called by/Crossout in their build."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Destroys a just-summoned Xyz, an equipped DoomZ piece, or detaches/removes a continuous spell, weakening Drastrius's negate fuel.",
+          "when": "On the Xyz summon or on a continuous DoomZ spell/equip activation during the combo."
+        },
+        {
+          "card": "Mulcharmy Purulia / Fuwalos",
+          "why": "Floods you with cards off their special summons (mirroring what their own lists run), keeping your board-breaker hand stocked going second.",
+          "when": "Start of their turn if you have no other interaction and expect to go second next."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Forbidden Droplet",
+          "why": "Top answer. Sends fodder to halve ATK and NEGATE Drastrius and other DoomZ monsters at once; the chain-restriction prevents them from responding to the rest of your turn. Note Drastrius survives one destruction but Droplet negates rather than destroys."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "If they leave Drastrius in attack position with no other backrow protecting, blow up all their attack-position monsters, or wipe their set DoomZ Destruction in spell/trap mode."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Going second with an empty field, force them to banish down to one card. Cleanly answers the floating equip-heavy board that grinds back from spot removal."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Spell-speed-4, chain-restricted fusion that eats Drastrius (or the equipped monster) regardless of its negate; also pre-empts them stealing your monster. Many DoomZ lists main it themselves, so respect the mirror."
+        },
+        {
+          "card": "Kaiju / Lava Golem / Gameciel",
+          "why": "Tribute-summon away Drastrius ignoring its 'not destroyed' protection and its negate (Kaiju is a tribute, not destruction/targeting-negate trigger they can stop)."
+        },
+        {
+          "card": "Harpie's Feather Duster / Cosmic Cyclone",
+          "why": "Removes the DoomZ Destruction floodgate trap and any equip-spell protection so your follow-up resolves; Duster clears the whole backrow."
+        },
+        {
+          "card": "Dark Ruler No More / Forbidden Droplet (negate-all line)",
+          "why": "DRNM turns off all their monster negates (Drastrius included) for the turn so you can push without eating the omni-negate, then OTK through the now-passive board."
+        }
+      ],
+      "going_first_vs_second": "Going FIRST against them: race to resolve your own disruption; on YOUR turn deploy hand traps the moment they ignite DoomZ Change/Elara. Their board is a single monster-negate (Drastrius) plus a soft floodgate, so a clean Ash or Veiler at the right link often stops the whole thing. If you are the DoomZ player's opponent and YOU got first, set up a backrow they have to fight through and keep Nibiru/Droll for their combo turn. Going SECOND against them: their ceiling is low (one omni-negate, no hand disruption), so a single good board breaker usually breaks it. Lead with a negate-all (Dark Ruler No More) or chain-locked removal (Forbidden Droplet / Super Polymerization) to bypass Drastrius, then clear the DoomZ Destruction floodgate with Duster/Cosmic before committing your main play. Save Evenly Matched if you can bait them into a full board. Because Drastrius can STEAL one of your monsters as equip, avoid feeding it a strong monster; remove it before you over-extend.",
+      "beginner_explanation": "Think of DoomZ as a deck that blows up its own cards on purpose to fetch more cards and summon a big WIND machine boss called Drastrius. That boss can negate ONE of your monster effects per turn and even take your monster, but here is the trick a beginner needs to know: Drastrius can only stop effects you use from your FIELD or GRAVEYARD, never from your HAND. So your hand traps (Ash Blossom, Nibiru, Veiler, Imperm) are safe to use during their setup. The simplest plan: hold Ash Blossom for the very first time they search a card off DoomZ Change (their main combo button) and that usually stalls them hard. If you are going second and they already have the board, do not trade a single removal into Drastrius (it survives one destruction); instead use a card that negates or fusion-eats it like Forbidden Droplet, Super Polymerization, or a Kaiju you can tribute it away with, then clear their face-down DoomZ Destruction trap with Harpie's Feather Duster. Their board looks scary but only has one real negate, so one good breaker plus one hand trap is often enough.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Dracotail",
+      "archetype": "Dracotail (Dragon/Spellcaster Fusion combo-control)",
+      "formats": [
+        "TCG",
+        "Master Duel"
+      ],
+      "tier": "Tier 2 (TCG) / Tier 3 (MD)",
+      "game_plan": "Fusion-summon engine that uses Main Deck Dracotail monsters as fusion material to Set disruptive Dracotail Spells/Traps straight from the deck, then grind. It builds a layered control board (a negating fusion like Gulamel plus 2-3 recursive traps: Flame negates a Spell, Horn bounces an Attack-position monster, Sting banishes from GY) while every Dracotail effect feeds Gulamel's destruction. Faimena gives it a \"turn 0\" Quick-Effect fusion to interrupt you on your own turn, and Arthalion bounces your board while recycling its own resources, so it wins by out-resourcing and out-grinding rather than by one big negate wall.",
+      "key_cards": [
+        {
+          "card": "Dracotail Lukias",
+          "role": "Best 1-card starter. Normal Summon searches Mululu, which fuses into Gulamel and Sets two traps. If you see Lukias Normal Summoned, the combo has begun."
+        },
+        {
+          "card": "Dracotail Mululu",
+          "role": "Quick-Effect from hand that triggers the fusion into Gulamel; also permanently negates a monster. The card that turns Lukias into a board."
+        },
+        {
+          "card": "Dracotail Faimena",
+          "role": "Discard from hand as a Quick Effect (either player's Main Phase) to Fusion Summon a Dragon/Spellcaster. Their turn-0 interruption AND extender. Sets a Dracotail S/T when used as fusion material. Recognize this as the scariest card to leave them holding."
+        },
+        {
+          "card": "Ketu Dracotail",
+          "role": "Main search Spell: adds a Dracotail monster; if you control a monster it also Fusion Summons. The consistency glue, hits on Ash Blossom."
+        },
+        {
+          "card": "Rahu Dracotail",
+          "role": "Dedicated Fusion Spell using materials from the deck; locks them into Extra Deck Fusion Summons for the turn. 1-card board enabler, prime Ash/Called by/Ghost Ogre target."
+        },
+        {
+          "card": "Dracotail Arthalion",
+          "role": "Fusion that bounces field/GY monsters to hand equal to materials used from hand. Their main board breaker going second and a tempo swing turn 1."
+        },
+        {
+          "card": "Dracotail Gulamel",
+          "role": "End-board fusion: Quick Effect destroys an opponent card every time a Dracotail card/effect activates. The disruption multiplier you must respect."
+        },
+        {
+          "card": "Dracotail Phryxul",
+          "role": "Engine extender/starter that can be sent to set up the Dracotail line; targets Lukias to extend."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On Dracotail Lukias Normal Summon (search for Mululu)",
+          "action": "Ash Blossom the search to cut the 1-card starter off at the knees. This is the cleanest stop on the most common opener."
+        },
+        {
+          "timing": "On Ketu Dracotail or Rahu Dracotail activation",
+          "action": "Ash Blossom (Ketu = search/Fusion; Rahu = Fusion from deck). Negating either kneecaps the consistency/board build. Called by the Grave / Crossout protect these, so bait first if possible."
+        },
+        {
+          "timing": "On the Mululu / Faimena Quick-Effect Fusion Summon",
+          "action": "Effect Veiler or Infinite Impermanence on Mululu (or the relevant fusion enabler) stops the fusion-and-set chain. Imperm is best set in advance so it survives going second."
+        },
+        {
+          "timing": "After 5 monsters hit the field during their combo",
+          "action": "Nibiru the Primordial Being tributes the board. Dracotail floods the field with fusion material + tokens, so they routinely hit 5 summons before the end board is locked. Strong blind second."
+        },
+        {
+          "timing": "On any draw/search loop (their effects almost all search or draw)",
+          "action": "Droll & Lock Bird after their first search shuts off all further adds (Ketu, Lukias, recursion). Note: pros sometimes cut Droll in 2026 because it also clogs your own searchers, so it is a meta call."
+        },
+        {
+          "timing": "On Arthalion's GY-to-hand recycle or Gulamel's destruction loop",
+          "action": "Ghost Belle & Haunted Mansion / D.D. Crow to deny GY recursion. D.D. Crow banishing Faimena from GY prevents next-turn Quick-Effect fusing."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "when": "Chain to Lukias's search, Ketu, or Rahu",
+          "why": "Almost every Dracotail starter is a search or deck-Fusion. Ash on the first search usually ends the turn. Their single best target. Watch for Called by / Crossout protecting it."
+        },
+        {
+          "card": "Effect Veiler / Infinite Impermanence",
+          "when": "On the fusion enabler (Mululu) or on Gulamel/Arthalion when it counts",
+          "why": "Negating the Quick-Effect fusion stops the trap-setting chain. Imperm doubles as a board breaker going second; set it pre-emptively so it survives backrow removal."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "when": "Before they start, ideally going first into their turn",
+          "why": "Dracotail Special Summons a lot (multiple fusions + recursion), so Maxx C draws heavily. But the deck can recycle/draw your used copies and grinds resources, so it is a tempo tax more than a hard stop in MD (where it is legal). Banned in TCG."
+        },
+        {
+          "card": "Nibiru, the Primordial Being",
+          "when": "After their 5th summon, before the end board locks",
+          "why": "They flood the field with material and tokens, frequently crossing 5 summons. Tributes the board and leaves you a token to push. Premier blind-second card."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "when": "After they take their first add/search this turn",
+          "why": "Shuts off the whole search-and-recycle gameplan. Caveat: weak in the 2026 meta generally and clogs your own decks, so many lists cut it. Still very punishing specifically vs Dracotail."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "when": "On Rahu/Ketu's Fusion, Gulamel, or a Set Dracotail card being activated",
+          "why": "Flexible: destroys an enabler or a key fusion piece on activation. Less clean than Ash but dodges some protection."
+        },
+        {
+          "card": "D.D. Crow / Ghost Belle & Haunted Mansion",
+          "when": "On GY recursion (Arthalion add-back, Faimena in GY)",
+          "why": "Belle denies Arthalion returning cards from GY (kills their card advantage); Crow banishing Faimena in GY stops the next-turn Quick fusion."
+        },
+        {
+          "card": "Dimension Shifter",
+          "when": "Before their combo, going second or as a turn-0 lock",
+          "why": "Banishing instead of GY shuts off the trap-setting-as-material and GY recursion that the entire engine relies on. Niche but devastating if you can resolve it early."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Lightning Storm",
+          "why": "Going second into a defense-position fusion board, it wipes their monsters; if they have backrow up, it nukes the Set Dracotail traps instead. Strong but watch for them activating a Set trap in response."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Best against their wide control board: end of your Battle Phase forces them to banish down to one card. Great because their board is several cards (fusion + 2-3 traps) and they go first often."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Dumps multiple cards to halve ATK and negate effects of their fusions (Gulamel/Arthalion), and the chain-link cost dodges their Set-trap responses. Reliable out to the negating body."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Clears the recursive Dracotail trap layer (Flame/Horn/Sting) in one shot, the part of their board that grinds you out. Best paired with monster removal."
+        },
+        {
+          "card": "Kaiju / Lava Golem / Santa Claws",
+          "why": "Tributes away the key negating/bouncing fusion (Gulamel, Arthalion) ignoring its protection, then you swing or combo through. Good single-card answer to their boss."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Their board is full of fusion-material Dragons/Spellcasters; SuperPoly removes their boss as material with no response window (no chain to it). One of the cleaner outs to Gulamel."
+        }
+      ],
+      "going_first_vs_second": "Going first they want 1-2 cards to make Gulamel (or a negating fusion) plus 2-3 Set Dracotail traps, then grind. Going second they lean on Faimena's Quick-Effect fusion as a turn-0 interruption and on Arthalion to bounce your board, so they are dangerous from either seat. Against them: when YOU go first, build a board that survives Arthalion's bounce and a single targeted destruction (avoid relying on one fragile negate, and bait Gulamel before committing). When YOU go second, mulligan toward board breakers (Evenly, Droplet, Duster, SuperPoly, Kaiju) plus a pre-set Imperm, and hold up Nibiru for their flood. Crucially, even on their turn keep Ash up: their turn-0 Faimena and recursion mean the combo is not \"over\" after turn 1.",
+      "beginner_explanation": "Think of Dracotail as a deck that \"pays\" its small monsters to flip up free trap cards from its deck while building a fusion monster that destroys your stuff. The easiest tell: a Dracotail monster gets Normal Summoned and immediately searches another one, then a fusion appears and they Set 2-3 cards face-down. Your single best button is Ash Blossom on the FIRST search they make (usually Lukias, Ketu, or Rahu) because nearly everything they do is a search or a draw, so cutting the first one off usually ends their turn. Going second, do not try to out-grind them: blow up the whole board at once with a card like Evenly Matched, Harpie's Feather Duster (for the traps), or Forbidden Droplet (for the fusion). And remember Faimena, a card they discard on YOUR turn to make a fusion, so do not relax just because it is your turn. Keep one hand trap up if you can.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Elfnote (Synchro Singers)",
+      "archetype": "Elfnote",
+      "formats": [
+        "TCG",
+        "Master Duel"
+      ],
+      "tier": "Tier 2",
+      "game_plan": "Elfnote is a Synchro-combo deck built around three Singer monsters (Lucina, Tinia, Fortuna) that special-summon themselves to the Center Main Monster Zone to trigger effects, search each other, and place their own Continuous Spell (Welcome Home) and Continuous Trap (Rhapsodia of Madness). It Synchro-climbs through Elfnote Power Patron (a Tuner that searches any Elfnote card when used as Synchro material) to end on generic boss Synchros like Baronne de Fleur plus Crystal Wing, backed by the Center-zone lock, a spell/trap negate, and on-turn handrip. The board grinds: it protects the center monster from destruction and recurs Elfnotes from GY during your turn.",
+      "key_cards": [
+        {
+          "card": "Elfnote Lucina",
+          "role": "Main starter. Hard-OPT searches any Elfnote monster (except another Lucina); during your turn moves to Center MMZ to random-banish from your hand. Top Ash/Imperm target."
+        },
+        {
+          "card": "Elfnote Power Patron",
+          "role": "The engine glue: Tuner that Synchro-climbs (raise a Center monster's Level by 3, then Synchro Summon), and when sent as Synchro material adds ANY Elfnote card from deck. Removing it cuts them off Synchros."
+        },
+        {
+          "card": "Elfnote Tinia",
+          "role": "Places Elfnotes: Welcome Home (Continuous Spell) from deck and random-banishes from opponent hand. Combo extender/searcher."
+        },
+        {
+          "card": "Elfnote Fortuna",
+          "role": "Places Elfnotes: Rhapsodia of Madness (Continuous Trap) from deck and bounces opponent S/T. Sets up the negate."
+        },
+        {
+          "card": "Elfnotes: Rhapsodia of Madness",
+          "role": "Their main disruption: locks opponent attacks to the Center monster, recurs an Elfnote from GY + negates 1 face-up card (if they control a Synchro), and negates opponent S/T while controlling 3+ Elfnotes."
+        },
+        {
+          "card": "Elfnotes: Welcome Home",
+          "role": "Continuous Spell: makes the Center monster destruction-immune to effects and recurs Elfnotes from deck. Why pure destruction removal underperforms."
+        },
+        {
+          "card": "Baronne de Fleur / Crystal Wing",
+          "role": "Generic boss Synchros that cap the board (omni-negate-and-destroy / monster-effect negate). The actual end-board interruptions you must answer."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On the first Elfnote search (Lucina/Tinia/Medius effect resolving in the early Main Phase, before they build the field)",
+          "action": "Ash Blossom the search to deny the engine piece. Cleanest single-card stop on a 1-card hand; weaker if they have 2+ Elfnotes already."
+        },
+        {
+          "timing": "When Power Patron raises a Center monster's Level to Synchro Summon (the climb step)",
+          "action": "Effect Veiler / Infinite Impermanence on the monster that wants to use its Center effect, or remove Power Patron before it becomes material so they lose the 'add 1 Elfnote' search and the climb."
+        },
+        {
+          "timing": "After 5+ total summons in one turn (this deck spams Synchro materials and SS's the girls)",
+          "action": "Nibiru, the Primal Being. Elfnote routinely crosses 5 summons, so Nibiru is a premier stop unless they run the Fiendsmith/Caesar variant that protects against it."
+        },
+        {
+          "timing": "On any Synchro Summon / from-deck effect during the chain",
+          "action": "Ghost Ogre & Snow Rabbit on a key Synchro or on Welcome Home/Rhapsodia as it's placed; Ghost Belle if they try GY recursion."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Deck reliably makes 5+ summons climbing into Synchros; tributes the whole board and leaves a Token for you. Best single hand trap vs pure builds.",
+          "when": "Hold until they pass 5 summons, ideally right before the final boss Synchro."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "why": "Punishes the long Synchro chain hard. Lines around it exist but mostly become 2-card combos and still give you draws; in MD it forces a minimal board or a stop.",
+          "when": "Activate at the very first special summon of their combo."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "This deck searches repeatedly (Lucina, Power Patron-as-material, Tinia/Fortuna placing cards). Droll after their first search shuts off all further adds and cripples the climb.",
+          "when": "Chain to the first search/add-to-hand, then they cannot search again."
+        },
+        {
+          "card": "Ash Blossom & Spring Breeze",
+          "why": "Negates the key search (Lucina / Power Patron 'add 1 Elfnote' / deck-placement). Note: the deck is built to grind through lone Ash, so it is a tempo tax more than a hard stop on a developed hand.",
+          "when": "On the FIRST search, especially Lucina or Power Patron's material add, on a thin hand."
+        },
+        {
+          "card": "Effect Veiler / Infinite Impermanence",
+          "why": "Negates a girl's Center-MMZ effect or Power Patron mid-climb. Like Ash, single copies can be played through, so aim at the irreplaceable link in the chain.",
+          "when": "Imperm before they commit; Veiler on the monster about to use its OPT engine effect."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Destroys a freshly placed Welcome Home / Rhapsodia or a Synchro mid-combo, breaking the Center-zone protection package.",
+          "when": "When the Continuous Spell/Trap resolves onto the field, or on a key Synchro Summon."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Forbidden Droplet",
+          "why": "Welcome Home only stops DESTRUCTION; Droplet sends/negates by other means, so it neuters Baronne/Crystal Wing and the Center monster without triggering destruction immunity."
+        },
+        {
+          "card": "Kaijus / Lava Golem",
+          "why": "Tribute-based removal ignores Welcome Home's destruction protection and clears the Center boss Synchro, also bypassing Rhapsodia's attack-redirect lock."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Going second their grindy multi-card board folds to Evenly; they keep only one card, blanking the Center-zone engine and negate pile."
+        },
+        {
+          "card": "Harpie's Feather Duster / Lightning Storm",
+          "why": "Wipes the Continuous Spell+Trap (Welcome Home / Rhapsodia) that power the lock and S/T negate. Lightning Storm also clears their Synchros in ATK; bait the Rhapsodia S/T negate first if they have 3+ Elfnotes."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Their boards are full of generic-attribute Synchros (LIGHT/DARK) and the girls; SS dodges negates entirely and removes their boss monster as fusion material."
+        }
+      ],
+      "going_first_vs_second": "Going first vs Elfnote: their interaction is fast Quick-effect Synchros plus the Center-zone protection, so do not just out-grind them; deploy your own negates and respect Rhapsodia's spell/trap negate (live once they hold 3+ Elfnotes). Going second: they are a weak going-second engine themselves, so the matchup swings on board breakers. Welcome Home blocks destruction on the Center monster, so prioritize non-destruction outs (Droplet, Kaijus, Super Poly, Evenly) over Raigeki-style removal; clear the S/T (Duster/Lightning Storm) to disable the negate and lock, then push. Open the turn with a hand trap to keep their board small enough that one breaker is enough.",
+      "beginner_explanation": "Recognize Elfnote by the three Singer girls (Lucina, Tinia, Fortuna) jumping to the middle monster zone and by Power Patron making Synchro monsters. The whole deck is a search-and-Synchro chain, so two things stop it: (1) a hand trap on the FIRST search or the FIRST summon, and (2) Nibiru once they have summoned five monsters in a turn. If they already have a board, do not try to destroy the middle monster, it is protected from destruction. Instead use cards that send, banish, or tribute it (Forbidden Droplet, a Kaiju, Super Polymerization) and blow up their face-up Spell and Trap with Harpie's Feather Duster or Lightning Storm to turn off their negate. When going second, lead with a hand trap so their board stays small, then one board breaker is usually enough.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Sky Striker",
+      "archetype": "Spell-based control / grind deck (monsterless or near-monsterless backrow control)",
+      "formats": [
+        "TCG",
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "game_plan": "Sky Striker keeps an empty Main Monster Zone (most effects only work with 0 monsters in your zone) and grinds card advantage through Spells, mainly Engage, which has NO once-per-turn limit and draws + searches every time you have 3+ Spells in grave. It floods the backrow with Quick-Play Mecha (Widow Anchor steals/negates, Shark Cannon banishes, Eagle Booster protects) behind Shizuku and Multirole, then wins slowly by out-resourcing you and answering threats one at a time. It is reactive, not explosive: it does not OTK, it strangles you over many turns.",
+      "key_cards": [
+        {
+          "card": "Sky Striker Mobilize - Engage!",
+          "role": "Engine heart. Searches any Sky Striker card AND draws when 3+ Spells in grave. NO once-per-turn limit, so it is recurred and re-activated all game. Cutting off Engage starves the deck."
+        },
+        {
+          "card": "Sky Striker Ace - Raye",
+          "role": "Main starter monster. Tributes itself during opponent's turn or via Engage-fueled plays to bring out the Ace Link/Xyz that matters (Kagari to recur Spells, Hayate to send, Shizuku for the end board, Zero for protection)."
+        },
+        {
+          "card": "Sky Striker Ace = Zero",
+          "role": "Summoned off Raye; adds a Sky Striker Spell AND makes your key Spells unchainable for the turn. This is what walls hand traps and Called By once it resolves."
+        },
+        {
+          "card": "Sky Striker Ace - Kagari",
+          "role": "Link-1 that recurs a Sky Striker Spell (usually Engage or Linkage) from grave to hand. The primary advantage-loop piece."
+        },
+        {
+          "card": "Sky Striker Ace - Shizuku",
+          "role": "End-board centerpiece: locks in a set Spell via Multirole and refills hand. Sits over 4-5 set Mecha as the control wall."
+        },
+        {
+          "card": "Sky Striker Mecha - Widow Anchor",
+          "role": "Quick-Play interaction: negates an opponent monster effect and steals the monster while you control 0 monsters. The main turn-disruption Mecha in their backrow."
+        },
+        {
+          "card": "Sky Striker Mecha Modules - Multirole",
+          "role": "Field/Continuous engine that sets a Sky Striker Spell from grave each turn and protects their Spells/Traps. Backbone of the grind plan."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "Their FIRST Engage activation (before 3 Spells are in grave, or the very first search)",
+          "action": "Ash Blossom the Engage search OR drop Droll & Lock Bird right after their first search. Droll is the strongest because it shuts off ALL further adds/searches for the turn, killing the unlimited Engage loop."
+        },
+        {
+          "timing": "On Sky Striker Ace = Zero's add/protection effect",
+          "action": "Ash Blossom or Ghost Belle the Zero search. Zero is the card that makes their Spells unchainable, so negating it keeps your disruption (and later board breakers) live."
+        },
+        {
+          "timing": "When Raye/Engage tries to Special Summon an Ace (Kagari/Shizuku/Hayate) in your zone or theirs",
+          "action": "Effect Veiler / Infinite Impermanence on the summoned Ace, or Imperm on Raye, denies the recursion/search step and stops the link climb."
+        },
+        {
+          "timing": "End Phase Shizuku + Multirole set/add sequence",
+          "action": "Ghost Ogre & Snow Rabbit on Multirole (Continuous) or Shizuku to break the end-board engine before it sets the backrow back up."
+        },
+        {
+          "timing": "During their grind turns when they re-activate recurred Engage",
+          "action": "A second copy of Ash or a well-timed Droll mid-turn still cuts the loop, since Engage has no OPT and they lean on repeating it."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Droll & Lock Bird",
+          "why": "The single best hand trap vs Sky Striker (their 'kryptonite'). After their first add/search, Droll stops every further search AND draw for the turn, neutering the unlimited Engage engine that the whole deck runs on.",
+          "when": "Drop it immediately after their FIRST search of the turn (usually the first Engage), not before. Holding for the first add maximizes lock value."
+        },
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Negates an Engage search or the Zero add. Hits the deck where it lives. Slightly weaker than Droll because they can recur Engage and search again later, but it is the cleanest stop on a key add.",
+          "when": "On the FIRST Engage (the add) when going second to slow setup, or on Zero's search to keep your disruption live. Be aware Crossout Designator / Called By can answer it."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "Negates a key Ace on summon (Shizuku/Kagari) or Raye, and the column-lock can disrupt their backrow placement. Good because it works through their low monster count and sets up your own turn.",
+          "when": "On the summoned Ace that matters, or set turn 1 to threaten their turn-2 plays. Strong going first to pre-load interaction."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Destroys Multirole or a key Ace (Zero/Shizuku), breaking the Continuous-card grind engine that rebuilds their backrow each turn.",
+          "when": "On Multirole when it tries to set/protect, or on Zero/Shizuku on summon. Sky Striker is noted as especially vulnerable to Ogre."
+        },
+        {
+          "card": "Effect Veiler",
+          "why": "Negates a key Ace effect (Kagari recursion, Shizuku) on your opponent's turn without using a board slot. Cheap, surgical disruption of the link loop.",
+          "when": "On Kagari's recur or Shizuku's effect during their turn. Less impactful than Ash/Droll on the Spell engine itself."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Generally WEAK here. Sky Striker rarely summons 5+ monsters in a turn (they keep zones empty), so Nibiru usually never turns on. Do not rely on it.",
+          "when": "Almost never live vs pure Sky Striker. Only relevant vs hybrid builds that combo. Side it out for this matchup."
+        },
+        {
+          "card": "Maxx C",
+          "why": "Mediocre here (and banned in TCG). Sky Striker special summons very little (mostly one Ace per turn), so Maxx C draws you few cards and they can grind through. Useful mainly in Master Duel as a soft deterrent, not a real stop.",
+          "when": "Master Duel only, turn-1 reactive. Expect low yield. They can play around it by minimizing summons."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Harpie's Feather Duster / Lightning Storm",
+          "why": "One activation wipes their entire set backrow (the Mecha behind Shizuku). Their whole turn-1 plan is set cards, so a single board-wipe Spell erases the game plan. Top counter when going second."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Going second into their wide backrow, it banishes their cards FACE-DOWN, so the Mecha and Multirole are gone for the rest of the duel (cannot be recovered). Excellent because it punishes a full backrow and you are the one with the empty/behind field."
+        },
+        {
+          "card": "Cosmic Cyclone / Twin Twisters / Spell-Trap removal",
+          "why": "Surgically banish Multirole or a threatening Widow Anchor before it resolves. Cosmic banishing is best because it dodges grave recursion the deck relies on."
+        },
+        {
+          "card": "Kaijus (Gameciel / Kumongous / Radian)",
+          "why": "Tribute away their Shizuku/Ace to clear the board centerpiece and put a beater down, ignoring their monster-based protection. Useful since their Aces are tough to run over normally."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Negates their set/active Spell-Trap Mecha (and any Ace) en masse during the turn, opening a lethal swing. Strong proactive break that also dodges Widow Anchor since you control monsters anyway by then."
+        },
+        {
+          "card": "Mystic Mine / floodgate awareness (caution)",
+          "why": "Note: Sky Striker can play AROUND or under some floodgates by keeping 0 monsters; verify the specific floodgate works before siding it. Prefer hard removal over floodgates here."
+        }
+      ],
+      "going_first_vs_second": "GOING FIRST: Sky Striker is reactive, so going first you set your OWN disruption (Imperm, set traps) and develop a board they must answer one card at a time, then hold Droll/Ash for their turn-2 Engage. Do not over-extend into Widow Anchor (it steals/negates while they have 0 monsters) - bait it with a non-key monster first. GOING SECOND: This is where Sky Striker is most fragile. They will have a set backrow + Shizuku, so bring board breakers (Feather Duster/Lightning Storm/Evenly Matched) to wipe the Mecha, then push. Lead with the breaker BEFORE summoning so Widow Anchor has no monster to steal, then commit. Overall the deck is harder to beat in grind games than in a fast race, so close it out quickly once you break the board.",
+      "beginner_explanation": "Think of Sky Striker as a slow strangler, not a one-turn killer. It keeps its monster zone empty on purpose and rebuilds a wall of face-down Spell cards every turn, drawing extra cards off Engage (a card with NO once-per-turn limit) until it out-resources you. Two simple plans: (1) Going second, run a board-wipe Spell like Harpie's Feather Duster or Lightning Storm to blow up all their set cards at once, but cast it BEFORE you summon a monster so their Widow Anchor cannot steal it. (2) Hold Droll & Lock Bird (or Ash Blossom) and use it right after their first search of the turn to shut off their card-drawing engine. Skip Nibiru and mostly skip Maxx C against this deck - they barely summon, so those rarely do anything. Win fast once you break the board; do not let it grind.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Mitsurugi",
+      "archetype": "Reptile-based Ritual archetype (Earthbound Japanese-myth swords). NOTE: deck was labeled \"Ritual/Warrior\" in the request, but the core Mitsurugi monsters are EARTH Reptiles, not Warriors. Confidence on type: high.",
+      "formats": [
+        "TCG",
+        "Master Duel"
+      ],
+      "tier": "Tier 2 (rogue-to-solid-meta in TCG as of June 2026; competitive but not top-of-format)",
+      "game_plan": "Mitsurugi is a Ritual recursion engine: it Ritual Summons Level 8 \"Mitsurugi\" monsters, then Tributes them for MORE Ritual Summons, and each Tribute triggers a graveyard effect that searches another Mitsurugi card AND revives the monster. Off one starter it snowballs into multiple Level 8s and Level 4s, then converts them into Xyz negates (Number 38 Titanic Galaxy, Number 90 Photon Lord) plus in-theme floodgate/destruction (Ame no Murakumo wipes your monsters on summon). The goal is a multi-interruption board that also keeps grinding back through GY recursion if you do break it.",
+      "key_cards": [
+        {
+          "card": "Ame no Habakiri no Mitsurugi",
+          "role": "Best single-card starter. From hand it Special Summons a Mitsurugi from Deck (e.g. Saji), then Tributes it to trigger searches; chains the whole ritual loop. Recognize this and you know the combo is live."
+        },
+        {
+          "card": "Mitsurugi Ritual",
+          "role": "Signature Ritual Spell. Can Ritual Summon from the DECK using hand/field material, AND Ritual Summon from the HAND using DECK material, each once per turn. Doubles ritual access and consistency."
+        },
+        {
+          "card": "Mitsurugi no Mikoto, Saji / Aramasa / Kusanagi",
+          "role": "Level 4 engine pieces. Saji searches a Mitsurugi Spell/Trap on summon or tribute; Aramasa searches a Mitsurugi monster; Kusanagi recycles from GY/banish. These are the search effects that fuel the loop, and Aramasa is the usual Normal Summon."
+        },
+        {
+          "card": "Ame no Murakumo no Mitsurugi",
+          "role": "Primary disruption boss. On Special Summon, destroys ALL monsters the opponent controls (once per turn, works no matter how it is summoned), plus a negate-or-discard effect. This is the card that punishes you for committing a board."
+        },
+        {
+          "card": "Futsu no Mitama no Mitsurugi",
+          "role": "Defensive boss. Swarms/revives Reptiles from GY whenever the opponent Special Summons, making the board hard to out by going wide."
+        },
+        {
+          "card": "Pre-Preparation of Rites / Mitsurugi Prayers",
+          "role": "Extender/searchers that find Habakiri + the Ritual Spell and convert single pieces into the full line. Prayers is the consistency glue (and a known banlist target)."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On the Habakiri / Pre-Prep / Prayers SEARCH activation (the very first search of the turn)",
+          "action": "Ash Blossom & Joyous Spring the search to deny the starter. Hitting the FIRST searcher (Pre-Prep, Prayers, or a Saji/Aramasa search) chokes the whole loop before it builds material."
+        },
+        {
+          "timing": "On the Special Summon from Deck (Habakiri summoning Saji from Deck)",
+          "action": "Ghost Ogre, Effect Veiler or Infinite Impermanence the summoned/searching monster to stop its on-summon or tribute search and break the chain early."
+        },
+        {
+          "timing": "After they have made about 5 Special Summons in one chain/turn",
+          "action": "Nibiru, the Primal Being. The loop pumps out multiple Level 8s and 4s, so the 5th+ summon is common BEFORE they finish. Hold Nibiru for the moment before they Xyz into negates. NOTE: good players run D/D/D Wave High King Caesar as Nibiru insulation, so it is not guaranteed."
+        },
+        {
+          "timing": "On the FIRST search effect of the turn, then locked all turn",
+          "action": "Droll & Lock Bird. This is the single best hand trap vs Mitsurugi: after any card is added from Deck, no more cards can be added from Deck for the rest of the turn, which turns OFF the entire Habakiri/Saji/Aramasa/Murakumo search engine. Drop it as soon as they add the first card."
+        },
+        {
+          "timing": "On the Ritual Summon itself (mid-combo)",
+          "action": "Dimensional Barrier (Ritual declaration) shuts off further ritual plays. Also Bystial Magnamhut / The Winged Dragon banishes their LIGHT/DARK or in-GY ritual monsters to deny the revive/recursion (note most Mitsurugi are EARTH, so Bystial targets are limited; primarily for splashed targets)."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Droll & Lock Bird",
+          "why": "THE premier counter. Mitsurugi is built entirely on adding cards from Deck (search after search). After their first add, Droll stops all further adds-from-Deck for the turn, gutting the search-and-recur engine and leaving them with a fraction of the board.",
+          "when": "The instant they resolve their FIRST search/add this turn (after Pre-Prep, Prayers, or the first Saji/Aramasa/Habakiri add). Do not wait."
+        },
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Negates the key searcher/Special-Summon-from-Deck effect. Strong but single-target, so they can play around it with a second searcher; still denies a clean start.",
+          "when": "On Pre-Preparation of Rites, Mitsurugi Prayers, or Habakiri's add/summon-from-Deck (the first one that matters)."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "The combo makes 5+ Special Summons easily, so Nibiru tributes the board for a 11/11 token. Caveat: skilled lists run D/D/D Wave High King Caesar specifically to dodge it, so check before assuming it lands.",
+          "when": "After their 5th Special Summon, ideally right before they Xyz into their negates."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "why": "Punishes the heavy Special-Summon recursion (multiple ritual summons + revives). Either they draw you into a winning hand or they stop short of a full board. Format-dependent (legal in TCG, banned in Master Duel).",
+          "when": "Main Phase 1, before they begin the loop. Force them to commit or stop."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "Negates a key on-field effect (e.g. the searching/Special-Summoning monster) and, if set, the column-off bonus disrupts spells. Flexible interaction that can stop a pivotal trigger.",
+          "when": "On the resolution of Habakiri's or a Mikoto's effect; or set going first to also catch Mitsurugi Ritual."
+        },
+        {
+          "card": "Effect Veiler / Ghost Ogre & Snow Rabbit",
+          "why": "Veiler negates a Mikoto/Habakiri effect on field; Ghost Ogre destroys the monster trying to use its effect, stopping the search/revive. Both cut a link out of the chain.",
+          "when": "Veiler on the monster's effect activation; Ghost Ogre when the engine monster tries to resolve its on-field search/summon."
+        },
+        {
+          "card": "Ghost Belle & Haunted Mansion",
+          "why": "Stops GY-revive / GY-search recursion (Mitsurugi's whole grind plan is GY-based). Niche but blanks the recursion turn.",
+          "when": "On a GY-effect activation (a tributed Mitsurugi reviving itself or a GY recycle)."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Evenly Matched",
+          "why": "Best go-second out vs Mitsurugi. Their end board is multiple monsters (Murakumo, Futsu no Mitama, Xyz negates); Evenly forces them to banish down to one face-up card, collapsing the negate wall. Strong because it ignores targeting/negation."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "If they end on attack-position monsters (Murakumo / Xyz bosses), Lightning Storm wipes all their monsters. Watch for set backrow that flips it to the spell/trap mode; still a clean reset going second."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Sends from hand/field to negate the effects AND halve ATK of multiple monsters at once, neutering Murakumo and the Xyz negates so you can push. Plays through most of their interruption since cost-paying chains awkwardly for them."
+        },
+        {
+          "card": "Kaiju (Gameciel / Kumongous) / Lava Golem",
+          "why": "Tribute away their key boss (Murakumo or the negate Xyz) ignoring negation, since it is a tribute-summon, not a targeting destruction. Gets through Futsu no Mitama walls by removing the linchpin."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Wipes their backrow if the build leans on set traps (e.g. Mitsurugi Great Purification / floodgates). Less relevant vs pure monster boards, more vs trap-heavy/stun variants."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Fuses away their monsters (e.g. into Mudragon or Garura) ignoring negation. Excellent because it removes interruption material without giving them a trigger, though chainable timing matters vs their revive effects."
+        },
+        {
+          "card": "Raigeki / Dark Ruler No More",
+          "why": "Raigeki destroys all their monsters (clean board wipe). Dark Ruler No More negates all their monster effects for the turn so the negates/destruction cannot fire, letting you swing through. DRNM is especially good since it shuts off Murakumo and Xyz negates at once."
+        }
+      ],
+      "going_first_vs_second": "Mitsurugi WANTS to go first to set up its multi-negate + Murakumo destruction board, then grind with GY recursion. Going FIRST against them: lead with disruption that pre-empts their turn (Droll/Ash in hand, or Imperm/Maxx C), and consider going first yourself with your own established board plus held interaction, because their turn-1 board is hard to break clean. Going SECOND against them: you NEED a board breaker (Evenly Matched, Droplet, DRNM, Lightning Storm) PLUS a way through the recursion. Lead breakers that ignore negation (Evenly, Droplet, Kaiju, Super Poly) because targeted destruction gets eaten by negates and revive triggers. Crucial: their GY engine means a single breaker often is not enough; chain a board wipe THEN a follow-up push, and use Droll/Ghost Belle to stop them rebuilding. If on the play, the highest-value single card is Droll & Lock Bird drawn for their turn.",
+      "beginner_explanation": "Think of Mitsurugi as a deck that recycles its own swords: every time it sacrifices a monster, it searches a new card AND brings the sacrificed one back, so it never runs out of gas. The simplest plan as a newbie: (1) If you have Droll & Lock Bird, drop it the moment they search the FIRST card off their starter (Pre-Prep, Prayers, or Habakiri). That one card shuts the whole engine down for the turn. (2) If you do not have a hand trap and they finish their board, do NOT use single-target removal (it gets negated). Instead use a board breaker that ignores negation, like Evenly Matched (going second) or Forbidden Droplet, to clear the wall, then push for game in the same turn. (3) Always assume they can grind back from the graveyard, so try to win the turn you break their board rather than trading one-for-one. Watch for the monster that destroys all your monsters when it is summoned (Ame no Murakumo), do not over-commit into it.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Maliss",
+      "archetype": "Maliss (Alice in Wonderland-themed Cyberse/DARK banish-Link combo deck)",
+      "formats": [
+        "TCG"
+      ],
+      "tier": "Tier 2",
+      "game_plan": "Maliss is a DARK Cyberse banish-loop combo deck. Every monster has an effect that triggers BY being banished and then Special Summons itself back from banishment, so they chain Dormouse / White Rabbit / Mad Hatter together to Link-climb into a wall of Link-3 \"Q\" bosses. They end on a resource loop (notably Q White Binder + the trap Maliss C GWC-06) that re-banishes and re-summons every turn, plus Q Hearts Crypter's un-negatable removal, making the board grindy and hard to fully clear.",
+      "key_cards": [
+        {
+          "card": "Maliss P Dormouse",
+          "role": "Best one-card starter. Banishes itself/another Maliss to begin the banish-summon loop. Recognize it as the combo ignition."
+        },
+        {
+          "card": "Maliss P White Rabbit",
+          "role": "Second main starter. Can start the core combo alone; banishes to re-summon and extend."
+        },
+        {
+          "card": "Maliss in Underground",
+          "role": "Field Spell and one-card combo enabler. Banishes Dormouse/White Rabbit to Special Summon them from banishment, fueling the engine."
+        },
+        {
+          "card": "Maliss Q White Binder",
+          "role": "Key end-board Link. Sets a Maliss trap from deck/GY and banishes up to 3 cards from GYs on the opponent's turn, anchoring the resource loop."
+        },
+        {
+          "card": "Maliss C GWC-06",
+          "role": "Their most annoying trap. With all Maliss names in GY, it powers the loop and lets White Binder combo on your turn."
+        },
+        {
+          "card": "Maliss Q Hearts Crypter",
+          "role": "Strongest Link boss (needs exactly 3 monsters incl. a Maliss). If pointing to a monster, its removal CANNOT be negated."
+        },
+        {
+          "card": "Maliss Q Red Ransom",
+          "role": "Revival/utility Link; searches a Maliss Spell and swaps opponent ATK/DEF. Its revival effect is a prime Nibiru window."
+        },
+        {
+          "card": "Bystial engine (Magnamhut/Druiswurm/etc.)",
+          "role": "Extender + hand trap. Banishes a LIGHT/DARK monster (Maliss are DARK) to summon itself AND banish a Maliss to trigger its on-banish effect. Double duty."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On the FIRST Maliss banish-and-resummon (Dormouse / White Rabbit / Maliss in Underground activation)",
+          "action": "This is the cleanest choke. Ash Blossom the search/summon effect, or fire Artifact Lancea here to lock all banishing for the turn. Hitting the very first banish stops the whole loop from forming."
+        },
+        {
+          "timing": "When the first Maliss monster's effect tries to add/search from deck",
+          "action": "Ash Blossom & Joyous Spring negates it. Earlier is better; once they have 2+ bodies they extend through one negate."
+        },
+        {
+          "timing": "When a Maliss monster is on field about to be used as Link material / activates on-field",
+          "action": "Infinite Impermanence or Effect Veiler the active monster to break the chain before they Link-climb."
+        },
+        {
+          "timing": "After they Special Summon their 5th monster in one chain",
+          "action": "Nibiru, the Primal Being tributes the board. Best deployed if they over-extend; many Maliss hands cannot rebuild through it without a live trap."
+        },
+        {
+          "timing": "On Maliss Q Red Ransom's revival effect resolving",
+          "action": "Nibiru / a negate here is a strong specific window per meta consensus, but confirm they have no live trap to restart first."
+        },
+        {
+          "timing": "During the long extension chain (many Special Summons)",
+          "action": "Maxx C forces them to either give massive card advantage or stop short. Maliss combos are far less flexible around Maxx C than around Droll."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Artifact Lancea",
+          "why": "THE standout counter. Quick effect, only cost is the discard so Ash can't stop it, locks ALL banishing for the turn. Maliss's entire engine is banish-and-return, so this brick-walls the combo.",
+          "when": "Activate the moment they make their first banish (Dormouse/White Rabbit/Field Spell). Can also be held to disrupt their turn-end loop. Going first or second."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "why": "Maliss combos are far less flexible around Maxx C than Snake-Eyes; it either taxes them out of the full combo or hands you a fat draw. Strongest single generic vs this deck.",
+          "when": "Activate in Main Phase 1 before they start summoning. They cannot easily Droll-loop out of it cleanly."
+        },
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Negates the first search/summon-from-deck effect. Stops a fragile one-card hand cold.",
+          "when": "On the FIRST Maliss search/special-summon effect. Diminishing value once they have multiple bodies in play."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Wipes the board after over-extension. Effective vs greedy Maliss hands; meta flags Red Ransom's revival as a good window.",
+          "when": "After their 5th Special Summon, ideally on/after Red Ransom revival. Verify they lack a live trap to restart the loop first."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "Negates a key active Maliss monster mid-combo and (if set) cuts their backrow Spell zone too. Good going second.",
+          "when": "On the on-field Maliss monster about to be used as material, before the Link-climb resolves."
+        },
+        {
+          "card": "Effect Veiler",
+          "why": "Negates the in-hand-cost-free active monster to break the chain. Weaker than Imperm/Ash but live vs the loop pieces.",
+          "when": "On a key Maliss monster's field effect during the extension chain."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "Honest assessment: WEAKER here. Players believe Maliss plays through Droll well enough; it is 'better to be Droll'd than Maxx-C'd.' Don't rely on it as your main answer.",
+          "when": "Only as a backup after they've already searched once; deprioritize vs Lancea/Maxx C."
+        },
+        {
+          "card": "Ghost Bell & Haunted Mansion",
+          "why": "Shuts off Maliss in Underground (Field), the GWC-06 trap, and Q White Binder, gutting the resource loop even if it doesn't stop the initial combo.",
+          "when": "Use to suffocate the grind/loop pieces rather than the opening; great in the matchup vs their end-board recursion."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Imperial Iron Wall",
+          "why": "Continuous trap that stops ALL banishing permanently. Since Maliss lives on banish-and-return, this is a near-hard-lock. Best set going first; weak to S/T removal."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Mass-negates their Link bosses' effects (incl. dodging some by chaining), letting you push through Hearts Crypter and White Binder. Strong going second."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "Clears their attack-position Link bosses if you go second into an open board. Note: weaker if they have set traps (GWC-06) and good face-up disruption."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Going second into their multi-Link board, force them to one card. Excellent vs the wide Link-3 wall Maliss ends on."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Wipes their backrow, removing Maliss C GWC-06 and any set traps that fuel/restart the loop before you commit."
+        },
+        {
+          "card": "Chaos Hunter",
+          "why": "Floodgate monster preventing opponent banishing after a Special Summon. Caution: vulnerable to Triple Tactics Talent steal that lets them continue."
+        },
+        {
+          "card": "Soul Drain",
+          "why": "Continuous trap stopping banished/GY monsters from activating effects. Hits the return triggers, though it does NOT stop banishing-for-cost, so less complete than Iron Wall/Lancea."
+        },
+        {
+          "card": "Kaijus / Lava Golem",
+          "why": "Tribute away a key Link boss (e.g. Hearts Crypter) to open a lane, since their bosses don't appreciate being tributed off and removal-immunity doesn't save them."
+        }
+      ],
+      "going_first_vs_second": "Going FIRST against them is about prevention: lead with a turn-1 floodgate-style answer in hand. Set Imperial Iron Wall or hold Artifact Lancea/Maxx C; these stop the engine before it forms and are far better than trying to out-grind their loop. Going SECOND you need to break an established wall: open with Harpie's Feather Duster (clear GWC-06/backrow) then Lightning Storm/Evenly Matched/Forbidden Droplet, or Kaiju a key boss. Remember Hearts Crypter's removal can't be negated when it points to a monster, and they keep a turn-loop of disruption, so single-target interaction is rarely enough.",
+      "beginner_explanation": "Think of Maliss as a deck that wins by BANISHING its own monsters and bringing them right back, over and over, climbing into a row of boss monsters. The whole deck is one big banish loop. So the #1 newbie rule: stop the banishing. The single best card is Artifact Lancea (drop it the moment they banish anything; it shuts off all banishing for the turn and Ash can't stop it). Maxx C is your other go-to, used before they start comboing. If you go second and they already have a board, blow up their face-down traps with Harpie's Feather Duster first, then sweep their monsters with Lightning Storm or Evenly Matched. Don't lean on Droll here; it's much weaker against this deck than against most.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "K9 Engine",
+      "archetype": "K9 (Beast / mixed-Type FIRE-Beast core engine; actual cards span Warrior, Beast-Warrior, Aqua, Pyro across EARTH/DARK/WIND/LIGHT)",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "game_plan": "K9 is a Level-5-centric combo/control engine that floods Rank 5 XYZ plays, often on the OPPONENT's turn. It chains its own \"hand-trap-like\" monsters (Izuna, Lupis) that self-Special-Summon when you activate a monster effect from hand or GY, then makes K9-17 \"Ripper\" (Rank 5) to negate your follow-up hand traps and Nibiru. The end goal is a board with a hand/GY negate (Ripper), banish/disruption pieces (Werewolf, Hound), and in hybrid builds a Mitsurugi field-nuke or Vanquish Soul / Crystron payload.",
+      "key_cards": [
+        {
+          "card": "K9-66a Jokul",
+          "role": "Main starter/extender. Special Summons itself + a Level 5 from hand, then searches a K9 (usually Izuna). The card that gets the combo rolling, fuels Rank 5s, and digs."
+        },
+        {
+          "card": "K9-17 \"Ripper\"",
+          "role": "Rank 5 XYZ, the linchpin. Quick Effect: detach 1 to NEGATE a monster effect activated in the hand or GY. This shuts off your post-Ripper hand traps AND Nibiru. Stopping Ripper from hitting the board is the whole game."
+        },
+        {
+          "card": "K9-17 Izuna",
+          "role": "Searchable Level 5 'baited' piece. Self-SS when opponent activates a monster effect from hand/GY, sends a K9 to GY. Provides bodies for Rank 5 (Ripper) reactively."
+        },
+        {
+          "card": "K9-ØØ Lupis",
+          "role": "Level 5 enabler. Self-SS under the same trigger as Izuna, plus a quick effect to XYZ Summon (even on opponent's turn) — the engine that lets K9 make Ripper on YOUR turn off your own hand traps."
+        },
+        {
+          "card": "A Case for K9",
+          "role": "Spell engine: searches a K9 monster, gives +900 ATK whenever opponent used a hand/GY monster effect, and re-sets a K9 Quick-Play if destroyed. Consistency + grind glue. Stake your Soul! is the companion searcher."
+        },
+        {
+          "card": "K9-X \"Werewolf\" / K9 \"Hound\"",
+          "role": "End-board disruption. Werewolf (Rank 9) attacks multiple times and banishes from hand/field/GY; Hound (Rank 5) is destruction-immune and grows in ATK off opponent monster effects."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On Jokul's Special Summon / its search (in response to the on-summon search trigger)",
+          "action": "Ash Blossom the search, OR Imperm/Veiler the Jokul body before it resolves. This is the single best window — Jokul is the main starter that builds the Level 5 board."
+        },
+        {
+          "timing": "BEFORE Ripper is XYZ Summoned (the pre-Ripper window)",
+          "action": "This is the critical phase. Until Ripper is on board, your hand traps and Nibiru still resolve. Fire your strongest disruption here — do NOT save it. Every hand trap is dead once Ripper exists."
+        },
+        {
+          "timing": "When opponent self-SSes Izuna/Lupis off YOUR monster-effect hand trap",
+          "action": "Recognize that activating a hand trap can FEED them (triggers Izuna/Lupis). If you only have one hand trap and they have the Lupis line, sometimes hold it rather than hand them a free Rank 5 / Ripper."
+        },
+        {
+          "timing": "On the 5th+ Summon during a single Main Phase (before Ripper)",
+          "action": "Drop Nibiru, the Primal Being. K9 floods bodies fast and can hit 5 summons pre-Ripper, but you MUST land it before Ripper or it gets negated."
+        },
+        {
+          "timing": "During the opponent-turn XYZ window (Lupis quick-effect)",
+          "action": "K9 often makes Ripper on the opponent's turn. If you are the turn player, expect interaction — bait the Lupis XYZ before committing your real play."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Stops the Jokul search and the A Case for K9 / Stake your Soul! searches — the consistency backbone. Also baiting their own Ash makes it harder for them to meet FIRE/Attribute requirements and removes a Stake target.",
+          "when": "On the FIRST search you see (Jokul on-summon, A Case, or Stake your Soul!). Use it pre-Ripper."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "K9 mass-summons Level 5s and can reach 5+ summons in one Main Phase. Tributes their board and gives them a small token — devastating IF it lands before Ripper.",
+          "when": "The moment they hit 5 summons, BEFORE Ripper is made. Negated by Ripper, so never hold it past that point."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "Non-monster-effect negate, so it does NOT trigger Izuna/Lupis (which key off monster effects from hand/GY) and dodges Ripper entirely. Best single hand trap vs K9; also column-locks their spells/traps.",
+          "when": "On a key combo monster's effect (Jokul, Lupis, or whatever bridges to Ripper). Safe to use at any point — Ripper can't negate it."
+        },
+        {
+          "card": "Effect Veiler",
+          "why": "Negates a combo monster on field without being a 'hand/GY monster effect that Ripper catches' once it resolves on a board monster; pairs with Imperm to find Nibiru timing. Stops Jokul/Lupis effects.",
+          "when": "On the Jokul/Lupis effect during the build, before Ripper. Less ideal than Imperm if Ripper is already threatened."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "K9 is search-heavy (Jokul searches, A Case, Stake your Soul!). Droll after their first search shuts off all further adding-to-hand and can brick the line.",
+          "when": "Immediately AFTER their first search resolves, before they search again. Note: it activates from hand, so post-Ripper it gets negated — fire it early."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Destroys A Case for K9 / Stake your Soul! or an XYZ on summon. Flexible answer to the spell engine or to Ripper itself.",
+          "when": "On A Case/Stake activation, or on Ripper when it summons (before it can detach). Activates from hand → negated post-Ripper, so use it on Ripper's summon at the latest."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "why": "Punishes K9's heavy special-summon volume — they SS many Level 5s and XYZ. Forces them to either over-extend into your draws or stop short of Ripper.",
+          "when": "Open of their turn / on first Special Summon. They cannot negate the draw with Ripper (it's a card draw, not the monster effect Ripper catches), but in MD they'll often try to play through or stop."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Lightning Storm",
+          "why": "K9 leans on backrow support (A Case for K9, Stake your Soul!, Quick-Plays) and presents ATK-position XYZ. Clears either monsters or spells/traps; the deck is described as horribly bad against board breakers and spell/trap removal."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Brutal vs their wide XYZ board going second — they keep one card, you wipe the rest including Ripper. Note some pilots cut their own copies because they prefer turn-2 disrupts, meaning yours hits harder."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Nukes their entire backrow (A Case, Stake your Soul!, set Quick-Plays) which is the grind/protection layer, opening Ripper and the field for an OTK."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Negates Ripper and the disruption XYZ (Werewolf/Hound) at once. Going second this neuters the negate board so your follow-up resolves. Strong but pilots debate its impact vs pure disruption."
+        },
+        {
+          "card": "Dark Ruler No More",
+          "why": "Turns off Ripper's negate and the rest of the monster-effect board for your turn, letting you push through. Cheap, no cost to your board, ideal going second to OTK past a Ripper wall."
+        },
+        {
+          "card": "Kaiju / Lava Golem",
+          "why": "Tribute away Ripper or a problem XYZ regardless of its protection (Hound is destruction-immune but not tribute-immune). Single-card answer to the key negate, then swing/OTK."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Situational — only clean if their on-board monsters match a generic Fusion's materials (K9 Types/Attributes are mixed: Warrior/Beast-Warrior/EARTH/WIND/LIGHT, NOT uniformly FIRE Beast), so verify targets. Uncounterable removal when it lines up."
+        }
+      ],
+      "going_first_vs_second": "Going FIRST against you (you're the K9 player's opponent on turn 2): expect a Ripper hand/GY negate plus banish/disruption (Werewolf/Hound) and possibly a Mitsurugi field-nuke in hybrid builds — lead with board breakers (Lightning Storm, Evenly Matched, Duster, Dark Ruler No More, Kaiju) BEFORE committing, then push. Going SECOND for you / when YOU build first: hold up disruption for their opponent-turn XYZ window (they make Ripper on your turn via Lupis); set Imperm (it dodges Ripper and Izuna/Lupis triggers) and don't over-commit into a Lupis quick-effect XYZ. Golden rule both ways: stop Ripper before it resolves — every hand trap after it is dead. Imperm and Nibiru-before-the-5th-summon are your safest pre-Ripper interactions.",
+      "beginner_explanation": "Think of K9 as a deck that builds a wall of one big negate — \"Ripper\" — that shuts off most hand traps you throw at it, and it can even build that wall on YOUR turn. So the whole fight is: stop Ripper from ever appearing. Use your hand traps EARLY (on their first Jokul or on their searches), don't save them, because once Ripper is up they stop working. Infinite Impermanence is your best friend — Ripper can't negate it and it doesn't accidentally feed their Izuna/Lupis. If you're going second and they already have a board, don't fight monster-for-monster; just blow it all up with cards like Lightning Storm, Harpie's Feather Duster, Dark Ruler No More, or bounce/tribute Ripper with a Kaiju, then attack. The deck is fragile to board wipes and backrow removal — that's its weak spot.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Vanquish Soul K9",
+      "archetype": "Vanquish Soul + K9 (hybrid control/midrange)",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "game_plan": "Reactive grind-and-control deck that plays on BOTH turns. Vanquish Soul monsters reveal EARTH/FIRE/DARK monsters in hand to fire Quick Effects (removal, steal, or advantage) on either player's turn, slowly out-resourcing you. The K9 engine bolts on Level 5 spam (Izuna, Lupis) to drop disruptive Xyz like K9-17 Ripper on your turn, including a monster-effect negate that protects the whole strategy. Wins by attrition: keep interruptions up, never run out of cards, fade your pushes.",
+      "key_cards": [
+        {
+          "card": "Vanquish Soul Hollie Sue",
+          "role": "Engine starter/proc enabler. Quick Effect SS from hand by revealing a VS; on field steals opponent's lowest-ATK monster OR SS a VS from deck. Procs the K9 line if you have DARK+EARTH. Priority target to deny."
+        },
+        {
+          "card": "Vanquish Soul Razen",
+          "role": "Main advantage generator + searcher with removal. Baits interruption: if they already hold Razen, it dodges your hand traps and rebuilds. Key card to recognize early."
+        },
+        {
+          "card": "Vanquish Soul Caesar Valius",
+          "role": "Boss/finisher (Dragon). Quick Effect SS itself by bouncing another VS (dodges Veiler/Imperm). Can be made unaffected by opponent effects, OR non-target destroy any card by revealing one of each VS attribute, getting around protection."
+        },
+        {
+          "card": "K9-17 Ripper",
+          "role": "THE problem card. Xyz dropped via K9-00 Lupis; has a monster-effect negate (usable from hand or GY). This is why monster hand traps are largely dead vs this deck."
+        },
+        {
+          "card": "K9-00 Lupis / K9-17 Izuna",
+          "role": "K9 Level 5 spam payoff. Lupis enables dropping disruptive Xyz (Ripper) on your turn; Izuna is an interruption piece. Losing these cripples their turn-0 plan."
+        },
+        {
+          "card": "Stake Your Soul!",
+          "role": "Consistency spell. Reveal a monster to SS a same-attribute VS from deck. Extends and helps proc effects. Ash-able search-equivalent."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On a search effect (Razen, Stake Your Soul!, K9 searchers, Saryuja draw-search)",
+          "action": "Ash Blossom to deny the search. Best when it cuts off access to a needed attribute (especially a FIRE monster) rather than just a body."
+        },
+        {
+          "timing": "When they tag-out / SS a Vanquish Soul via Quick Effect (Hollie Sue, Caesar, Heavy Borger)",
+          "action": "Recognize that targeted negates (Veiler/Imperm) get dodged by the bounce-to-SS effects. Hold targeted interaction for a moment they CAN'T tag out."
+        },
+        {
+          "timing": "After they commit 4+ monsters to the field (K9 Level 5 spam overextension)",
+          "action": "Nibiru the Primal Being. Best disruption in the matchup, especially after baiting/clearing Ripper. Strips both their board and gives you the token to push."
+        },
+        {
+          "timing": "During YOUR Standby Phase, before they can set up",
+          "action": "Infinite Impermanence. VS Quick Effects and Ripper negate are tied to Main Phase windows, so Standby-phase Imperm slips past Ripper's window better than Veiler."
+        },
+        {
+          "timing": "On the first proc / first K9 special summon of the turn",
+          "action": "If you must use a monster hand trap, force it onto the FIRST relevant effect to bait Ripper's negate before your real disruption lands."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Strongest interaction in the matchup. Punishes K9 Level 5 overextension, non-targeting so it ignores VS protection, removes Rock + monsters which is exactly the card advantage VS needs. Pairs with Veiler/Faimena to bait Ripper first, then resolve clean.",
+          "when": "After they Normal/Special summon 5+ monsters in a turn (K9 spam). Ideally after Ripper's negate is spent."
+        },
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Hits searches (Razen, Stake Your Soul!, K9 searchers, Saryuja). Extra value: baiting it out can deny their access to a FIRE attribute monster and removes a Stake target, choking future procs.",
+          "when": "On the first impactful search, especially one that grabs a FIRE monster they need to proc effects."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "The most reliable hand trap here. Can be activated during your Standby Phase, sidestepping VS Main-Phase Quick Effects and Ripper's negate window. Also turns off backrow if monster-zone column matches.",
+          "when": "Standby Phase before their setup, or on a key monster they can't bounce away (can't tag out of it)."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "Slows the search-heavy engine, but limited: if Droll lands after Razen already searched, the VS player can still make Rock and set up on your turn. Decent but not a hard stop.",
+          "when": "After the FIRST search of the turn, before they chain multiple searches."
+        },
+        {
+          "card": "Maxx C",
+          "why": "Master Duel staple turn-0 tax. K9 spams Special Summons, so it draws a lot. But VS can play through it on a grind plan and they may have Droll/Ghost Belle back. Forces a decision, rarely a hard stop.",
+          "when": "Turn 0 before they start, fastest possible window. Expect them to either stop short or feed you and grind back."
+        },
+        {
+          "card": "Effect Veiler",
+          "why": "Usable but frequently dodged: Caesar Valius and Heavy Borger SS themselves by bouncing another VS, escaping targeted negation. Best as a Nibiru-enabler (bait Ripper, clear a body) rather than a standalone answer.",
+          "when": "To bait Ripper's negate before Nibiru, or on a monster that cannot tag out of it."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Can pop a continuous setup/Xyz material piece, but VS protection (Vanquish Soul Start!/Snow Devil) and Ripper limit value. Situational, not a primary answer.",
+          "when": "On a field card you can hit before protection comes up."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Forbidden Droplet",
+          "why": "Top-tier answer. Non-targeting negate-and-shrink that VS/K9 has no clean response to. Bypasses VS protection and Caesar's unaffected mode is the only dodge. Pushes through the layered board."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Excellent going second. The layered end board is full of monsters; Evenly forces them to one card, gutting the interruption shell. VS/K9 has essentially no answer to it."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Non-targeting banish-fusion that eats their monsters (including off-archetype/Dragon Caesar targets). Can't be responded to by most VS/K9 interruptions; strong board reset."
+        },
+        {
+          "card": "Lightning Storm / Harpie's Feather Duster",
+          "why": "Reasonably effective: VS/K9 has no omni-negate or S/T negate, so backrow-clear usually resolves. Lightning Storm also clears their attack-position monster line going second. Caveat: monster-only destruction is blunted by VS protection cards."
+        },
+        {
+          "card": "Kaiju / Lava Golem",
+          "why": "Tribute away a protected/unaffected threat (gets around VS protection since it's a tribute, not destruction). Useful to remove Caesar Valius in unaffected mode, but check attribute interactions before relying on it."
+        }
+      ],
+      "going_first_vs_second": "Going first: race to a board they can't out, because their end board with Ripper negate + VS Quick Effects is brutal to break. Bait Ripper's negate with a throwaway effect, then resolve your real play. Expect disruption ON your turn (Hollie Sue steal, Izuna, Lupis into Ripper), so play around it and don't overcommit into Nibiru-style punishes from THEM. Going second: hard-mulligan toward board breakers. Forbidden Droplet, Evenly Matched, and Super Polymerization are the cards that actually win the game; Nibiru after they overextend is the best hand trap. Save Evenly for the End Phase, lead with Droplet/Storm to crack protection, then push. Note: VS protection (Start!/Snow Devil) blunts pure destruction, so prioritize non-targeting/non-destruction breakers.",
+      "beginner_explanation": "This deck is annoying because it does stuff on YOUR turn too, and the K9 part (especially the Xyz monster called Ripper) shuts off your usual monster hand traps by negating them. So don't expect Effect Veiler or one Ash to win you the game. Two mental rules: (1) Their cards reveal EARTH/FIRE/DARK monsters in hand to work, so if you can deny them a FIRE monster (Ash on a search) you choke them. (2) Their board looks scary but it dies to non-destruction board breakers. If you're going second, hold Forbidden Droplet or Evenly Matched and you usually win; if they greedily flood the field with K9 monsters, Nibiru wipes it. Going first, just make a strong board, bait out Ripper with a small effect first, then do your real combo.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Magnet Warrior (Valkyrion / Imperion Magnum)",
+      "archetype": "Magnet Warrior",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 2",
+      "game_plan": "EARTH Rock combo deck that uses cheap one-card starters (Conduction Warrior Linear Magnum +/-) plus Magnet Bonding and an extra Normal Summon from Plasma Magnum to assemble Valkyrion + Berserkion and Fusion Summon Imperion Magnum the Superconductive Battlebot, a 4000/4000 omni-negate. It backs that up with extra interruptions (Naturia Beast, I:P + Apollousa-style follow-ups, Plasma Magnum) and is resilient because Imperion floats into Valkyrion + Berserkion when your removal kills it. The goal is a one-card omni-negate board that grinds and re-floats.",
+      "key_cards": [
+        {
+          "card": "Conduction Warrior Linear Magnum Plus Minus",
+          "role": "Main 1-card starter. Sends 2 Magnet Warriors from Deck to GY to Special Summon itself and snowball into the full combo. Recognize this resolving = combo is live."
+        },
+        {
+          "card": "Magnet Bonding",
+          "role": "Quick-Play engine glue. Returns Valkyrion + Berserkion from GY/banishment back to Deck so Imperion can be Fusion Summoned off basically nothing. The card that makes the Imperion finish consistent."
+        },
+        {
+          "card": "Conduction Knight / Plasma Magnum",
+          "role": "Fusion that searches a Magnet Spell/Trap on summon AND grants an extra Normal Summon, and can dump a Magna Warrior to Normal Summon a Magnet Warrior. Major extender that refuels and pushes through one disruption."
+        },
+        {
+          "card": "Imperion Magnum the Superconductive Battlebot",
+          "role": "Boss / payoff. Lv10 4000/4000 Fusion (Valkyrion + Berserkion). Omni-negate once per turn during either turn (negate + destroy any S/T or monster effect). If removed by opponent, floats into Valkyrion + Berserkion from hand/Deck. Cannot be Special Summoned except by proper Fusion."
+        },
+        {
+          "card": "Valkyrion the Magna Warrior / Berserkion the Electromagna Warrior",
+          "role": "Required Fusion materials for Imperion and recursion engines (Valkyrion revives Alpha/Beta/Gamma). These names tell you Imperion is the target."
+        },
+        {
+          "card": "Sigma Plus / Sigma Minus / Epsilon / Duoterion",
+          "role": "Extenders and GY-fuel. Reveal/dump effects that rebuild materials and let the deck play through single hand traps like Droll and Ash."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On the first Special Summon effect of Conduction Warrior Linear Magnum Plus Minus (it sending 2 Magnet Warriors from Deck to GY to summon itself)",
+          "action": "Ash Blossom the Deck-to-GY send, or Imperm/Veiler the summoned Linear Magnum, to deny the 1-card start before it fills the GY."
+        },
+        {
+          "timing": "On Magnet Bonding (Quick-Play) returning Valkyrion + Berserkion to the Deck",
+          "action": "This is the lynchpin for the Imperion Fusion. Counter it (Ash if it adds/recurs, or just remove the materials) and the omni-negate often cannot come up."
+        },
+        {
+          "timing": "On Plasma Magmum's on-summon search of a Magnet Spell/Trap and its extra Normal Summon",
+          "action": "Ash Blossom the search; Imperm/Veiler to shut off the extra Normal Summon / dump effect and cut the extension."
+        },
+        {
+          "timing": "When 5 monsters have hit the field during the combo (before the Imperion Fusion)",
+          "action": "Nibiru, the Primal Being. This deck Special Summons many bodies fast, so the 5th summon usually arrives BEFORE Imperion is up and before it can negate Nibiru."
+        },
+        {
+          "timing": "On any Magnet Warrior search/add-to-hand or GY-recursion add (Linear add, Magna Warrior recur)",
+          "action": "Droll & Lock Bird after their first search shuts off further adds. Note: they have a known line to grind through one Droll, so combine with another disruption."
+        },
+        {
+          "timing": "At the moment Imperion declares its omni-negate",
+          "action": "Bait it with a low-value Spell/Trap or hand trap first, then resolve your real play. One Imperion = one negate per turn; the second threat resolves."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Best hand trap vs this deck. It mass-Special-Summons to reach 5 summons before Imperion is online, so Nibiru tributes the whole board and Imperion can't negate it. Community consensus: Magnet loses to Nibiru.",
+          "when": "Hold until they have summoned 5 monsters in a turn (almost always before the Imperion Fusion), then activate."
+        },
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "when": "On Linear Magnum's Deck-to-GY send, on Plasma Magnum's search, or on Magnet Bonding if it recurs/adds.",
+          "why": "Hits the deck's GY-loading and search effects. Not a clean stop on its own (they build around single Ash), but denies a key add and slows the line."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "when": "On the first relevant monster effect (Linear Magnum, Plasma Magnum) and ideally set turn 1 to also stop your opponent and dodge Droll-style turn-skip cards.",
+          "why": "Negates a key combo piece's effect; spell-negation on Imperm also helps vs their Quick-Play (Magnet Bonding) board after."
+        },
+        {
+          "card": "Effect Veiler",
+          "when": "On Plasma Magnum or Linear Magnum during their main combo turn.",
+          "why": "Shuts off the extension/extra Normal Summon. Cheaper than Imperm but no S/T coverage."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "when": "Immediately after their FIRST search/add (e.g., off Plasma Magnum or Duoterion).",
+          "why": "Caps further adds-to-hand. Caveat: they have a documented line to grind through one Droll, so it is a soft-lock, not a hard stop, best paired with a second trap."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "when": "At the very start of their turn before they commit, or chain to their first Special Summon.",
+          "why": "Punishes a deck that Special Summons many bodies. They draw you cards or get choked. Note: many builds run Droll/Called by the Grave to fight back, so value varies."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "when": "On a key on-field effect activation (e.g., a recurring material or a Fusion-piece's effect).",
+          "why": "Flexible single-target out; decent but lower impact than Nibiru/Imperm against this deck."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Forbidden Droplet",
+          "why": "Top out vs Magnet. Sends from hand/field as cost so it dodges Imperion's omni-negate read on the chain, halves Imperion's ATK and negates its effects, opening the board. Community consensus: Magnet loses to Droplet."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Cannot be responded to (no negating its activation), so Imperion's omni-negate does nothing. Fuse away Imperion or their EARTH Rock bodies for a clean removal that also nets you a body."
+        },
+        {
+          "card": "Kaiju / Lava Golem (Tribute monsters)",
+          "why": "Tribute-summoning over Imperion does not trigger an activation Imperion can negate, removing the omni-negate. Note Imperion floats into Valkyrion + Berserkion if it leaves by your card effect, so pair with follow-up."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "Going second into a face-up attack-position omni-negate board: nukes all their attack-position monsters at once. Best when they have no backrow and monsters are in ATK."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "End of your battle phase going second, force them to banish down to one card. Strong because it ignores Imperion's negate (it banishes, and they choose) and dismantles a wide Magnet board."
+        },
+        {
+          "card": "Harpie's Feather Duster / Cosmic Cyclone",
+          "why": "Clears the Magnet Spell/Trap support (Magnet Bonding setups, searched S/T) if they leaned on backrow; lower priority since the threat is mostly the monster board."
+        }
+      ],
+      "going_first_vs_second": "Going FIRST: you mostly do not face their board, so do not overcommit; set Infinite Impermanence and hold removal for when they go for Imperion. Going SECOND: you are racing a 4000/4000 omni-negate that re-floats. Prioritize NON-targeting, non-activatable outs that ignore the negate: Super Polymerization, Forbidden Droplet, Kaijus, Evenly Matched (post-battle), Lightning Storm. Spend a throwaway card to bait the single omni-negate, then resolve your real breaker. Remember Imperion floats into Valkyrion + Berserkion when YOUR card removes it, so plan a second push.",
+      "beginner_explanation": "This deck wants to spend one cheap card to build a 4000-ATK monster called Imperion Magnum that can negate ONE of your cards each turn, and it comes back if you kill it. Simplest plan: hold Nibiru and use it once they have summoned a bunch of monsters (around the 5th summon) and BEFORE Imperion is finished, that wipes the board. If you are going second into a finished board, do not use cards that 'activate' into Imperion (it will just negate them). Instead use cards it cannot stop: Super Polymerization, Forbidden Droplet, or a Kaiju to eat the big monster, then attack. If you have two threats, throw a weak one first to soak the one negate, then play your real one.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Radiant Typhoon",
+      "archetype": "Radiant Typhoon (WIND monster archetype built around Mystical Space Typhoon / Quick-Play Spell support and counter-Quick-Play)",
+      "formats": [
+        "TCG",
+        "Master Duel"
+      ],
+      "tier": "Tier 3",
+      "game_plan": "Radiant Typhoon is a WIND combo/control deck that chains self-summoning WIND monsters (Swen, Eldom) into searches, fuels its graveyard with Mystical Space Typhoon (MST), then sets up a backrow-and-board of floating negations. Off one starter it builds a 3-disruption board (a Link monster like Veralun/Varuroon, a negating Continuous Trap like Ascendance/Mandate, plus an MST/Quick-Play it can chain to dodge interaction); off two cards it scales to 4-5 disruptions adding extra Links/Xyz and a monster-negate (Vibrant Vortex). Its signature payoff is bouncing the opponent's whole monster field to hand via Shiina as long as a WIND monster survives.",
+      "key_cards": [
+        {
+          "card": "Radiant Typhoon Swen",
+          "role": "Primary 1-card starter. Special Summons itself (if MST is in GY or opponent has no S/T) and searches the next piece (Chant/Eldom). Hit this or its search to deny the whole combo."
+        },
+        {
+          "card": "Radiant Typhoon Eldom (Eldam)",
+          "role": "Second self-summoning starter/extender; on summon adds another Radiant Typhoon monster or MST. Half of the strongest 2-card combo (Eldom + Crosia)."
+        },
+        {
+          "card": "Radiant Typhoon Crosia (Krosea)",
+          "role": "The combo engine card. It searches two pieces (Ascendance + MST) and converts hands into full boards. THE #1 hand-trap target."
+        },
+        {
+          "card": "Radiant Typhoon Chant",
+          "role": "Quick-Play searcher that bridges starters into the chain; can be its own 1-card line (Chant -> Eldom)."
+        },
+        {
+          "card": "Mystical Space Typhoon (MST)",
+          "role": "Archetype enabler. Lives in GY to unlock free WIND Special Summons and is chained to their own cards mid-combo to build chain-link walls that dodge hand-trap negation."
+        },
+        {
+          "card": "Radiant Typhoon Veralun / Varuroon, the Marine Eidolon",
+          "role": "Link payoff. Grabs a free MST, converts a problem opposing monster into a Continuous Spell, and fetches a Radiant Typhoon Continuous Trap straight to the field when a Quick-Play resolves."
+        },
+        {
+          "card": "Radiant Typhoon Ascendance / Mandate",
+          "role": "Continuous Trap that provides the end-board negation/disruption and recycles archetype cards for advantage; the floating negation you must respect or remove."
+        },
+        {
+          "card": "Shiina, Twin Tempests of Celestial Thunder",
+          "role": "Going-first finisher. Bounces the opponent's entire monster field to hand while a WIND monster is on board. Remove the WIND body and Shiina's bounce is neutered."
+        },
+        {
+          "card": "S:P Little Knight",
+          "role": "Generic Extra Deck interruption (banish/negate). Note: once it leaves the field they cannot recycle it, so banishing it is a clean hard answer."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On Crosia (Krosea) resolving its search",
+          "action": "This is the single highest-value stop. Crosia searches two pieces and is the load-bearing card of every multi-card combo. Negate or Ash its search and the board collapses to almost nothing."
+        },
+        {
+          "timing": "On the FIRST starter's summon/search (Swen or Eldom/Eldom)",
+          "action": "If they open a single starter, denying its on-summon search breaks the 1-card line before it reaches Crosia. Imperm/Veiler the summoned body or Ash the search."
+        },
+        {
+          "timing": "On Chant's activation/search",
+          "action": "Chant is a Quick-Play searcher that bridges into the chain. Ash Blossom on the Chant search (or Imperm if it pulls a monster effect) cuts a common entry point."
+        },
+        {
+          "timing": "Before they bury/chain MST",
+          "action": "MST in GY is the engine. Droll & Lock Bird after their first search shuts off every subsequent add-to-hand for the turn, choking the combo mid-chain."
+        },
+        {
+          "timing": "On the Link/Xyz summon (Veralun/Varuroon or the Xyz 'Totem')",
+          "action": "If the combo gets this far, Nibiru (if 5+ summons happened) or S:P Little Knight banishing a key body removes a disruption piece before the end board locks in. Beware they chain MST to build chain-link walls that dodge single negates here."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Best single answer. Negates Crosia's search (or Swen/Eldom/Chant search). Sources explicitly call Ash on Crosia the primary disruption.",
+          "when": "On the first search you can hit, ideally Crosia. If they only open one starter, Ash the starter's search instead."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "Negates the on-field effect of Crosia or a starter and (if set blind) also turns off a Spell/Trap column. Explicitly recommended on Crosia. Doubles as a board breaker going second.",
+          "when": "On Crosia or the active starter's effect; set it pre-emptively going second to threaten their backrow column too."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "After their first add-to-hand, Droll stops all further searching for the turn. Radiant Typhoon is search-chain dependent, so this strands the combo. Chain it once they pass priority / after the first search, not into the draw phase.",
+          "when": "After the opponent's first search of the turn (after the chain resolves), to lock out every subsequent Crosia/Eldom/Veralun search."
+        },
+        {
+          "card": "Effect Veiler",
+          "why": "Negates a single monster effect (the summoned Swen/Eldom or Crosia) without needing a Spell/Trap to be safe; a soft answer when you lack Ash. Listed as an effective interruption.",
+          "when": "On the resolving monster effect of the starter or Crosia during the combo, ideally pre-Crosia."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "why": "The deck Special Summons several WIND monsters and Links to build its board, so Maxx C draws heavily and pressures them to stop short. Strong in Master Duel where it is legal.",
+          "when": "Before they begin Special Summoning (in response to the first SS). Expect them to play around it; Called by / Crossout shuts it off."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Full combo lines pass through 5+ summons (multiple SS + Links/Xyz). Nibiru wipes the board and the token blocks Shiina's WIND-body requirement somewhat.",
+          "when": "After their 5th summon of the turn, before they finish the Link/Xyz end board."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Flexible target: can destroy a key Continuous Spell/Trap (Ascendance/Mandate) or a problematic field card mid-combo. Soft pick if you lack Ash.",
+          "when": "On the activation of their Continuous Trap/Spell, or a card that floats, to remove a disruption piece."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Lightning Storm",
+          "why": "Going first into their established board: blow up their backrow (Ascendance/Mandate and any set Quick-Plays) if they have no face-up attack monster, or clear monsters if they have no backrow. Removes the floating-trap negation layer."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Wipes their entire Spell/Trap zone (the Continuous Trap disruption + set Quick-Plays/MST). Radiant Typhoon leans on backrow, so a one-sided backrow nuke is brutal. (TCG-legal; MD currently limited.)"
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Going second into a wide board, force them to banish down to one card. Excellent against their multi-piece (Link + Xyz + traps) end board built going first."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Negate and shrink multiple of their face-up disruption pieces (Veralun/Varuroon, Vibrant Vortex, Continuous Trap effects) at once; flexible quick-effect to push through negations."
+        },
+        {
+          "card": "Kaijus / Lava Golem",
+          "why": "Tribute away their key WIND body / boss (e.g. the Shiina or the Link payoff). Removing the WIND monster also disables Shiina's bounce, and Kaiju ignores their on-field protections by tributing."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Cannot be responded to, eats their monsters as Fusion material (great vs the Link/Xyz board), and bypasses their negations entirely. Strong tech if your Extra Deck supports it."
+        }
+      ],
+      "going_first_vs_second": "Going first the deck wants to resolve its 1-to-3-card combo and pass with a Link (Veralun/Varuroon), a negating Continuous Trap (Ascendance/Mandate), and an MST/Quick-Play in hand to chain for protection; if uninterrupted off two cards it reaches 4-5 disruptions plus a monster-negate (Vibrant Vortex). As the opponent going SECOND vs that board: bring board breakers (Lightning Storm / Feather Duster / Evenly / Droplet) to clear the trap layer, and remove the WIND body to shut off Shiina. When YOU go first against Radiant Typhoon they will play more reactively (going second they fan out searches and use Quick-Effect chains to dodge single hand traps), so hold disruption for their Crosia and watch for them chaining MST to build chain-link walls that sidestep one negate. Sided board breakers matter more than extra hand traps because their floating Continuous Traps survive a single point of interaction.",
+      "beginner_explanation": "Think of this deck as a search engine that runs on Mystical Space Typhoon. They summon a WIND monster for free, search the next piece, and the chain snowballs into a board of traps that negate you. The one card that matters most is Crosia (sometimes spelled Krosea): it searches two cards and powers the whole thing. So the simple rule for a newbie is: hold your Ash Blossom or Infinite Impermanence and use it on Crosia. If they only have a small opening, hit the very first search instead. If they already built a board, don't try to out-negate them, just blow up their back row with Lightning Storm or Harpie's Feather Duster and bounce/tribute away their WIND monster so their big Shiina bounce stops working. Watch out for them chaining their own MST mid-combo, that is a trick to make one hand trap miss, so when in doubt save your interruption for Crosia.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Yummy",
+      "archetype": "Yummy (Level 2 Synchro combo / candy-themed)",
+      "formats": [
+        "Master Duel",
+        "TCG"
+      ],
+      "tier": "Tier 3 (rogue/meta-adjacent, June 2026)",
+      "game_plan": "Yummy is a Synchro combo deck that turns a single Link-1 monster into a wall of Level 2 \"Yummy Way\" Synchros. It searches and special-summons its small Yummy monsters from hand off a Link-1, makes Yummy Way Synchros that load up resources, then climbs into a generic Synchro end board (omni-negates) plus its field spells. On the opponent's turn the Yummy Ways and field spell Acroquey \"tag out\" by bouncing themselves to the Extra Deck and reviving Yummy monsters from the GY with built-in disruption (face-downs, destruction), so the board re-forms even after you push through it.",
+      "key_cards": [
+        {
+          "card": "Cupsy/Cooky/Lollipo/Marshmao Yummy (Main Deck monsters)",
+          "role": "The starters. Each special summons itself from hand if you control a Link-1 or Level 2 Synchro, then searches/draws. Cupsy's add becomes a generic DRAW when summoned by a Synchro effect, dodging Ash/Droll on extensions."
+        },
+        {
+          "card": "Cooky/Cupsy/Lollipo Yummy Way (Level 2 Synchros)",
+          "role": "The engine core. Can be Synchro Summoned using a Link-1 in place of a tuner, are themselves Tuners, and TAG OUT on opponent effects (return to ED, revive 2 Yummy from GY with disruption). This is the loop that re-forms the board."
+        },
+        {
+          "card": "Yummy Snatchy",
+          "role": "Searches the Yummy Field Spell. This is a 'no-Ash' search, so Ash on it whiffs. Recognize it as their consistency engine."
+        },
+        {
+          "card": "Yummyusment Mignon / Acroquey (Field Spells)",
+          "role": "Modular field spells. Mignon = player turn ATK boost + Yummy recursion for more Synchros. Acroquey = opponent-turn disruption (destroys cards / summons Yummy from deck when their monsters leave). Acroquey is a backrow threat that survives monster removal."
+        },
+        {
+          "card": "Link-1 enablers (Sangan to Salamangreat Almiraj; Sky Striker Hornet Drones / Kagari)",
+          "role": "The true ignition. The whole deck needs a Link-1 on board to turn on its hand-summon and Synchro-via-Link mechanic. Stop the FIRST Link-1 and the combo never starts."
+        },
+        {
+          "card": "Baronne de Montmorency / Herald of the Arc Light / Thunder Dragon Colossus",
+          "role": "Generic Synchro end board. Baronne = omni-negate + pop, Herald = omni-negate (sends to GY), Thunder Dragon Colossus = locks special summons from hand/deck for non-Yummy decks. The actual threats you must break."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "Before they establish their first Link-1 (Sangan/Almiraj or Sky Striker Hornet Drones token + Kagari)",
+          "action": "This is the cleanest stop. No Link-1 means Yummy monsters can't special summon from hand and Yummy Way can't be made. Veiler/Imperm the Link-1 or Ash the Sky Striker / Sangan trigger."
+        },
+        {
+          "timing": "On the first Yummy Way Synchro Summon (the resource dump)",
+          "action": "Ghost Ogre or Veiler/Imperm the Yummy Way on summon to deny the search/draw and the tag-out tuner. Killing the first Way chokes the extension before it snowballs."
+        },
+        {
+          "timing": "On Yummy Snatchy's field-spell search",
+          "action": "Note: this is a NON-targeting 'no-Ash' search, so Ash whiffs here. Use Droll instead (it stops ALL further adds-from-deck after the first), which is far more punishing to Yummy than Ash."
+        },
+        {
+          "timing": "When 5+ summons hit the board in one chain (climbing to Synchros)",
+          "action": "Nibiru window. Drop it after their 5th special summon but before they finish the end board. Note they can rebuild via Link Spider + a leftover token/Level 1."
+        },
+        {
+          "timing": "Opponent's turn, when Yummy Ways / Acroquey try to tag out and revive from GY",
+          "action": "This is the disruption loop. DD Crow / Ghost Belle on the GY revival, or simply bait it out, deny the targets, then push. Acroquey is a Spell, so it survives most monster removal."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Droll & Lock Bird",
+          "why": "BEST hand trap vs Yummy. The deck chains searches off Snatchy + multiple Yummy monsters; Droll shuts off every add-from-deck after the first, collapsing consistency. Far better than Ash here.",
+          "when": "After their first search resolves (ideally after the field-spell add), before they chain into more searches."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Yummy floods the board with special summons to climb into Synchros. Nibiru tributes the whole board for a token. They CAN recover via Link Spider, so it is a tempo hit, not a guaranteed kill.",
+          "when": "After their 5th+ special summon, just before they lock in the omni-negate end board."
+        },
+        {
+          "card": "Effect Veiler / Infinite Impermanence",
+          "why": "Negate the FIRST Link-1 or the FIRST Yummy Way on summon to deny the loop. Imperm also doubles as backrow vs going second. Targets the ignition, not the payoff.",
+          "when": "On the Link-1 enabler or the first Yummy Way Synchro Summon (turn it off before it generates material/cards)."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Destroys a Yummy Way on summon, or pops the Field Spell (Mignon/Acroquey) to cut their ATK boost / disruption. Flexible into the engine and the spells.",
+          "when": "On a Yummy Way activation, or on a Field Spell when it is the live threat."
+        },
+        {
+          "card": "Maxx C (Master Duel)",
+          "why": "Yummy is a pure special-summon spam combo deck, so Maxx C draws you a fortune or forces them to stop short. Standard MD turbo answer; they may run Droll/Ghost Belle to fight it.",
+          "when": "At the very start of their combo, before the first special summon."
+        },
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Works on GY revivals and deck-summon effects, BUT note Snatchy's field-spell search is a 'no-Ash' add and Cupsy becomes a generic draw off a Synchro, so Ash often whiffs on their main lines. Lower priority than Droll/Nibiru.",
+          "when": "On a GY-revival / summon-from-deck effect, NOT on Snatchy's search (it dodges)."
+        },
+        {
+          "card": "DD Crow / Ghost Belle",
+          "why": "Yummy Ways and Acroquey revive Yummy monsters from the GY on your turn. Banishing a key GY target (DD Crow) or negating the revival (Ghost Belle) breaks the tag-out disruption loop.",
+          "when": "Opponent's turn, when they target the GY to revive and disrupt."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Forbidden Droplet / Effect Veiler chain",
+          "why": "Their end board leans on Baronne + Herald omni-negates. Droplet sends to fuel and negates multiple monsters at once while baiting the negates, since they can only stop one card per negate."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "If they pass with monsters in attack position (common when they leave a Yummy Way + negators face-up), it wipes the whole monster zone. Bait one negate with a chaff card first, then resolve."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Excellent going second. Yummy ends on multiple Synchros + field spell + a set; Evenly forces them to one card. Strong because their board is wide, not tall."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Clears the Field Spell (Acroquey/Mignon) and any set 'surprise' before you push, removing their backrow disruption layer so monster removal sticks."
+        },
+        {
+          "card": "Kaiju / Lava Golem",
+          "why": "Tribute over Baronne or Herald to remove an omni-negate without triggering it, since tribute is not destruction/targeting they can negate. Best single answer to one big negator."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Their board is full of Light/Synchro fodder; Super Poly fuses away a negator (or two) with a removal that cannot be responded to, sidestepping the omni-negates entirely."
+        },
+        {
+          "card": "Droplet + bait then push",
+          "why": "General plan: bait Baronne/Herald with an expendable card, then resolve your real board breaker. Two negates max, so a 3-card push usually gets through."
+        }
+      ],
+      "going_first_vs_second": "Going first: you do not have to out-grind them, you have to deny ignition. Prioritize hand traps that stop the FIRST Link-1 or first Yummy Way (Veiler, Imperm, Ghost Ogre) and hold Droll for the search chain. Crossout/Called by are common in Yummy, so a second relevant interaction matters. Going second: their end board is WIDE (multiple Synchros + field spell + set), not TALL, which makes mass board breakers shine. Lead with Harpie's Feather Duster on the field spell/set, then a wide wipe (Evenly Matched, Lightning Storm) or Kaiju/Super Poly to remove an omni-negate, baiting one negate before the real push. Watch for the opponent-turn tag-out loop: even a cleared board can revive Yummy monsters off Acroquey/Yummy Ways, so disrupt the GY (DD Crow/Ghost Belle) or close the game the same turn you break.",
+      "beginner_explanation": "Think of Yummy as a deck that needs ONE small Link monster to wake up, then it snowballs into a board of negate monsters plus a field spell. As a beginner, your job is to recognize the wake-up moment: the moment they make their first Link-1 (Sangan/Almiraj or the Sky Striker token+Kagari). If you have Effect Veiler or Infinite Impermanence, use it on that Link-1 or on the first Yummy Way Synchro, that is where the combo dies cheapest. Do NOT waste Ash Blossom on their field-spell searcher (Snatchy), it dodges Ash; Droll & Lock Bird is the real consistency-killer because it stops all their searching. If you are going second and they already have a board, do not trade one-for-one, their board is wide so wipe it: blow up the field spell/backrow with Harpie's Feather Duster, then use Evenly Matched or Lightning Storm, or tribute their big negate monster with a Kaiju. Finally, remember they can revive monsters on YOUR turn, so try to win the turn you break their board rather than passing back.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Fiendsmith Engine",
+      "archetype": "Fiendsmith (LIGHT Fiend recursion / Fusion-Link engine; usually splashed)",
+      "formats": [
+        "Master Duel",
+        "TCG"
+      ],
+      "tier": "Tier 3 (as a standalone), but it is a meta-defining ENGINE bolted onto Tier 1-2 hosts (Snake-Eyes, Ryzeal, Mitsurugi, Kashtira, Lacrima, Azamina). Treat the host deck as the real threat.",
+      "game_plan": "Fiendsmith is a compact LIGHT Fiend engine that recurs itself out of the GY to grind out Fusion and Link monsters, ending on Fiendsmith's Desirae equipped with Requiem and/or Sequence for 2-3 quick-effect negates plus targeting protection. It also acts as glue: it converts almost any LIGHT Fiend (or one spare body) into negation, recovery, and extra extenders, so it slots into stronger host decks to add a resilient backup wall and hand-trap resistance. The end result is a board with multiple omni-style negates on Desirae layered on top of whatever the host deck (Snake-Eyes, Ryzeal, etc.) already built.",
+      "key_cards": [
+        {
+          "card": "Fiendsmith Engraver",
+          "role": "Main engine starter. Discards itself to search Fiendsmith's Tract (or Paradise). Revives itself from GY by shuffling another LIGHT Fiend back. Seeing this = full combo incoming."
+        },
+        {
+          "card": "Fiendsmith's Tract",
+          "role": "The single most important card to stop. Searches ANY LIGHT Fiend from deck + discards a card, and doubles as a Polymerization from the GY. Ashing the search cripples the engine."
+        },
+        {
+          "card": "Lacrima the Crimson Tears",
+          "role": "Common Normal-Summon entry point. On summon sends a Fiendsmith card (usually Fiendsmith in Paradise) to GY, feeding the engine. Veiler/Imperm/Ash bait."
+        },
+        {
+          "card": "Fabled Lurrie",
+          "role": "1-card combo enabler. As a LIGHT Fiend special-summoned from GY (discarded), it is effectively a free full Fiendsmith combo. Watch for it being discarded by Tract/Engraver."
+        },
+        {
+          "card": "Fiendsmith's Requiem",
+          "role": "Link-1 that tutors/equips and starts the Fusion chain into Desirae. Tributes/equips itself to set up negates."
+        },
+        {
+          "card": "Fiendsmith's Sequence",
+          "role": "Link-1 that fusion-summons Fiendsmith monsters and equips to grant Desirae targeting protection + an extra negate."
+        },
+        {
+          "card": "Fiendsmith's Desirae",
+          "role": "The end-board centerpiece. Quick-effect negates face-up cards up to the TOTAL Link Rating of Link monsters equipped to it (usually 2-3 negates). This is the wall you must break."
+        },
+        {
+          "card": "Fiendsmith in Paradise",
+          "role": "Quick-Play trap-like disruption (banish a Fiend to bounce/disrupt) often milled by Lacrima; gives the deck interaction even through hand traps."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On Fiendsmith's Tract activation (the search)",
+          "action": "Ash Blossom & Joyous Spring. This is the cleanest stop. Tract searches any LIGHT Fiend; negating it denies the engine its tutor and its later Poly. Highest-value Ash target in the deck."
+        },
+        {
+          "timing": "On Fiendsmith Engraver's discard-to-search effect",
+          "action": "Ash Blossom (it adds a Fiendsmith S/T) OR Droll & Lock Bird after their first search to lock out all further adds for the turn."
+        },
+        {
+          "timing": "On Lacrima the Crimson Tears Normal Summon (its on-summon send/effect)",
+          "action": "Effect Veiler or Infinite Impermanence to negate the on-summon effect, stopping the GY setup before it starts. Ash also works if it tries to add."
+        },
+        {
+          "timing": "On Engraver's self-revive from GY (shuffle a LIGHT Fiend to special itself)",
+          "action": "Effect Veiler / Imperm to negate the revived body's follow-up, or a GY-lock (Dweller already on board) to deny the revive entirely."
+        },
+        {
+          "timing": "On Fiendsmith's Sequence / Requiem effect (the Fusion into Desirae)",
+          "action": "Effect Veiler or Imperm on the Link-1 to stop the climb to Desirae. If they have only one extender, this can hard-stop the negate package."
+        },
+        {
+          "timing": "Across the whole combo while monsters keep being summoned",
+          "action": "Nibiru, the Primal Being once they pass 5 summons (Fiendsmith does a lot of small summons). Wipes the board into a 1-token. Note: some builds (Caesar / Photon Lord lines) can play around Nibiru, so read the board."
+        },
+        {
+          "timing": "On the FIRST GY effect of the turn (Engraver revive, Tract-as-Poly, Lurrie special)",
+          "action": "Drop a GY-disruptor: Abyss Dweller (lock GY effects) via your own turn, or pre-emptive Necrovalley / Soul Drain. Fiendsmith lives in the GY, so a GY lock is devastating."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Best single hand trap. Negates Fiendsmith's Tract search (deck-to-hand) or Engraver's search. Stops the engine's tutoring cold.",
+          "when": "Hold for Tract activation; if no Tract, use on Engraver's discard-search or any Lacrima add."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "Fiendsmith is search-heavy (Tract, Engraver, host-deck searches). Drolling after their first search shuts off every subsequent add for the turn, choking both the engine and the host deck.",
+          "when": "Throw immediately after their FIRST search resolves (often Tract or the host starter)."
+        },
+        {
+          "card": "Effect Veiler",
+          "why": "Negates a key monster effect on field: Lacrima on-summon, revived Engraver, or the Requiem/Sequence climb to Desirae. Free to drop (no LP cost).",
+          "when": "On Lacrima Normal Summon, or on the Link-1 trying to fusion into Desirae if they're low on extenders."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "Same targets as Veiler but also sets as backrow and negates a column. Strong if going second (column lock) and dodges Veiler-immune lines.",
+          "when": "On Lacrima or the first big in-archetype monster effect; set it pre-emptively if you suspect a grind game."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Fiendsmith chains many summons; it usually crosses 5 special/normal summons mid-combo. Tributes their whole board for one 1/1-ish token.",
+          "when": "After their 5th summon, before they lock in Desirae. Beware Caesar/Photon Lord builds that play around it."
+        },
+        {
+          "card": "Maxx C (Master Duel only)",
+          "why": "Fiendsmith summons a LOT of bodies during its combo, so Maxx C draws heavily and pressures them to stop short. Banned in TCG.",
+          "when": "Drop at the very start of their Main Phase before any summon (MD only)."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Destroys an activating card/effect on field: can pop an equipped Requiem/Sequence as it activates, or hit a key Link before Desirae forms.",
+          "when": "On the equip/fusion step, or to remove a Link off Desirae to cut its negate count."
+        },
+        {
+          "card": "Ghost Belle & Haunted Mansion",
+          "why": "Negates GY-activated effects. Hits Engraver's GY self-revive, Tract used as Poly from GY, and Fabled Lurrie's special from GY.",
+          "when": "On the first GY effect (revive / Tract-Poly / Lurrie)."
+        },
+        {
+          "card": "Mulcharmy Fuwalos / Purulia",
+          "why": "Punishes the deck's many special summons by refilling your hand, similar pressure to Maxx C and legal in TCG.",
+          "when": "Early in their turn before the summons stack up."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Super Polymerization",
+          "why": "Best-in-class vs Fiendsmith because their whole board is LIGHT Fiends. Cannot be responded to, dodges Desirae's negate, and eats Desirae/the host's monsters as fusion material (e.g. into Mudragon or Garura). Run Fiend/LIGHT-eating targets."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Negates the effects of multiple Desirae-equipped monsters at once and lowers ATK; sending cards from hand/deck makes it hard for them to counter-negate everything. Strong even through targeting protection on Desirae since it doesn't target."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "If you end your turn with an empty field going second, it forces them to banish down to one card. Ignores Desirae negate (no targeting) and blows past the equip-based board entirely."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "Going second into a board with monsters in ATK, wipes all monsters (or all backrow). Watch that Desirae can negate it if a negate is still live, so bait first or pair with another breaker."
+        },
+        {
+          "card": "Harpie's Feather Duster / Cosmic Cyclone",
+          "why": "Less central since most disruption sits on Desirae as monster-equips, but useful vs the host deck's backrow and vs Fiendsmith in Paradise / set traps."
+        },
+        {
+          "card": "Kaijus / Lava Golem / Fenrir-style tribute removal",
+          "why": "Tribute away Desirae itself, ignoring its targeting protection and negate (tributing is not a targeting destruction). Removes the negate engine, then push."
+        },
+        {
+          "card": "Triple Tactics Talent / Thrust",
+          "why": "If they used a hand effect on your turn, steal their Desirae or draw/search to fuel your own breaker package, then run over the weakened board."
+        }
+      ],
+      "going_first_vs_second": "GOING FIRST: Your goal is to set up an end board that beats THROUGH Desirae's negates, since Desirae negates up to the total Link Rating equipped (often 2-3). Build resilient interaction (multiple independent negates, not one fragile one) and bait Desirae before resolving your real disruption. Pre-emptive GY hate (Dweller end-board, or maindecked Necrovalley/Soul Drain) is excellent because Fiendsmith grinds from the GY all game. Watch out for Fiendsmith in Paradise as a turn-0 disruptor. GOING SECOND: This is the better position vs Fiendsmith. Lead with hand traps on THEIR turn (Ash on Tract, Droll after first search, Veiler/Imperm on Lacrima, Nibiru past 5 summons) to reduce the board, then break what is left with Super Polymerization (eats LIGHT Fiends), Forbidden Droplet (multi-negate through protection), or Kaiju/Evenly to remove Desirae itself. Sequence your breakers to bait Desirae's negate first, then resolve the real out. Do NOT walk a single removal spell into a live 3-negate Desirae.",
+      "beginner_explanation": "Think of Fiendsmith as a \"parasite\" engine: it is rarely a deck on its own, it is glued onto a stronger deck to add a tough negate wall called Desirae plus recovery from the graveyard. Two cards do almost all the work: Fiendsmith's Tract (a searcher) and Fiendsmith Engraver (the starter). If you only remember one thing: Ash Blossom their Tract. That single negate often guts the whole engine. Their final board is Desirae holding 2-3 negates with protection, but it has two glaring weaknesses, it is a LIGHT Fiend (so Super Polymerization eats it), and it can be tributed away by a Kaiju (which ignores its protection). On your turn, sequence carefully: throw a cheap card first to bait a negate, THEN resolve your real removal. And because the engine lives in the graveyard, a graveyard lock like Abyss Dweller is a nightmare for them. Going second is your friend, lead with hand traps, then break the board.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Counter Fairies",
+      "archetype": "Counter Fairy (trap-based control / stun)",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 3 / rogue",
+      "game_plan": "This is NOT a combo deck, it is a control/stun deck. It sets a wall of Counter Traps (Solemn Judgment, Solemn Strike, Solemn Warning, Seven Tools, Imperial Order) and negates every key play you try to make, while Bountiful Artemis draws a card and Meltiel gains LP / pops a card each time a Counter Trap resolves, so they refill their hand faster than they spend it. They grind you out of resources, then win with whatever beaters or Fairy payoff (e.g. Archlord Kristya, Saffira, Voltic Bicorn) is left standing. There is no long combo to interrupt, so the fight is about resource attrition and making them spend negations on bait.",
+      "key_cards": [
+        {
+          "card": "Bountiful Artemis",
+          "role": "Engine heart. Draws 1 card each time a Counter Trap resolves. This is what keeps them from running out of traps. Run-3 staple of the deck."
+        },
+        {
+          "card": "Guiding Ariadne",
+          "role": "Pendulum enabler. In the Pendulum Zone it removes the LP-pay / discard cost of Counter Traps, letting them fire Solemns and Seven Tools freely. Also searches Counter Traps."
+        },
+        {
+          "card": "Meltiel, Sage of the Sky",
+          "role": "Payoff Fairy. Each Counter Trap resolution = gain 1000 LP and (with Sanctuary in the Sky) destroy a card you control. Turns negation into removal + lifegain."
+        },
+        {
+          "card": "Solemn Judgment / Solemn Strike / Solemn Warning",
+          "role": "Core Counter Traps. The actual interruption. Judgment negates almost anything (cost = half LP, often free under Ariadne); Strike negates monster effects/Special Summons; Warning negates summons."
+        },
+        {
+          "card": "Seven Tools of the Bandit",
+          "role": "Counter Trap that negates your traps/backrow removal, also triggers Artemis/Meltiel. Lets them protect their own field through your Lightning Storm / Duster."
+        },
+        {
+          "card": "Imperial Order",
+          "role": "Continuous trap that negates ALL Spell effects. Shuts off your spell-based board breakers (Lightning Storm, Duster, Droplet, Super Poly) if it resolves. Big swing card."
+        },
+        {
+          "card": "Archlord Kristya / Saffira / Voltic Bicorn",
+          "role": "Win conditions / closers. Beaters or Fairy payoffs that end the game once your resources are exhausted. Kristya also locks Special Summons."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "Their Standby/Main Phase, before they set traps",
+          "action": "There is no combo chain to chain-break. The real 'interruption' is denying their draw engine: stop Bountiful Artemis / Guiding Ariadne from sticking, since that is what fuels infinite Counter Traps."
+        },
+        {
+          "timing": "When they flip a Counter Trap on your key play",
+          "action": "Bait it. Lead with a non-essential summon/spell so they burn Solemn Judgment / Strike, THEN resolve your real engine into an empty backrow."
+        },
+        {
+          "timing": "When Bountiful Artemis is face-up on board",
+          "action": "Remove or negate Artemis. Without it, every Counter Trap they fire is pure card minus, so they deck themselves into topdeck mode within a turn or two."
+        },
+        {
+          "timing": "When Imperial Order is active",
+          "action": "Imperial Order locks all your Spells. Resolve trap-based or monster-effect board breakers (Evenly Matched, Kaiju, Super Poly is a Spell so it gets locked) and force them to pay LP each Standby to keep Order up, or wait it out."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Maxx \"C\"",
+          "why": "Strong but situational. Counter Fairies is a low-summon control deck, so it often only Special Summons once or twice. They can just play around it by passing and setting traps, drawing you few cards. Decent vs their Fairy payoff turn, weak vs pure stun.",
+          "when": "Going second / on their turn if they start Special Summoning Fairies. Less impactful than vs combo decks."
+        },
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Hits Guiding Ariadne's search and other deck/GY searches, slowing their engine assembly. Does NOT stop the Solemn Counter Traps themselves.",
+          "when": "On their search effect (Ariadne / Fairy tutors). Activate before they lock in their trap suite."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "One of the best vs this deck. After their first search, it shuts off all further searching AND drawing for the turn, including Bountiful Artemis draws. Cripples their refuel engine.",
+          "when": "After they make their first search of the turn, ideally before Artemis-fueled draws snowball."
+        },
+        {
+          "card": "Effect Veiler / Infinite Impermanence",
+          "why": "Negate Bountiful Artemis or Meltiel directly so their Counter Traps stop generating value. Imperm also disables a face-up payoff Fairy. Targeted, surgical answers to the engine.",
+          "when": "On your turn vs Artemis/Meltiel (Veiler), or set Imperm to negate a payoff Fairy or break their board on your turn."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Destroys a face-up Bountiful Artemis, Guiding Ariadne (Pendulum Zone), or a continuous trap like Imperial Order, cutting their engine or stun lock.",
+          "when": "When Artemis, Ariadne, or Imperial Order is face-up and active."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Mostly DEAD vs this deck. Counter Fairies rarely Normal/Special Summon 5+ times in a turn, so Nibiru almost never turns on. Do not rely on it.",
+          "when": "Only if they go off on a high-summon Fairy turn (rare). Treat as a brick in this matchup."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Evenly Matched",
+          "why": "Best-in-class here. Going second into their set backrow, it makes THEM banish down to 1 card, and it is a Trap so Imperial Order does not stop it. Counter Traps can't negate it efficiently since it activates in your Battle Phase / End. Wrecks the stun board."
+        },
+        {
+          "card": "Kaiju (Gameciel / Radian etc.)",
+          "why": "Tributes their beater/payoff Fairy (Kristya, Voltic Bicorn) without targeting via a Spell that resolves on summon, and it is a monster effect so Imperial Order doesn't lock it. Solemn Strike CAN negate the Kaiju summon, so bait first."
+        },
+        {
+          "card": "Lightning Storm / Harpie's Feather Duster",
+          "why": "Clears their backrow wall, but BEWARE: these are Spells, so they die to Imperial Order and can be negated by Seven Tools / Solemn. Use as BAIT to drain negations, not as your guaranteed out."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Negates their payoff Fairies / monsters; sending cards from hand+field reduces what they can chain. It is a Spell though, so it eats Imperial Order and Counter Traps, use after baiting."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Spell-speed cannot be responded to by most cards, but it IS a Spell, so Imperial Order shuts it off. When Order is not up, it cleanly removes their monsters with no chance for Solemn to chain."
+        },
+        {
+          "card": "Cosmic Cyclone / Twin Twisters",
+          "why": "Pinpoint removal for Imperial Order, Sanctuary in the Sky, or a set Counter Trap before you commit. Cheap way to disarm the stun lock; Cosmic banishes so no GY value."
+        }
+      ],
+      "going_first_vs_second": "GOING FIRST: You usually want to establish a board and force them to spend Counter Traps reactively. Play around the negates, lead with bait, and try to land disruption that survives (a set Imperm, or a monster they have to deal with). Do not over-commit into open backrow, they will Solemn your best card. GOING SECOND (often preferable vs this deck): You see their set backrow and can break it. Evenly Matched is the dream out, and spell board breakers (Lightning Storm, Duster, Droplet) bait/clear traps, but sequence carefully because Imperial Order and Seven Tools punish spell-heavy turns. Bait negations with a throwaway play, THEN push with non-spell answers (Kaiju, Evenly, monster effects). Their LP is a resource: Solemn Judgment costs them half LP, so aggressive baiting can put them in range of a single big attack.",
+      "beginner_explanation": "Treat this like a poker bluffing match, not a race. Counter Fairies has no scary combo to stop, instead it sits behind 4-6 face-down traps that negate your good cards one at a time, and refills its hand with Bountiful Artemis. Two simple rules: (1) BAIT FIRST. Play a card you don't care about and let them waste a Solemn on it, then play your real card into fewer traps. (2) KILL THE ENGINE. If you can destroy or negate Bountiful Artemis, every trap they use becomes a pure loss for them and they run out of gas fast. Going second is fine here, you get to see their backrow, and Evenly Matched is your best friend (it makes them throw away almost their whole field and traps can't stop it well). Watch out for Imperial Order, which turns off all your Spell cards, so keep some non-Spell answers (like a Kaiju monster) in reserve.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Snake-Eye Fiendsmith",
+      "archetype": "Snake-Eye + Fiendsmith (Pyro combo / control with Azamina + Diabellstar engine)",
+      "formats": [
+        "MasterDuel"
+      ],
+      "tier": "Tier 3",
+      "game_plan": "Combo deck that recycles 1-card Snake-Eye Ash into Snake-Eyes Poplar to flood Level 1 Pyros, while the Fiendsmith engine (Engraver -> Tract -> Fabled Lurrie) grinds out Link/Fusion bosses. It ends on a multi-negate board: Fiendsmith's Desirae omni-negate, Azamina Ilia Silvia omni-negate (tributes itself), plus S:P Little Knight, Apollousa, and Promethean Princess. The deck is extremely resilient: it has many short, redundant lines and can rebuild through the GY, so trading 1-for-1 is rarely enough.",
+      "key_cards": [
+        {
+          "card": "Snake-Eye Ash",
+          "role": "Best 1-card starter. Normal Summon -> searches/sets, recycles itself in spell zone via Original Sinful Spoils. Whole Snake-Eye half flows from here."
+        },
+        {
+          "card": "Snake-Eyes Poplar",
+          "role": "Searched off Ash; Special Summons itself and searches another Snake-Eye, fueling the Pyro extension and rank/link plays."
+        },
+        {
+          "card": "Diabellstar the Black Witch",
+          "role": "Starter/extender. Sets a Sinful Spoils spell/trap; gateway into the Azamina line and into Original Sinful Spoils recursion."
+        },
+        {
+          "card": "Fiendsmith Engraver",
+          "role": "Engine core. Discards itself to add Fiendsmith's Tract; GY effect re-summons itself. Drives the Fiendsmith Link/Fusion chain."
+        },
+        {
+          "card": "Fiendsmith's Tract",
+          "role": "Adds + discards Fabled Lurrie to Special Summon it, giving a free Link material to start the Fiendsmith fusion line."
+        },
+        {
+          "card": "Azamina Ilia Silvia",
+          "role": "Fusion boss with a built-in omni-negate by tributing itself. Primary protection layer the combo builds toward."
+        },
+        {
+          "card": "Fiendsmith's Desirae",
+          "role": "Main boss: omni-negate that scales with equipped Fiendsmith Link monsters. Centerpiece of the end board."
+        },
+        {
+          "card": "Original Sinful Spoils - Snake-Eye",
+          "role": "GY engine glue: banishes from GY to search Snake-Eye Ash, making the deck absurdly consistent and grindy."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On Snake-Eye Ash Normal Summon / its search",
+          "action": "Ash Blossom the search, or Imperm/Veiler the Ash effect to cut off Poplar and the whole Snake-Eye extension before it snowballs."
+        },
+        {
+          "timing": "On Snake-Eyes Poplar Special Summon + search",
+          "action": "Ash Blossom the Poplar search, or Ghost Ogre the Poplar to deny the second Snake-Eye and stop the Pyro chain."
+        },
+        {
+          "timing": "On Fiendsmith Engraver discard-to-search (Tract) or its GY self-revive",
+          "action": "Ash Blossom the Tract add; Effect Veiler / Imperm the Engraver to kill the Fiendsmith Link/Fusion engine."
+        },
+        {
+          "timing": "On Diabellstar set / Deception of the Sinful Spoils activation",
+          "action": "Ash Blossom or Veiler/Imperm to deny the Azamina (Silvia) setup and remove a protection layer."
+        },
+        {
+          "timing": "When they Special Summon their 5th monster building toward boss",
+          "action": "Nibiru the Primal Being wipes the engine mid-combo, though it is less reliable this format (see hand-trap notes)."
+        },
+        {
+          "timing": "On the Fiendsmith Fusion / Desirae summon (final boss step)",
+          "action": "Veiler/Imperm a key Link body before Desirae resolves, or save a negate for the Desirae summon itself."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "why": "Hits the most critical searches: Ash, Poplar, Fiendsmith's Tract, Diabellstar/Deception. Single best generic against this deck.",
+          "when": "Hold for the FIRST important search. On Ash or Poplar going first; on the Tract add vs a Fiendsmith-heavy line. Beware they may bait with a less important search."
+        },
+        {
+          "card": "Effect Veiler",
+          "why": "Negates a key on-field monster effect (Ash, Engraver, Diabellstar) on your opponent's turn without spending a card from deck.",
+          "when": "Best on Engraver or Ash. Use when you cannot afford the search hitting; weaker vs spell-based steps."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "why": "Negates a monster effect AND can disable a column of spell/trap; flexible, can be set going second to dodge Crossout/Called.",
+          "when": "On the first relevant monster effect (Ash/Poplar/Engraver). Set it going second so it survives backrow interaction."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "why": "Destroys Poplar on its Special Summon, or pops a key continuous/field piece (Field Spell, Original Sinful Spoils in zone).",
+          "when": "On Poplar's self-Special Summon, or on a recycled Snake-Eye / field spell that enables the loop."
+        },
+        {
+          "card": "Maxx C",
+          "why": "Punishes the deck's many Special Summons; either they stop short (weak board) or you draw heavily. Strong vs a full combo.",
+          "when": "Activate at the very start of their turn before they commit. Watch for them having Ash/Crossout to negate it."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "why": "Shuts off all further searches after the first add. Devastating because the deck chains search after search.",
+          "when": "AFTER they make their first search of the turn (e.g., after Ash searches), locking out Poplar/Tract/Original Sinful Spoils."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "why": "Tributes their developed engine into one token, blowing up the combo mid-line.",
+          "when": "After they Summon 5+ monsters. NOTE: less popular this format because Azamina Silvia and other plays dodge or pre-empt it; treat as situational."
+        },
+        {
+          "card": "Mourner / targeting traps (e.g., on Imperm-style)",
+          "why": "Format-dependent disruption; pairs with Imperm to pressure key targets.",
+          "when": "Niche tech, only if your build runs it; otherwise prioritize Ash/Imperm/Droll."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Forbidden Droplet",
+          "why": "Negates AND halves multiple monsters at once; great vs a board of Desirae + Silvia + links. Dodges some negates by sending fuel from hand/field."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Going second, forces them to keep only 1 card; demolishes the multi-piece negate board. Best when you have not committed monsters."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "Wipes all their face-up attack-position monsters (or all backrow). Strong if they leave bodies in ATK; watch S:P Little Knight banish."
+        },
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Clears Original Sinful Spoils / Field Spell / any backrow protection, dismantling the recursion engine and set traps."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Uses THEIR monsters as fusion material; spell-speed-4 so most omni-negates cannot stop it. Removes Desirae/Silvia/links cleanly."
+        },
+        {
+          "card": "Kaiju / Lava Golem (tribute removal)",
+          "why": "Tribute away Desirae or Silvia ignoring their negate, since tribute-summoning over them is not an effect they can negate."
+        },
+        {
+          "card": "Knightmare Phoenix",
+          "why": "Specifically cited to remove Promethean Princess and other problem pieces by popping a card during your push."
+        }
+      ],
+      "going_first_vs_second": "Going first they are scary: they build a full multi-omni-negate wall (Desirae + Silvia + Apollousa + S:P), so as the disruptor you must land an EARLY hand trap (Ash on the first search, or Droll after their first add) rather than waiting, and ideally stack two interactions. Going second is where you win: combine a board breaker that ignores negates (Super Poly, Kaiju, Droplet) or a sweep (Evenly Matched, Lightning Storm, Feather Duster) with leftover hand traps, then push. Save Imperm/Droplet to set face-down so Crossout Designator and Called by the Grave cannot pre-empt them. Do not over-commit monsters before Evenly/Super Poly. Maxx C going first can soft-lock their full combo if they lack an answer.",
+      "beginner_explanation": "Think of this deck as a machine with many small parts that all search for each other. The cheapest way to break it is to jam the FIRST important search with Ash Blossom (call it on Snake-Eye Ash or Poplar), or fire Droll after their first search so nothing else can be added. One negate usually is not enough because the deck rebuilds from the graveyard, so going second bring a card that wipes everything at once: Evenly Matched, Lightning Storm, or Harpie's Feather Duster, plus a removal that ignores their negates like Super Polymerization or a Kaiju. Set your Impermanence face-down so they cannot snipe it. If you are new: hold Ash for their best search, do not waste it on a bait, and going second clear their board before you attack.",
+      "confidence": "medium"
+    },
+    {
+      "deck_name": "Labrynth",
+      "archetype": "Trap control (Fiend / Normal Trap grind)",
+      "formats": [
+        "Master Duel",
+        "TCG"
+      ],
+      "tier": "Rogue / lower-meta (consistent ladder pick, fringe in top-cut tournaments as of June 2026)",
+      "game_plan": "Labrynth is a control deck that sets Normal Traps, then uses them to remove your threats and grind you out of resources over many turns. It is NOT a one-turn-kill combo deck; its power comes ON YOUR TURN, reacting to your plays with Welcome Labrynth and floodgate-style traps while Lady/Lovely Labrynth recur traps and search endlessly. It wants to go first, build a backrow, and win the long game on card advantage.",
+      "key_cards": [
+        {
+          "card": "Lady Labrynth of the Silver Castle",
+          "role": "Main engine boss. Searches a Normal Trap on each of your trap activations, Special Summons itself when you activate a Set trap, and gains targeting immunity while you control Set cards. The card that refills their hand every turn."
+        },
+        {
+          "card": "Lovely Labrynth of the Silver Castle",
+          "role": "Fusion/ace boss. Forces opponent to discard, retrieves and re-Sets Normal Traps from GY, and protects/destroys. The grind-game closer that keeps recycling their traps."
+        },
+        {
+          "card": "Welcome Labrynth",
+          "role": "Key Normal Trap. Special Summons a Labrynth from deck; if activated while Set, also DESTROYS a card on the field. The card that summons Arianna/Ariane to start everything and triggers Lady's search."
+        },
+        {
+          "card": "Big Welcome Labrynth",
+          "role": "Upgraded Welcome. Special Summons any Fiend from hand/deck/GY (including Lovely fusion materials/Stovie) and bounces a card. Their strongest single trap."
+        },
+        {
+          "card": "Arianna the Labrynth Servant / Ariane the Labrynth Servant",
+          "role": "Servant searchers/extenders. Summoned off Welcome, they search Labrynth cards and Set traps from deck when a monster leaves the field, providing consistency and extension."
+        },
+        {
+          "card": "Arias the Labrynth Butler",
+          "role": "Hand/extender. Sets a Welcome from deck and protects Labrynth cards from destruction; key combo enabler going first."
+        },
+        {
+          "card": "Transaction Rollback",
+          "role": "Tech trap that copies a Normal Trap from GY (often re-using Welcome or a counter trap). Adds explosive disruption and is a high-value Ash/Imperm target."
+        },
+        {
+          "card": "Muckraker From the Underworld / Stovie Torbie / Cooclock",
+          "role": "Fiend toolbox and Lovely fusion enablers; Cooclock bounces to extend, Stovie/Muckraker fuel the boss line and recursion."
+        }
+      ],
+      "interruption_points": [
+        {
+          "timing": "On the first Welcome Labrynth / Big Welcome activation (their main turn-1 starter)",
+          "action": "Negate it. This is the single biggest choke point. If their first Welcome resolves they search and snowball. Ash Blossom or a counter to the Welcome trap usually ends the turn."
+        },
+        {
+          "timing": "On Arianna's / Ariane's search effect after they hit the field",
+          "action": "Ash Blossom the search to deny the follow-up trap and cut their hand refuel."
+        },
+        {
+          "timing": "On Lady Labrynth's search trigger (fires when they activate a Set trap)",
+          "action": "Ash Blossom or Imperm Lady to stop the per-trap search engine. Without it they run out of cards much faster."
+        },
+        {
+          "timing": "Across repeated searches in the same turn",
+          "action": "Droll & Lock Bird after their first search shuts off every further add-to-hand for the rest of the turn, gutting the engine."
+        },
+        {
+          "timing": "When they try to recur traps with Lovely from GY",
+          "action": "If Lovely is summoned, that is the grind engine. Removing/negating Lovely (or Imperm on it) stops the trap recycling loop."
+        }
+      ],
+      "hand_traps": [
+        {
+          "card": "Ash Blossom & Joyous Spring",
+          "when": "On the first Welcome/Big Welcome Labrynth, or on Arianna/Ariane/Lady's search.",
+          "why": "Best single answer. Negates the deck's search/special-summon backbone. Hitting the first Welcome usually neuters their whole turn."
+        },
+        {
+          "card": "Droll & Lock Bird",
+          "when": "After they make their first search of the turn (e.g. off Arianna or Lady).",
+          "why": "Shuts down all further adds-to-hand, stopping the search chain that lets Labrynth refuel. Very strong vs their consistency."
+        },
+        {
+          "card": "Infinite Impermanence",
+          "when": "On Lady Labrynth's search trigger, on Lovely, or set it to also nuke a Spell/Trap column when going second.",
+          "why": "Negates a key monster effect; the column-set bonus helps you break backrow later. Note: Lady has targeting immunity while they control Set cards, so use it BEFORE they establish Set backrow or on a non-immune target."
+        },
+        {
+          "card": "Effect Veiler",
+          "when": "On Lady or Lovely Labrynth during their turn.",
+          "why": "Negates the boss engine without targeting (gets around Lady's targeting protection). Good answer when Imperm would be blocked by immunity."
+        },
+        {
+          "card": "Maxx \"C\"",
+          "when": "Before they start special summoning (cast it early).",
+          "why": "Labrynth special summons Arianna/Ariane/Lady/Lovely, so Maxx C draws you cards. Less back-breaking than vs full combo decks (their summon count is lower), but still solid value and pressures them to stop short."
+        },
+        {
+          "card": "Nibiru, the Primal Being",
+          "when": "Rarely the right call.",
+          "why": "Labrynth usually summons only 2-4 monsters and does most work on YOUR turn, so they often dodge the 5-summon threshold. Low priority; bring better cards instead."
+        },
+        {
+          "card": "Ghost Ogre & Snow Rabbit",
+          "when": "On a Set Welcome/Big Welcome before it resolves, or on Lady/Lovely.",
+          "why": "Can destroy a Set trap on activation or pop a boss monster, denying a key piece. Flexible but lower impact than Ash."
+        }
+      ],
+      "board_breakers": [
+        {
+          "card": "Harpie's Feather Duster",
+          "why": "Destroys their entire backrow at once for free. Labrynth IS its backrow, so this is arguably the best single breaker. Beware Set traps can chain in response, so they may use one before it resolves."
+        },
+        {
+          "card": "Lightning Storm",
+          "why": "Going second, wipes all their Set Spells/Traps (or all attack-position monsters). Devastating because Labrynth commits everything to backrow and few monsters. Top-tier answer."
+        },
+        {
+          "card": "Evenly Matched",
+          "why": "Going second with an empty/near-empty field, forces them to banish down to one card. Crushes a backrow-heavy Labrynth board and sets up the OTK. Classic Labrynth counter."
+        },
+        {
+          "card": "Forbidden Droplet",
+          "why": "Sends from hand/field to negate multiple of their monsters (Lady/Lovely) at once, and dodges some trap immunity by not targeting. Strong to push through the boss line."
+        },
+        {
+          "card": "Cosmic Cyclone / Twin Twisters",
+          "why": "Targeted backrow removal to pop their most dangerous Set trap (e.g. a Set Welcome or counter trap) before it can fire, weakening the wall preemptively."
+        },
+        {
+          "card": "Kaijus / Lava Golem",
+          "why": "Tribute away Lady/Lovely ignoring their on-field protection (Kaiju is a non-targeting tribute), removing the boss so their recursion stalls."
+        },
+        {
+          "card": "Super Polymerization",
+          "why": "Banish their Fiend boss (Lady/Lovely) as fusion material; spell-speed and the it-cannot-be-responded-to clause dodges their traps. Excellent if your Extra has a usable target."
+        }
+      ],
+      "going_first_vs_second": "GOING FIRST vs Labrynth: race them. Build a board and pressure FAST, because Labrynth is a grind deck that wins long games. Don't over-commit into open backrow blindly, but do not durdle, every extra turn favors them. Bait out one Welcome/trap, then push through. GOING SECOND: this is where you punish them. Mulligan toward backrow wipes (Harpie's Feather Duster, Lightning Storm, Evenly Matched). Clear their Set traps, then OTK, they have very few monsters to block damage once the backrow is gone. Evenly Matched is especially brutal when they passed with a wide trap board. Lead with the board breaker, hold a follow-up in case they chain a trap in response.",
+      "beginner_explanation": "Think of Labrynth as a turtle, not a sprinter. It does almost nothing flashy on its own turn; instead it sets face-down trap cards and springs them on YOU. The danger is the long game: it keeps drawing and recycling traps until you run dry. Two simple rules: (1) If you have Ash Blossom, save it for their first Welcome Labrynth trap or any of their searches, that is the moment that stops their engine. (2) If you go second and see a row of face-down cards, that is GOOD for you, just blow up the whole backrow with Harpie's Feather Duster, Lightning Storm, or Evenly Matched, then swing for game since they have barely any monsters to defend. Don't slow-play them; speed and one big backrow-wipe are your friends.",
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+<% content_for :title, "Data quality · Admin" %>
+
+<h1 class="text-2xl font-bold">Data quality</h1>
+<p class="mb-6 text-sm text-slate-400">Catalog accuracy and the TCG vs Master Duel banlist reconciliation.</p>
+
+<div class="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+  <% @stats.each do |label, value| %>
+    <div class="rounded-xl border border-slate-800 bg-slate-950 p-4">
+      <div class="text-2xl font-bold"><%= value %></div>
+      <div class="text-xs uppercase tracking-wide text-slate-500"><%= label.to_s.tr("_", " ") %></div>
+    </div>
+  <% end %>
+</div>
+
+<section class="mb-8">
+  <h2 class="mb-2 text-lg font-semibold">Master Duel banlist divergences
+    <span class="ml-1 rounded-full bg-violet-500/15 px-2 py-0.5 text-xs text-violet-300"><%= @md_divergences.size %></span>
+  </h2>
+  <p class="mb-3 text-sm text-slate-400">Cards whose Master Duel status differs from the TCG status. YGOPRODeck has no MD banlist field, so this is derived from a second source and reconciled here.</p>
+  <div class="overflow-hidden rounded-xl border border-slate-800">
+    <table class="w-full text-sm">
+      <thead class="bg-slate-950 text-left text-xs uppercase tracking-wide text-slate-500">
+        <tr><th class="px-4 py-2">Card</th><th class="px-4 py-2">TCG</th><th class="px-4 py-2">Master Duel</th></tr>
+      </thead>
+      <tbody class="divide-y divide-slate-800">
+        <% @md_divergences.each do |d| %>
+          <tr>
+            <td class="px-4 py-2 font-medium"><%= d.card.name %></td>
+            <td class="px-4 py-2"><%= render "shared/ban_badge", status: d.tcg_status %></td>
+            <td class="px-4 py-2"><%= render "shared/ban_badge", status: d.md_status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="mb-8">
+  <h2 class="mb-2 text-lg font-semibold">Draft decks pending verification
+    <span class="ml-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-xs text-amber-300"><%= @draft_decks.size %></span>
+  </h2>
+  <div class="flex flex-wrap gap-2">
+    <% @draft_decks.each do |deck| %>
+      <%= link_to deck.name, edit_admin_deck_path(deck),
+            class: "rounded-lg border border-slate-800 bg-slate-950 px-3 py-1.5 text-sm hover:border-violet-600" %>
+    <% end %>
+  </div>
+</section>
+
+<section>
+  <h2 class="mb-2 text-lg font-semibold">Counters not linked to a catalog card
+    <span class="ml-1 rounded-full bg-slate-700 px-2 py-0.5 text-xs text-slate-300"><%= @unlinked.size %></span>
+  </h2>
+  <p class="mb-3 text-sm text-slate-400">Free-text counter names with no matching ingested card (typo, alternate name, or not yet ingested).</p>
+  <div class="max-h-80 overflow-y-auto rounded-xl border border-slate-800">
+    <table class="w-full text-sm">
+      <tbody class="divide-y divide-slate-800">
+        <% @unlinked.each do |rec| %>
+          <tr class="hover:bg-slate-800/40">
+            <td class="px-4 py-2"><%= rec.card_name %></td>
+            <td class="px-4 py-2 text-slate-500"><%= rec.category.tr("_", " ") %></td>
+            <td class="px-4 py-2 text-right">
+              <%= link_to rec.deck.name, edit_admin_deck_path(rec.deck), class: "text-violet-400 hover:text-violet-300" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

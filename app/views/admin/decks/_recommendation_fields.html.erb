@@ -1,0 +1,27 @@
+<div class="grid grid-cols-12 gap-2 rounded-lg border border-slate-800 bg-slate-950 p-2" data-nested-form-row>
+  <div class="col-span-3">
+    <%= f.select :category,
+          CounterRecommendation::CATEGORIES.map { |c| [c.tr("_", " ").titleize, c] },
+          {},
+          class: "w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm" %>
+  </div>
+  <div class="col-span-3">
+    <%= f.text_field :card_name, placeholder: "Card name", list: "card-names",
+          class: "w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm" %>
+  </div>
+  <div class="col-span-2">
+    <%= f.text_field :timing, placeholder: "When", value: f.object&.timing,
+          class: "w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm" %>
+  </div>
+  <div class="col-span-3">
+    <%= f.text_field :note, placeholder: "Why / how",
+          class: "w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm" %>
+  </div>
+  <div class="col-span-1 flex items-center justify-center">
+    <% if f.object&.persisted? %>
+      <%= f.hidden_field :_destroy %>
+    <% end %>
+    <button type="button" data-action="nested-form#remove"
+            class="rounded-md px-2 py-1 text-rose-400 hover:bg-rose-500/10" title="Remove">&times;</button>
+  </div>
+</div>

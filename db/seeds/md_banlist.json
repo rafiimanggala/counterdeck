@@ -1,0 +1,26 @@
+{
+  "source": "Konami Yu-Gi-Oh! Master Duel Forbidden & Limited List (in-client)",
+  "captured_on": "2026-06-01",
+  "note": "Master Duel runs its OWN Forbidden & Limited list, distinct from the paper TCG. The YGOPRODeck API exposes ban_tcg / ban_ocg / ban_goat but has NO Master Duel field, so this snapshot is maintained by hand from Konami's published in-client list and reconciled against the TCG status during import. Refresh this file when Konami updates the MD list. The most famous divergence is Maxx \"C\": Forbidden in the TCG, but legal (Limited) in Master Duel.",
+  "entries": [
+    { "name": "Maxx \"C\"", "status": "limited" },
+    { "name": "Triple Tactics Talent", "status": "limited" },
+    { "name": "Branded Fusion", "status": "limited" },
+    { "name": "Snake-Eyes Flamberge Dragon", "status": "forbidden" },
+    { "name": "Snake-Eye Ash", "status": "limited" },
+    { "name": "Snake-Eye Diabellstar", "status": "limited" },
+    { "name": "Tearlaments Kitkallos", "status": "forbidden" },
+    { "name": "Tearlaments Scheiren", "status": "limited" },
+    { "name": "Tearlaments Havnis", "status": "limited" },
+    { "name": "Sky Striker Mecha - Hornet Drones", "status": "limited" },
+    { "name": "Fiendsmith's Tractus", "status": "limited" },
+    { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "status": "limited" },
+    { "name": "Ash Blossom & Joyous Spring", "status": "semi_limited" },
+    { "name": "Effect Veiler", "status": "unlimited" },
+    { "name": "Infinite Impermanence", "status": "unlimited" },
+    { "name": "Called by the Grave", "status": "semi_limited" },
+    { "name": "Crossout Designator", "status": "limited" },
+    { "name": "Harpie's Feather Duster", "status": "limited" },
+    { "name": "Dimension Shifter", "status": "unlimited" }
+  ]
+}

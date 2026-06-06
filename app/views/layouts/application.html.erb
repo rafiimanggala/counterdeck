@@ -1,28 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
-    <title><%= content_for(:title) || "Counterdeck" %></title>
+    <title><%= content_for(:title) || "CounterDeck" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Counterdeck">
+    <meta name="application-name" content="CounterDeck">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="h-full bg-slate-950 text-slate-100 antialiased">
+    <header class="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+      <div class="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
+        <%= link_to root_path, class: "flex items-center gap-2 font-bold tracking-tight" do %>
+          <span class="inline-block h-5 w-5 rounded bg-violet-500"></span>
+          <span class="text-lg">Counter<span class="text-violet-400">Deck</span></span>
+        <% end %>
+        <nav class="flex items-center gap-4 text-sm text-slate-400">
+          <%= link_to "Decks", root_path, class: "hover:text-slate-100" %>
+          <%= link_to "Scan", scan_path, class: "hover:text-slate-100" %>
+          <%= link_to "Admin", admin_root_path, class: "hover:text-slate-100" %>
+        </nav>
+      </div>
+    </header>
+
+    <% if notice.present? %>
+      <div class="mx-auto max-w-3xl px-4 pt-4">
+        <p class="rounded-lg border border-emerald-700 bg-emerald-950 px-4 py-2 text-sm text-emerald-300"><%= notice %></p>
+      </div>
+    <% end %>
+
+    <main class="mx-auto max-w-3xl px-4 py-6">
+      <%= yield %>
+    </main>
+
+    <footer class="mx-auto max-w-3xl px-4 py-10 text-xs text-slate-600">
+      CounterDeck. Card data via YGOPRODeck. Not affiliated with Konami.
+    </footer>
   </body>
 </html>

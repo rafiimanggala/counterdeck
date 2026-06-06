@@ -1,0 +1,107 @@
+<% content_for :title, "Beat #{@deck.name} — CounterDeck" %>
+
+<%= link_to "← All decks", root_path, class: "text-sm text-slate-400 hover:text-slate-200" %>
+
+<div class="mt-3 flex items-start justify-between gap-3">
+  <div>
+    <h1 class="text-2xl font-bold tracking-tight"><%= @deck.name %></h1>
+    <p class="text-sm text-slate-500"><%= @deck.archetype %> · <%= @deck.tier %></p>
+  </div>
+  <% if @deck.status == "draft" %>
+    <span class="shrink-0 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-medium text-amber-300">draft · unverified</span>
+  <% end %>
+</div>
+
+<%# Format toggle — affects which banlist the counter cards show %>
+<div class="mt-4 inline-flex rounded-lg border border-slate-800 bg-slate-900 p-0.5 text-sm">
+  <% { "md" => "Master Duel", "tcg" => "TCG" }.each do |key, label| %>
+    <%= link_to label, deck_path(@deck, format: key),
+          class: "rounded-md px-3 py-1.5 #{@format == key ? 'bg-violet-600 text-white' : 'text-slate-400 hover:text-slate-200'}" %>
+  <% end %>
+</div>
+
+<% if @deck.game_plan.present? %>
+  <div class="mt-4 rounded-xl border border-slate-800 bg-slate-900 p-4">
+    <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Their game plan</div>
+    <p class="mt-1 text-sm text-slate-300"><%= @deck.game_plan %></p>
+  </div>
+<% end %>
+
+<%# ---- STOP: interruption points ---- %>
+<% if @deck.interruption_points.any? %>
+  <section class="mt-6">
+    <h2 class="mb-2 flex items-center gap-2 text-lg font-bold">
+      <span class="rounded bg-rose-500/20 px-2 py-0.5 text-sm font-bold text-rose-300">STOP</span>
+      Where to interrupt the combo
+    </h2>
+    <ol class="space-y-2">
+      <% @deck.interruption_points.each_with_index do |ip, i| %>
+        <li class="rounded-lg border border-slate-800 bg-slate-950 p-3">
+          <div class="text-sm font-medium text-rose-200"><%= ip["timing"] %></div>
+          <div class="mt-0.5 text-sm text-slate-400"><%= ip["action"] %></div>
+        </li>
+      <% end %>
+    </ol>
+  </section>
+<% end %>
+
+<%# ---- Key cards to recognize ---- %>
+<% if @deck.key_cards.any? %>
+  <section class="mt-6">
+    <h2 class="mb-2 text-lg font-bold">Cards to recognize</h2>
+    <div class="flex flex-wrap gap-2">
+      <% @deck.key_cards.each do |kc| %>
+        <span class="rounded-lg border border-slate-800 bg-slate-900 px-3 py-1.5 text-sm" title="<%= kc.note %>"><%= kc.display_name %></span>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<%# ---- HOLD: hand traps ---- %>
+<% if @deck.hand_traps.any? %>
+  <section class="mt-6">
+    <h2 class="mb-2 flex items-center gap-2 text-lg font-bold">
+      <span class="rounded bg-sky-500/20 px-2 py-0.5 text-sm font-bold text-sky-300">HOLD</span>
+      Hand traps that work
+    </h2>
+    <div class="space-y-2">
+      <% @deck.hand_traps.each do |ht| %>
+        <%= render "counter", counter: ht, format: @format %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<%# ---- BREAK: board breakers ---- %>
+<% if @deck.board_breakers.any? %>
+  <section class="mt-6">
+    <h2 class="mb-2 flex items-center gap-2 text-lg font-bold">
+      <span class="rounded bg-amber-500/20 px-2 py-0.5 text-sm font-bold text-amber-300">BREAK</span>
+      Clear their board (going second)
+    </h2>
+    <div class="space-y-2">
+      <% @deck.board_breakers.each do |bb| %>
+        <%= render "counter", counter: bb, format: @format %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if @deck.going_first_vs_second.present? %>
+  <section class="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-4">
+    <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Going first vs second</div>
+    <p class="mt-1 text-sm text-slate-300"><%= @deck.going_first_vs_second %></p>
+  </section>
+<% end %>
+
+<% if @deck.beginner_explanation.present? %>
+  <details class="mt-4 rounded-xl border border-slate-800 bg-slate-900 p-4">
+    <summary class="cursor-pointer text-sm font-semibold text-slate-300">New to this matchup? Read this</summary>
+    <p class="mt-2 text-sm text-slate-400"><%= @deck.beginner_explanation %></p>
+  </details>
+<% end %>
+
+<p class="mt-6 text-xs text-slate-600">
+  <% if @deck.confidence.present? %>Draft confidence: <%= @deck.confidence %>. <% end %>
+  Counter data is community/AI-drafted and human-reviewed. Always double-check current rulings.
+</p>

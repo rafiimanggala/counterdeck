@@ -1,0 +1,81 @@
+<%= form_with model: [:admin, deck], class: "space-y-6" do |f| %>
+  <% if deck.errors.any? %>
+    <div class="rounded-lg border border-rose-700 bg-rose-950 p-4 text-sm text-rose-300">
+      <p class="font-semibold"><%= pluralize(deck.errors.count, "error") %> prevented saving:</p>
+      <ul class="mt-1 list-disc pl-5">
+        <% deck.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <label class="block">
+      <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Deck name</span>
+      <%= f.text_field :name, class: field_class %>
+    </label>
+    <label class="block">
+      <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Archetype</span>
+      <%= f.text_field :archetype, class: field_class %>
+    </label>
+    <label class="block">
+      <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Tier</span>
+      <%= f.text_field :tier, class: field_class %>
+    </label>
+    <label class="block">
+      <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Formats (comma-separated)</span>
+      <%= f.text_field :formats, placeholder: "TCG, Master Duel", class: field_class %>
+    </label>
+    <label class="block">
+      <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Confidence</span>
+      <%= f.select :confidence, Deck::CONFIDENCE, { include_blank: "—" }, class: field_class %>
+    </label>
+    <label class="block">
+      <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Status</span>
+      <%= f.select :status, Deck::STATUSES, {}, class: field_class %>
+    </label>
+  </div>
+
+  <label class="block">
+    <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Game plan</span>
+    <%= f.text_area :game_plan, rows: 2, class: field_class %>
+  </label>
+  <label class="block">
+    <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Going first vs second</span>
+    <%= f.text_area :going_first_vs_second, rows: 2, class: field_class %>
+  </label>
+  <label class="block">
+    <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Beginner explanation</span>
+    <%= f.text_area :beginner_explanation, rows: 2, class: field_class %>
+  </label>
+  <label class="block">
+    <span class="text-xs font-medium uppercase tracking-wide text-slate-400">Interruption points (one per line: <code>timing :: action</code>)</span>
+    <%= f.text_area :interruption_points_text, rows: 4, class: "#{field_class} font-mono text-xs" %>
+  </label>
+
+  <div data-controller="nested-form">
+    <div class="mb-2 flex items-center justify-between">
+      <h2 class="text-sm font-semibold text-slate-300">Counters (key cards, hand traps, board breakers)</h2>
+      <button type="button" data-action="nested-form#add"
+              class="rounded-md bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:bg-slate-700">+ Add row</button>
+    </div>
+
+    <div class="space-y-2" data-nested-form-target="rows">
+      <%= f.fields_for :counter_recommendations do |rf| %>
+        <%= render "recommendation_fields", f: rf %>
+      <% end %>
+    </div>
+
+    <template data-nested-form-target="template">
+      <%= f.fields_for :counter_recommendations, CounterRecommendation.new, child_index: "NEW_RECORD" do |rf| %>
+        <%= render "recommendation_fields", f: rf %>
+      <% end %>
+    </template>
+
+    <datalist id="card-names"></datalist>
+  </div>
+
+  <div class="flex items-center gap-3 pt-2">
+    <%= f.submit "Save deck", class: "rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-violet-500 cursor-pointer" %>
+    <%= link_to "Cancel", admin_decks_path, class: "text-sm text-slate-400 hover:text-slate-200" %>
+  </div>
+<% end %>

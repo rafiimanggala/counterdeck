@@ -1,0 +1,23 @@
+<%
+  ban = counter.card&.banlist_status(format)
+  forbidden = ban == "forbidden"
+%>
+<div class="rounded-lg border border-slate-800 bg-slate-950 p-3 <%= 'opacity-60' if forbidden %>">
+  <div class="flex items-start justify-between gap-2">
+    <div class="font-medium text-slate-100"><%= counter.display_name %></div>
+    <div class="flex shrink-0 items-center gap-1.5">
+      <% if counter.timing.present? %>
+        <span class="rounded bg-slate-800 px-1.5 py-0.5 text-[10px] text-slate-400"><%= counter.timing %></span>
+      <% end %>
+      <% if counter.card && ban && ban != "unlimited" %>
+        <%= render "shared/ban_badge", status: ban %>
+      <% end %>
+    </div>
+  </div>
+  <% if counter.note.present? %>
+    <p class="mt-1 text-sm text-slate-400"><%= counter.note %></p>
+  <% end %>
+  <% if forbidden %>
+    <p class="mt-1 text-xs font-medium text-rose-400">Not legal in <%= format.upcase %> — pick another out.</p>
+  <% end %>
+</div>

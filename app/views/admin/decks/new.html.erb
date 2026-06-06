@@ -1,0 +1,8 @@
+<% content_for :title, "New deck · Admin" %>
+
+<div class="mb-6">
+  <%= link_to "← Decks", admin_decks_path, class: "text-sm text-slate-400 hover:text-slate-200" %>
+  <h1 class="mt-2 text-2xl font-bold">New deck</h1>
+</div>
+
+<%= render "form", deck: @deck %>

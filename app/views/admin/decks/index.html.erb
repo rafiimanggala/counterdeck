@@ -1,0 +1,51 @@
+<% content_for :title, "Decks · Admin" %>
+
+<div class="mb-6 flex items-center justify-between">
+  <div>
+    <h1 class="text-2xl font-bold">Meta decks</h1>
+    <p class="text-sm text-slate-400"><%= @decks.size %> decks · <%= Deck.verified.count %> verified</p>
+  </div>
+  <%= link_to "+ New deck", new_admin_deck_path,
+        class: "rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-500" %>
+</div>
+
+<div class="overflow-hidden rounded-xl border border-slate-800">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-950 text-left text-xs uppercase tracking-wide text-slate-500">
+      <tr>
+        <th class="px-4 py-3">Deck</th>
+        <th class="px-4 py-3">Tier</th>
+        <th class="px-4 py-3">Counters</th>
+        <th class="px-4 py-3">Status</th>
+        <th class="px-4 py-3 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-800">
+      <% @decks.each do |deck| %>
+        <tr class="hover:bg-slate-800/40">
+          <td class="px-4 py-3">
+            <div class="font-medium"><%= deck.name %></div>
+            <div class="text-xs text-slate-500"><%= deck.archetype %></div>
+          </td>
+          <td class="px-4 py-3 text-slate-400"><%= deck.tier.to_s.truncate(20) %></td>
+          <td class="px-4 py-3 text-slate-400"><%= deck.counter_recommendations.size %></td>
+          <td class="px-4 py-3">
+            <%= render "shared/status_badge", status: deck.status %>
+          </td>
+          <td class="px-4 py-3">
+            <div class="flex items-center justify-end gap-3 text-xs">
+              <%= link_to "Edit", edit_admin_deck_path(deck), class: "text-violet-400 hover:text-violet-300" %>
+              <% unless deck.status == "verified" %>
+                <%= button_to "Verify", verify_admin_deck_path(deck), method: :patch,
+                      class: "text-emerald-400 hover:text-emerald-300", form_class: "inline" %>
+              <% end %>
+              <%= button_to "Delete", admin_deck_path(deck), method: :delete,
+                    class: "text-rose-400 hover:text-rose-300", form_class: "inline",
+                    data: { turbo_confirm: "Delete #{deck.name}?" } %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

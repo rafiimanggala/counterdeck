@@ -1,0 +1,12 @@
+<%
+  colors = {
+    "forbidden" => "bg-rose-500/15 text-rose-300",
+    "limited" => "bg-amber-500/15 text-amber-300",
+    "semi_limited" => "bg-sky-500/15 text-sky-300",
+    "unlimited" => "bg-slate-700/40 text-slate-300"
+  }
+  label = { "forbidden" => "Forbidden", "limited" => "Limited", "semi_limited" => "Semi", "unlimited" => "Unlimited" }
+%>
+<span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium <%= colors[status] || colors['unlimited'] %>">
+  <%= label[status] || status %>
+</span>
