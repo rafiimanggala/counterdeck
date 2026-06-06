@@ -1,0 +1,45 @@
+# DigitalOcean App Platform spec for CounterDeck (Rails 8, Docker).
+# Database is external (Neon free Postgres), supplied via the DATABASE_URL secret.
+# Deploy: DO dashboard > Create > Apps > public repo URL below > it reads this spec.
+name: counterdeck
+region: sgp
+services:
+  - name: web
+    # Public repo, so no GitHub OAuth needed. (Connect GitHub later for auto-deploy.)
+    git:
+      repo_clone_url: https://github.com/rafiimanggala/counterdeck.git
+      branch: main
+    dockerfile_path: Dockerfile
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    http_port: 8080
+    # Run Puma directly so it binds $PORT (8080). The image entrypoint still runs
+    # db:prepare; it is a safe no-op since Neon is already migrated and seeded.
+    run_command: ./bin/rails server
+    health_check:
+      http_path: /up
+    envs:
+      - key: RAILS_MASTER_KEY    # paste in the dashboard (Encrypted)
+        type: SECRET
+        scope: RUN_TIME
+      - key: DATABASE_URL        # Neon direct connection string (Encrypted)
+        type: SECRET
+        scope: RUN_TIME
+      - key: COUNTERDECK_HOST    # set after the URL is assigned
+        scope: RUN_TIME
+        value: ""
+      - key: PORT
+        scope: RUN_TIME
+        value: "8080"
+      - key: RAILS_ENV
+        scope: RUN_TIME
+        value: production
+      - key: RAILS_SERVE_STATIC_FILES
+        scope: RUN_TIME
+        value: "true"
+      - key: RAILS_LOG_TO_STDOUT
+        scope: RUN_TIME
+        value: "true"
+      - key: RAILS_MAX_THREADS
+        scope: RUN_TIME
+        value: "3"
