@@ -1,17 +1,1 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  card: one
-  set_name: MyString
-  set_code: MyString
-  set_rarity: MyString
-  set_rarity_code: MyString
-  set_price: 9.99
-
-two:
-  card: two
-  set_name: MyString
-  set_code: MyString
-  set_rarity: MyString
-  set_rarity_code: MyString
-  set_price: 9.99
+# intentionally empty: tests build their own data
