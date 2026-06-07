@@ -61,15 +61,25 @@ class CardIngestor
 
   def sync_printings(card, sets)
     Array(sets).each do |set|
+      next if set["set_code"].blank?
+
+      variant = Printing.classify(
+        set_rarity: set["set_rarity"], set_code: set["set_code"], set_name: set["set_name"]
+      )
       printing = card.printings.find_or_initialize_by(
         set_code: set["set_code"],
-        set_rarity: set["set_rarity"]
+        set_rarity: set["set_rarity"],
+        edition: variant[:edition]
       )
-      next if printing.set_code.blank?
-
-      printing.set_name = set["set_name"]
-      printing.set_rarity_code = set["set_rarity_code"]
-      printing.set_price = parse_amount(set["set_price"])
+      printing.assign_attributes(
+        set_name: set["set_name"],
+        set_rarity_code: set["set_rarity_code"],
+        set_price: parse_amount(set["set_price"]),
+        rarity_tier: variant[:rarity_tier],
+        foil: variant[:foil],
+        promo: variant[:promo],
+        language: "en"
+      )
       printing.save!
       @result.printings += 1
     end

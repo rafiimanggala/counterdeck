@@ -24,4 +24,19 @@ class Card < ApplicationRecord
   def lowest_price
     prices.filter_map(&:amount).min
   end
+
+  # ---- document-style reconciliation sidecar (JSONB metadata) ----------
+  # Populated by DataReconciler: which source won each field, and where sources
+  # disagreed. Kept out of relational columns so the contract can evolve freely.
+  def reconciled_sources
+    Array(metadata["sources"])
+  end
+
+  def source_provenance
+    metadata["provenance"] || {}
+  end
+
+  def data_conflicts
+    Array(metadata["conflicts"])
+  end
 end

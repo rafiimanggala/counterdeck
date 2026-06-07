@@ -29,18 +29,24 @@ class CardSerializer
     base.merge(
       text: @card.card_text,
       image: @card.primary_image&.local_path,
-      printings: @card.printings.map { |p| printing(p) },
-      prices: @card.prices.map { |pr| price(pr) }
+      printings: @card.printings.map { |p| PrintingSerializer.new(p) },
+      prices: @card.prices.map { |pr| price(pr) },
+      data_quality: data_quality
     )
   end
 
   private
 
-  def printing(p)
-    { set_name: p.set_name, set_code: p.set_code, rarity: p.set_rarity, price: p.set_price }
-  end
-
   def price(pr)
     { source: pr.source, amount: pr.amount, currency: pr.currency }
+  end
+
+  # Surfaces the multi-source reconciliation result so API consumers can see
+  # which sources fed the row and where they disagreed, not just the final value.
+  def data_quality
+    {
+      sources: @card.reconciled_sources,
+      conflicts: @card.data_conflicts
+    }
   end
 end

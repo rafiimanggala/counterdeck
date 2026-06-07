@@ -34,7 +34,12 @@ Rails.application.routes.draw do
   # ---- Versioned JSON API ----
   namespace :api do
     namespace :v1 do
-      resources :cards, only: %i[index show]
+      resources :cards, only: %i[index show] do
+        member do
+          get :printings
+          get :audit
+        end
+      end
       resources :decks, only: %i[index show], param: :slug
     end
   end

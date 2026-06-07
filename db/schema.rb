@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_07_000004) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_07_000006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -49,6 +49,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_07_000004) do
     t.string "image_filename"
     t.integer "level"
     t.integer "linkval"
+    t.jsonb "metadata", default: {}, null: false
     t.string "name"
     t.string "race"
     t.integer "scale"
@@ -56,6 +57,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_07_000004) do
     t.string "ygo_attribute"
     t.bigint "ygo_id"
     t.index ["archetype"], name: "index_cards_on_archetype"
+    t.index ["metadata"], name: "index_cards_on_metadata", using: :gin
     t.index ["name"], name: "index_cards_on_name"
     t.index ["name"], name: "index_cards_on_name_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["ygo_id"], name: "index_cards_on_ygo_id", unique: true
@@ -136,14 +138,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_07_000004) do
   create_table "printings", force: :cascade do |t|
     t.bigint "card_id", null: false
     t.datetime "created_at", null: false
+    t.string "edition", default: "unlimited", null: false
+    t.boolean "foil", default: false, null: false
+    t.string "language", default: "en", null: false
+    t.boolean "promo", default: false, null: false
+    t.string "rarity_tier"
     t.string "set_code"
     t.string "set_name"
     t.decimal "set_price", precision: 12, scale: 2
     t.string "set_rarity"
     t.string "set_rarity_code"
     t.datetime "updated_at", null: false
-    t.index ["card_id", "set_code", "set_rarity"], name: "index_printings_on_card_set_rarity", unique: true
+    t.jsonb "variant_meta", default: {}, null: false
+    t.index ["card_id", "rarity_tier"], name: "index_printings_on_card_and_rarity_tier"
+    t.index ["card_id", "set_code", "set_rarity", "edition"], name: "index_printings_on_card_set_rarity_edition", unique: true
     t.index ["card_id"], name: "index_printings_on_card_id"
+    t.index ["promo"], name: "index_printings_on_promo", where: "promo"
     t.index ["set_code"], name: "index_printings_on_set_code"
   end
 
