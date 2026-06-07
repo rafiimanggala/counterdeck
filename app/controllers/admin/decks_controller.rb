@@ -58,7 +58,7 @@ module Admin
         :name, :archetype, :tier, :formats, :game_plan,
         :going_first_vs_second, :beginner_explanation, :confidence, :status,
         :interruption_points_text,
-        counter_recommendations_attributes: %i[id category card_name note timing position _destroy]
+        counter_recommendations_attributes: %i[id category card_name note timing impact position _destroy]
       )
     end
   end

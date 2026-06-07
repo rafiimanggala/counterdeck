@@ -13,9 +13,15 @@
     <%= f.text_field :timing, placeholder: "When", value: f.object&.timing,
           class: "w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm" %>
   </div>
-  <div class="col-span-3">
+  <div class="col-span-2">
     <%= f.text_field :note, placeholder: "Why / how",
           class: "w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm" %>
+  </div>
+  <div class="col-span-1">
+    <%= f.select :impact,
+          [["Auto", nil]] + CounterRecommendation::IMPACTS.map { |i| [i.titleize, i] },
+          {},
+          class: "w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm", title: "Impact tier (Auto = derived)" %>
   </div>
   <div class="col-span-1 flex items-center justify-center">
     <% if f.object&.persisted? %>

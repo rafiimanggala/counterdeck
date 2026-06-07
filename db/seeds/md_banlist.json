@@ -1,26 +1,99 @@
 {
-  "source": "Konami Yu-Gi-Oh! Master Duel Forbidden & Limited List (in-client)",
-  "captured_on": "2026-06-01",
-  "note": "Master Duel runs its OWN Forbidden & Limited list, distinct from the paper TCG. The YGOPRODeck API exposes ban_tcg / ban_ocg / ban_goat but has NO Master Duel field, so this snapshot is maintained by hand from Konami's published in-client list and reconciled against the TCG status during import. Refresh this file when Konami updates the MD list. The most famous divergence is Maxx \"C\": Forbidden in the TCG, but legal (Limited) in Master Duel.",
+  "source": "masterduelmeta.com Forbidden & Limited (live API, banStatus)",
+  "captured_on": "2026-06-06",
+  "note": "Master Duel runs its OWN F&L list (no YGOPRODeck field). Rebuilt from the live masterduelmeta.com cards API (banStatus: Forbidden / Limited 1 / Limited 2), intersected with the cards we stock. Refresh by re-running tmp/banlist_audit.rb with APPLY=1.",
   "entries": [
-    { "name": "Maxx \"C\"", "status": "limited" },
-    { "name": "Triple Tactics Talent", "status": "limited" },
-    { "name": "Branded Fusion", "status": "limited" },
-    { "name": "Snake-Eyes Flamberge Dragon", "status": "forbidden" },
-    { "name": "Snake-Eye Ash", "status": "limited" },
-    { "name": "Snake-Eye Diabellstar", "status": "limited" },
-    { "name": "Tearlaments Kitkallos", "status": "forbidden" },
-    { "name": "Tearlaments Scheiren", "status": "limited" },
-    { "name": "Tearlaments Havnis", "status": "limited" },
-    { "name": "Sky Striker Mecha - Hornet Drones", "status": "limited" },
-    { "name": "Fiendsmith's Tractus", "status": "limited" },
-    { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "status": "limited" },
-    { "name": "Ash Blossom & Joyous Spring", "status": "semi_limited" },
-    { "name": "Effect Veiler", "status": "unlimited" },
-    { "name": "Infinite Impermanence", "status": "unlimited" },
-    { "name": "Called by the Grave", "status": "semi_limited" },
-    { "name": "Crossout Designator", "status": "limited" },
-    { "name": "Harpie's Feather Duster", "status": "limited" },
-    { "name": "Dimension Shifter", "status": "unlimited" }
+    {
+      "name": "Ame no Habakiri no Mitsurugi",
+      "status": "semi_limited"
+    },
+    {
+      "name": "Branded Expulsion",
+      "status": "forbidden"
+    },
+    {
+      "name": "Branded Fusion",
+      "status": "semi_limited"
+    },
+    {
+      "name": "Called by the Grave",
+      "status": "limited"
+    },
+    {
+      "name": "Crossout Designator",
+      "status": "limited"
+    },
+    {
+      "name": "Cupsy☆Yummy",
+      "status": "limited"
+    },
+    {
+      "name": "Dimension Shifter",
+      "status": "limited"
+    },
+    {
+      "name": "Droll & Lock Bird",
+      "status": "semi_limited"
+    },
+    {
+      "name": "Fiendsmith Engraver",
+      "status": "semi_limited"
+    },
+    {
+      "name": "Harpie's Feather Duster",
+      "status": "limited"
+    },
+    {
+      "name": "Kashtira Unicorn",
+      "status": "semi_limited"
+    },
+    {
+      "name": "Marshmao☆Yummy",
+      "status": "semi_limited"
+    },
+    {
+      "name": "Maxx \"C\"",
+      "status": "limited"
+    },
+    {
+      "name": "Mitsurugi Prayers",
+      "status": "limited"
+    },
+    {
+      "name": "Original Sinful Spoils - Snake-Eye",
+      "status": "limited"
+    },
+    {
+      "name": "Sky Striker Mecha - Hornet Drones",
+      "status": "limited"
+    },
+    {
+      "name": "Snake-Eye Ash",
+      "status": "limited"
+    },
+    {
+      "name": "Tearlaments Havnis",
+      "status": "limited"
+    },
+    {
+      "name": "Tearlaments Kitkallos",
+      "status": "limited"
+    },
+    {
+      "name": "Tearlaments Merrli",
+      "status": "forbidden"
+    },
+    {
+      "name": "Tearlaments Scheiren",
+      "status": "semi_limited"
+    },
+    {
+      "name": "Tearlaments Sulliek",
+      "status": "limited"
+    },
+    {
+      "name": "Yummy★Snatchy",
+      "status": "semi_limited"
+    }
   ]
 }

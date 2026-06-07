@@ -1,52 +1,43 @@
-# Loads the drafted meta-deck counter data (db/seeds/meta_counters.json) into
+# Loads the drafted meta-deck counter sheets (db/seeds/meta_counters.json) into
 # Deck + CounterRecommendation rows.
 #
-# A counter entry's "card" field is often a shorthand or lists several cards in
-# one string ("Effect Veiler / Infinite Impermanence", "Kaijus / Lava Golem").
-# This importer SPLITS those into one recommendation per card so each links to a
-# catalog Card and shows its own banlist badge, and resolves names via:
-#   exact -> alias -> case-insensitive -> pg_trgm fuzzy.
-# Truly descriptive entries ("floodgate breakers post-board") stay as free text.
-# Everything imported is status="draft" pending human verification.
+# A counter entry's "card" field is the human-drafted descriptor, often listing
+# several cards in one string ("Effect Veiler / Infinite Impermanence",
+# "Cupsy/Cooky/Lollipo/Marshmao Yummy"). Rather than guess at seed time, the
+# resolved catalog cards are FROZEN per descriptor in db/seeds/counter_card_links.json
+# (regenerate with `rake counters:resolve_links`). Each recommendation keeps the
+# descriptor verbatim as its card_name and attaches its resolved card art via:
+#   - one card  -> card_id (single staple, shows one face + its banlist badge);
+#   - two+ cards -> counter_recommendation_cards join rows (all halves show art);
+#   - none       -> stays free text (truly descriptive entries, invented pieces).
+# A name fallback (exact -> alias -> case-insensitive) links any freshly added
+# descriptor that has no frozen entry yet. Everything imported is status="draft".
 class CounterSeedImporter
   SEED_PATH = Rails.root.join("db", "seeds", "meta_counters.json")
-  FUZZY_THRESHOLD = 0.55
+  LINKS_PATH = Rails.root.join("db", "seeds", "counter_card_links.json")
 
-  # Common shorthand -> catalog name. Keys are downcased.
+  # Common shorthand -> catalog name (downcased keys), used only by the name
+  # fallback for descriptors with no frozen link entry.
   ALIASES = {
     "maxx c" => 'Maxx "C"',
     'maxx "c"' => 'Maxx "C"',
     "imperm" => "Infinite Impermanence",
-    "infinite imperm" => "Infinite Impermanence",
     "veiler" => "Effect Veiler",
     "ash" => "Ash Blossom & Joyous Spring",
     "ash blossom" => "Ash Blossom & Joyous Spring",
     "belle" => "Ghost Belle & Haunted Mansion",
     "ghost ogre" => "Ghost Ogre & Snow Rabbit",
-    "mst" => "Mystical Space Typhoon",
-    "ttt" => "Triple Tactics Talent",
     "droplet" => "Forbidden Droplet",
     "duster" => "Harpie's Feather Duster",
-    "harpie's feather duster" => "Harpie's Feather Duster",
     "called" => "Called by the Grave",
     "crossout" => "Crossout Designator",
     "nibiru" => "Nibiru, the Primal Being",
-    "lava golem" => "Lava Golem",
     "evenly" => "Evenly Matched",
-    "drnm" => "Dark Ruler No More",
-    "super poly" => "Super Polymerization",
-    # Fix common misspellings in the drafted seed so high-traffic staples link.
     "dd crow" => "D.D. Crow",
-    "d.d crow" => "D.D. Crow",
-    "nibiru, the primordial being" => "Nibiru, the Primal Being",
-    "nibiru the primal being" => "Nibiru, the Primal Being",
-    "ghost bell & haunted mansion" => "Ghost Belle & Haunted Mansion",
-    "ash blossom & spring breeze" => "Ash Blossom & Joyous Spring",
-    "ghost ogre & snow rabbit" => "Ghost Ogre & Snow Rabbit",
     "twin twister" => "Twin Twisters"
   }.freeze
 
-  # Looks like a role/strategy description, not a single card name.
+  # Looks like a role/strategy description, not a card name (never name-linked).
   DESCRIPTIVE = /
     post-board | enabler | floodgate\ breakers | \bremoval\b | \bline\)?$ |
     \bengine\b | \benablers?\b | level\ \d | \betc\.? | spell-trap\ removal |
@@ -55,8 +46,9 @@ class CounterSeedImporter
 
   Result = Struct.new(:decks, :recommendations, :linked, :unlinked, keyword_init: true)
 
-  def initialize(path: SEED_PATH, logger: Rails.logger)
+  def initialize(path: SEED_PATH, links_path: LINKS_PATH, logger: Rails.logger)
     @path = path
+    @links = File.exist?(links_path) ? JSON.parse(File.read(links_path)) : {}
     @logger = logger
     @result = Result.new(decks: 0, recommendations: 0, linked: 0, unlinked: 0)
   end
@@ -80,9 +72,11 @@ class CounterSeedImporter
       going_first_vs_second: entry["going_first_vs_second"],
       beginner_explanation: entry["beginner_explanation"],
       interruption_points: Array(entry["interruption_points"]),
-      confidence: entry["confidence"],
-      status: "draft"
+      confidence: entry["confidence"]
     )
+    # New decks start as draft, but never downgrade a deck a human already
+    # verified: re-seeding refreshes prose/links without undoing verification.
+    deck.status ||= "draft"
     deck.save!
     @result.decks += 1
 
@@ -98,53 +92,45 @@ class CounterSeedImporter
       raw, note, timing = yield(item)
       next if raw.blank?
 
-      names = split_names(raw)
-      names.each_with_index do |name, idx|
-        card = match_card(name)
-        deck.counter_recommendations.create!(
-          category: category,
-          card: card,
-          card_name: name,
-          # Keep the explanation on the first split part only (the rest render adjacent).
-          note: idx.zero? ? note : nil,
-          timing: idx.zero? ? timing : nil,
-          position: position
-        )
-        position += 1
-        @result.recommendations += 1
-        card ? (@result.linked += 1) : (@result.unlinked += 1)
-      end
+      cards = resolve_cards(deck.slug, raw)
+      rec = deck.counter_recommendations.create!(
+        category: category,
+        card_id: cards.one? ? cards.first.id : nil,
+        card_name: raw,
+        note: note,
+        timing: timing,
+        position: position
+      )
+      cards.each_with_index { |card, i| rec.counter_recommendation_cards.create!(card: card, position: i) } if cards.size >= 2
+
+      position += 1
+      @result.recommendations += 1
+      cards.any? ? (@result.linked += 1) : (@result.unlinked += 1)
     end
     position
   end
 
-  # "Effect Veiler / Infinite Impermanence (when they search)" -> ["Effect Veiler", "Infinite Impermanence"]
-  # A descriptive blob is returned whole (one element) so it stays as free text.
-  def split_names(raw)
-    base = raw.to_s.gsub(/\s*\([^)]*\)\s*/, " ").strip   # drop parenthetical notes
-    return [raw.strip] if base.match?(DESCRIPTIVE)         # description: keep verbatim
+  # The catalog cards a descriptor resolves to: the frozen link entry first
+  # (the authoritative, human-verified resolution), then a deterministic name
+  # fallback so a freshly drafted descriptor still links without regeneration.
+  def resolve_cards(deck_slug, raw)
+    ids = Array(@links.dig(deck_slug, raw))
+    cards = ids.filter_map { |id| Card.find_by(ygo_id: id) }.select { |c| c.primary_image&.ygo_image_id }
+    return cards if cards.any?
 
-    parts = base.split(%r{\s*/\s*}).map(&:strip).reject(&:blank?)
-    parts = [base] if parts.empty?
-    # Drop overly long "parts" that are clearly prose, not card names.
-    parts.map { |p| p.length > 45 ? p : p }.reject(&:blank?)
+    card = name_fallback(raw)
+    card ? [card] : []
   end
 
-  # exact -> alias -> case-insensitive -> pg_trgm fuzzy. Never links descriptions.
-  def match_card(name)
-    return nil if name.to_s.match?(DESCRIPTIVE)
+  # exact -> alias -> case-insensitive. Strips parenthetical notes; never links a
+  # role/strategy description. No fuzzy similarity (kept deterministic on purpose).
+  def name_fallback(raw)
+    name = raw.to_s.gsub(/\s*\([^)]*\)\s*/, " ").strip
+    return nil if name.blank? || name.include?("/") || name.match?(DESCRIPTIVE)
 
-    canonical = ALIASES[name.downcase.strip] || name
+    canonical = ALIASES[name.downcase] || name
     Card.find_by(name: canonical) ||
       Card.where("lower(name) = ?", canonical.downcase).first ||
-      Card.where("name ILIKE ?", canonical).first ||
-      fuzzy(canonical)
-  end
-
-  def fuzzy(name)
-    quoted = ActiveRecord::Base.connection.quote(name)
-    Card.where("similarity(name, ?) >= ?", name, FUZZY_THRESHOLD)
-        .order(Arel.sql("similarity(name, #{quoted}) DESC"))
-        .first
+      Card.where("name ILIKE ?", canonical).first
   end
 end

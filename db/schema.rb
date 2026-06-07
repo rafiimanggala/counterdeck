@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_07_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_07_000004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -61,12 +61,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_07_000001) do
     t.index ["ygo_id"], name: "index_cards_on_ygo_id", unique: true
   end
 
+  create_table "counter_recommendation_cards", force: :cascade do |t|
+    t.bigint "card_id", null: false
+    t.bigint "counter_recommendation_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_counter_recommendation_cards_on_card_id"
+    t.index ["counter_recommendation_id", "card_id"], name: "index_crc_on_rec_and_card", unique: true
+    t.index ["counter_recommendation_id"], name: "idx_on_counter_recommendation_id_56cb429829"
+  end
+
   create_table "counter_recommendations", force: :cascade do |t|
     t.bigint "card_id"
     t.string "card_name"
     t.string "category", null: false
     t.datetime "created_at", null: false
     t.bigint "deck_id", null: false
+    t.string "impact"
     t.text "note"
     t.integer "position", default: 0, null: false
     t.string "timing"
@@ -97,8 +109,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_07_000001) do
     t.string "formats"
     t.text "game_plan"
     t.text "going_first_vs_second"
+    t.string "headline"
     t.jsonb "interruption_points", default: [], null: false
     t.string "name"
+    t.jsonb "plays", default: [], null: false
     t.string "slug"
     t.text "source_note"
     t.string "status", default: "draft", null: false
@@ -145,6 +159,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_07_000001) do
 
   add_foreign_key "banlist_entries", "cards"
   add_foreign_key "card_images", "cards"
+  add_foreign_key "counter_recommendation_cards", "cards"
+  add_foreign_key "counter_recommendation_cards", "counter_recommendations"
   add_foreign_key "counter_recommendations", "cards"
   add_foreign_key "counter_recommendations", "decks"
   add_foreign_key "deck_entries", "cards"

@@ -3,6 +3,9 @@ class Deck < ApplicationRecord
   STATUSES = %w[draft verified].freeze
   CONFIDENCE = %w[high medium low].freeze
 
+  # When the curated meta reads were last reviewed (shown so the data is honestly dated).
+  META_AS_OF = "June 2026".freeze
+
   has_many :counter_recommendations, -> { order(:position) }, dependent: :destroy
   accepts_nested_attributes_for :counter_recommendations, allow_destroy: true, reject_if: :all_blank
 
@@ -17,6 +20,14 @@ class Deck < ApplicationRecord
   scope :search, ->(q) { where("name ILIKE :q OR archetype ILIKE :q", q: "%#{sanitize_sql_like(q)}%") if q.present? }
 
   def to_param = slug
+
+  # Numeric importance from the tier string ("Tier 1 (...)" -> 1); rogue/unknown sort last.
+  def tier_rank
+    tier.to_s[/tier\s*(\d+)/i, 1]&.to_i || 9
+  end
+
+  # [{ "they" => "...", "you" => "..." }] plain-language scouting plays.
+  def plays = Array(super)
 
   def key_cards = counter_recommendations.select { |r| r.category == CounterRecommendation::KEY_CARD }
   def hand_traps = counter_recommendations.select { |r| r.category == CounterRecommendation::HAND_TRAP }
