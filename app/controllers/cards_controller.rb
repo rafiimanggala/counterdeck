@@ -6,8 +6,8 @@
 #   show    -> full card detail (effect text + stats), rendered into a modal.
 class CardsController < ApplicationController
   def index
-    cards = Rails.cache.fetch("cards_catalog_index/v1", expires_in: 1.hour) do
-      Card.includes(:card_images).order(:name).map { |c| index_row(c) }
+    cards = Rails.cache.fetch("cards_catalog_index/v2", expires_in: 1.hour) do
+      Card.includes(:card_images, :banlist_entries).order(:name).map { |c| index_row(c) }
     end
     response.set_header("Cache-Control", "public, max-age=300")
     render json: cards
@@ -36,14 +36,14 @@ class CardsController < ApplicationController
     card = CardProvisioner.new.ensure(params[:ygo_id])
     return head :not_found if card.nil?
 
-    render partial: "cards/detail", locals: { card: card }, layout: false
+    render partial: "cards/detail", locals: { card: card, builder: params[:builder].present? }, layout: false
   end
 
   private
 
   def index_row(card)
     img = card.card_images.min_by(&:id)
-    {
+    row = {
       ygo_id: card.ygo_id,
       name: card.name,
       kind: card.card_kind,
@@ -56,5 +56,20 @@ class CardsController < ApplicationController
       archetype: card.archetype,
       img: img&.ygo_image_id
     }
+    ban = banlist_map(card)
+    row[:ban] = ban if ban.any?
+    row
+  end
+
+  # Restricted statuses per format the builder enforces (tcg, md). Unlimited
+  # cards are omitted so the index JSON stays tiny (only ~35 of 210 cards carry
+  # any restriction); the client treats a missing entry as unlimited.
+  def banlist_map(card)
+    card.banlist_entries.each_with_object({}) do |entry, map|
+      next if entry.status == BanlistEntry::UNLIMITED
+      next unless [BanlistEntry::TCG, BanlistEntry::MD].include?(entry.format)
+
+      map[entry.format] = entry.status
+    end
   end
 end

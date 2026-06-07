@@ -1,53 +1,95 @@
-<%# Locals: deck, matchups %>
-<% cat_label = ->(c) { c == CounterRecommendation::BOARD_BREAKER ? "BREAK" : "HOLD" } %>
-<% cat_class = ->(c) { c == CounterRecommendation::BOARD_BREAKER ? "bg-amber-500/20 text-amber-300" : "bg-sky-500/20 text-sky-300" } %>
+<%# Locals: deck (the user's deck), matchups, format (optional) %>
+<%
+  fmt       = local_assigns[:format].presence
+  fmt_label = { "tcg" => "TCG", "md" => "Master Duel", "ocg" => "OCG", "goat" => "GOAT" }[fmt] || "TCG"
+
+  graded = matchups.map { |m| [m, m.weighted_coverage_pct] }
+  # Focus on what needs work: weak/thin matchups, most important decks first.
+  weak  = graded.select { |_m, p| p < 60 }.sort_by { |m, p| [m.deck.tier_rank, p] }.map(&:first)
+  ready = graded.select { |_m, p| p >= 60 }.sort_by { |_m, p| -p }.map(&:first)
+  focus_cap = 6
+  focus = weak.first(focus_cap)
+  more  = weak.drop(focus_cap)
+  any_coverage = matchups.any? { |m| m.have.any? }
+
+  glossary = {
+    "Hand trap" => "A card you use from your hand on the opponent's turn to interrupt their combo.",
+    "Board breaker" => "A card that clears the opponent's set-up when you go second.",
+    "Negate" => "To cancel a card or effect so it does nothing.",
+    "Going second" => "Taking the second turn, so you face their finished board.",
+    "Out" => "Any card that answers a specific threat."
+  }
+%>
 
 <section class="mt-8">
-  <h2 class="text-lg font-bold">Matchups</h2>
-  <p class="mb-3 mt-0.5 text-sm text-slate-500">Which of your cards already answer each meta deck.</p>
+  <div class="flex flex-wrap items-end justify-between gap-2">
+    <div>
+      <div class="flex items-center gap-2">
+        <h2 class="font-display text-lg font-bold tracking-wide">Matchups</h2>
+        <span class="rounded-md border border-slate-800 bg-slate-900 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-400"><%= fmt_label %> banlist</span>
+      </div>
+      <p class="mt-0.5 max-w-prose text-sm text-slate-500">
+        How ready your deck is against each top meta deck. I mapped how each one wins and its best answers; readiness is impact-weighted and follows the <%= fmt_label %> banlist.
+      </p>
+      <p class="mt-0.5 text-xs text-slate-600">Curated reads (my own analysis), as of <%= Deck::META_AS_OF %>.</p>
+    </div>
+    <div class="flex items-center gap-3 text-[11px] text-slate-500">
+      <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-rose-500"></span>Weak</span>
+      <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>Thin</span>
+      <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>Ready</span>
+    </div>
+  </div>
+
+  <details class="mt-2 text-xs text-slate-500">
+    <summary class="cursor-pointer hover:text-slate-300">New to these terms?</summary>
+    <dl class="mt-2 grid gap-x-4 gap-y-1 sm:grid-cols-2">
+      <% glossary.each do |term, meaning| %>
+        <div><dt class="inline font-semibold text-slate-300"><%= term %>:</dt> <dd class="inline text-slate-500"><%= meaning %></dd></div>
+      <% end %>
+    </dl>
+  </details>
 
   <% if deck.deck_entries.empty? %>
-    <p class="rounded-xl border border-dashed border-slate-800 px-4 py-8 text-center text-sm text-slate-600">Add cards to your deck to see matchups.</p>
+    <p class="mt-3 rounded-xl border border-dashed border-slate-800 px-4 py-8 text-center text-sm text-slate-600">Add cards to your deck to see which meta decks you already answer.</p>
+  <% elsif focus.empty? && ready.empty? %>
+    <p class="mt-3 rounded-xl border border-dashed border-slate-800 px-4 py-8 text-center text-sm text-slate-600">No tracked meta decks to compare against yet.</p>
   <% else %>
-    <div class="space-y-3">
-      <% matchups.each do |m| %>
-        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
-          <div class="flex items-center justify-between gap-3">
-            <%= link_to m.deck.name, deck_path(m.deck), class: "font-semibold hover:text-violet-300" %>
-            <span class="shrink-0 text-xs font-medium <%= m.covered? ? 'text-emerald-400' : 'text-slate-500' %>">
-              <%= m.have.size %>/<%= m.total %> outs · <%= m.coverage_pct %>%
-            </span>
-          </div>
-          <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-800">
-            <div class="h-full rounded-full <%= m.covered? ? 'bg-emerald-500' : 'bg-violet-600' %>" style="width: <%= m.coverage_pct %>%"></div>
-          </div>
+    <% unless any_coverage %>
+      <p class="mt-3 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-xs text-slate-400">You don't run answers to these decks yet. Here are the most important to prepare for, with the cards to add and when they matter.</p>
+    <% end %>
 
-          <% if m.have.any? %>
-            <div class="mt-3 flex flex-wrap gap-1.5">
-              <% m.have.each do |item| %>
-                <span class="inline-flex items-center gap-1.5 rounded-lg border border-emerald-800 bg-emerald-950/40 px-2 py-1 text-xs text-emerald-200">
-                  <span class="rounded px-1 py-0.5 text-[10px] font-bold <%= cat_class.(item.rec.category) %>"><%= cat_label.(item.rec.category) %></span>
-                  <%= item.rec.display_name %> ×<%= item.quantity %>
-                </span>
-              <% end %>
-            </div>
-          <% end %>
+    <% if focus.any? %>
+      <h3 class="mb-1.5 mt-4 text-xs font-semibold uppercase tracking-wide text-slate-500">Focus here<% if weak.size > focus.size %> · top <%= focus.size %> of <%= weak.size %><% end %></h3>
+      <div class="divide-y divide-slate-800/70 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40">
+        <% focus.each do |m| %>
+          <%= render "user_decks/matchup_card", m: m, format: fmt %>
+        <% end %>
+      </div>
+    <% end %>
 
-          <% if m.missing.any? %>
-            <details class="mt-2 text-xs">
-              <summary class="cursor-pointer text-slate-500 hover:text-slate-300"><%= m.missing.size %> more out<%= "s" if m.missing.size != 1 %> you could add</summary>
-              <div class="mt-2 flex flex-wrap gap-1.5">
-                <% m.missing.each do |rec| %>
-                  <span class="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 px-2 py-1 text-slate-400">
-                    <span class="rounded px-1 py-0.5 text-[10px] font-bold <%= cat_class.(rec.category) %>"><%= cat_label.(rec.category) %></span>
-                    <%= rec.display_name %>
-                  </span>
-                <% end %>
-              </div>
-            </details>
+    <% if more.any? %>
+      <details class="mt-3">
+        <summary class="cursor-pointer rounded-lg border border-slate-800 px-3 py-2 text-xs font-medium text-slate-400 hover:text-slate-200"><%= more.size %> more matchup<%= "s" if more.size != 1 %> to prepare for</summary>
+        <div class="mt-2 divide-y divide-slate-800/70 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40">
+          <% more.each do |m| %>
+            <%= render "user_decks/matchup_card", m: m, format: fmt %>
           <% end %>
         </div>
-      <% end %>
-    </div>
+      </details>
+    <% end %>
+
+    <% if ready.any? %>
+      <details class="mt-3"<%= " open".html_safe if focus.empty? %>>
+        <summary class="cursor-pointer rounded-lg border border-emerald-900/50 bg-emerald-950/20 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-emerald-400/90 hover:text-emerald-300">
+          You're ready (<%= ready.size %>)
+          <span class="ml-1 flex-wrap gap-1 font-normal normal-case text-emerald-500/70"><%= ready.map { |m| m.deck.name }.join(", ") %></span>
+        </summary>
+        <div class="mt-2 divide-y divide-slate-800/70 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40">
+          <% ready.each do |m| %>
+            <%= render "user_decks/matchup_card", m: m, format: fmt %>
+          <% end %>
+        </div>
+      </details>
+    <% end %>
   <% end %>
 </section>

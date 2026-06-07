@@ -1,13 +1,27 @@
 <%
   ban = counter.card&.banlist_status(format)
   forbidden = ban == "forbidden"
+  scored = CounterRecommendation::CATEGORIES.include?(counter.category) &&
+           [CounterRecommendation::HAND_TRAP, CounterRecommendation::BOARD_BREAKER].include?(counter.category)
+  if scored
+    tier = CounterImpact.tier(counter, format: format)
+    fill_count = { high: 3, medium: 2, low: 1 }[tier]
+    fill_cls   = { high: "bg-rose-500", medium: "bg-amber-400", low: "bg-sky-400" }[tier]
+  end
 %>
 <div class="flex gap-3 rounded-lg border border-slate-800 bg-slate-950 p-3 <%= 'opacity-60' if forbidden %>">
-  <%= render "shared/card_thumb", card: counter.card, size: :sm %>
+  <%= render "shared/card_thumb_row", rec: counter, size: :sm %>
   <div class="min-w-0 flex-1">
     <div class="flex items-start justify-between gap-2">
       <div class="font-medium text-slate-100"><%= counter.display_name %></div>
       <div class="flex shrink-0 items-center gap-1.5">
+        <% if scored %>
+          <span class="flex items-center gap-0.5" role="img" aria-label="<%= tier.to_s.titleize %> impact" title="<%= CounterImpact.label(tier) %>">
+            <% 3.times do |i| %>
+              <span class="h-2.5 w-[3px] rounded-full <%= i < fill_count ? fill_cls : 'bg-slate-700' %>"></span>
+            <% end %>
+          </span>
+        <% end %>
         <% if counter.timing.present? %>
           <span class="rounded bg-slate-800 px-1.5 py-0.5 text-[10px] text-slate-400"><%= counter.timing %></span>
         <% end %>

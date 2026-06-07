@@ -2,67 +2,119 @@
 
 <%= link_to "← All decks", root_path, class: "-ml-2 inline-flex min-h-[44px] items-center px-2 text-sm text-slate-400 hover:text-slate-200" %>
 
-<div class="mt-3 flex items-start justify-between gap-3">
-  <div>
-    <h1 class="text-3xl font-bold tracking-tight"><%= @deck.name %></h1>
-    <p class="text-sm text-slate-500"><%= @deck.archetype %> · <%= @deck.tier %></p>
-  </div>
-  <% if @deck.status == "draft" %>
-    <span class="shrink-0 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-medium text-amber-300">draft · unverified</span>
-  <% end %>
-</div>
+<%
+  is_top     = @deck.tier_rank <= 1
+  tier_short = @deck.tier.to_s[/tier\s*\d+/i]&.titleize || @deck.tier.presence
+  fan        = @deck.preview_cards(4)
+%>
 
-<%# Format toggle, affects which banlist the counter cards show %>
-<div class="mt-4 inline-flex rounded-lg border border-slate-800 bg-slate-900 p-0.5 text-sm">
-  <% { "md" => "Master Duel", "tcg" => "TCG" }.each do |key, label| %>
-    <%= link_to label, deck_path(@deck, format: key),
-          class: "inline-flex min-h-[40px] items-center rounded-md px-4 #{@format == key ? 'bg-violet-600 text-white' : 'text-slate-400 hover:text-slate-200'}" %>
+<%# ---- HERO: identity + signature card art + scout CTA ---- %>
+<section class="relative mt-3 overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-rose-950/30">
+  <% if fan.any? %>
+    <div class="pointer-events-none absolute -right-6 top-1/2 hidden -translate-y-1/2 gap-2 opacity-25 blur-sm sm:flex" aria-hidden="true">
+      <% fan.each_with_index do |c, i| %>
+        <%= image_tag c.primary_image.local_path, alt: "", loading: "lazy",
+              class: "h-40 w-28 rounded-lg border border-rose-500/30 object-cover shadow-xl",
+              style: "transform: rotate(#{(i - 1) * 4}deg)" %>
+      <% end %>
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/85 to-transparent" aria-hidden="true"></div>
   <% end %>
-</div>
 
-<% if @deck.game_plan.present? %>
-  <div class="mt-4 rounded-xl border border-slate-800 bg-slate-900 p-4">
-    <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Their game plan</div>
-    <p class="mt-1 text-sm text-slate-300"><%= @deck.game_plan %></p>
+  <div class="relative p-5 sm:max-w-lg sm:p-6">
+    <div class="flex flex-wrap items-center gap-2">
+      <% if tier_short %>
+        <span class="rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide <%= is_top ? 'bg-rose-500/15 text-rose-300 ring-1 ring-rose-500/40' : 'bg-slate-800 text-slate-300' %>"><%= tier_short %></span>
+      <% end %>
+      <% if @deck.status == "draft" %>
+        <span class="rounded-full bg-amber-500/15 px-2.5 py-0.5 text-xs font-medium text-amber-300">draft · unverified</span>
+      <% end %>
+    </div>
+
+    <h1 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl"><%= @deck.name %></h1>
+    <% if @deck.archetype.present? %>
+      <p class="mt-1 text-sm text-slate-400"><%= @deck.archetype %></p>
+    <% end %>
+    <% if @deck.headline.present? %>
+      <p class="mt-3 max-w-prose text-[15px] leading-relaxed text-slate-300"><%= @deck.headline %></p>
+    <% end %>
+
+    <div class="mt-5 flex flex-wrap items-center gap-3">
+      <%= link_to battle_path(vs: @deck.slug),
+            class: "inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-violet-600 px-4 text-sm font-semibold text-white shadow-lg shadow-violet-900/40 transition hover:bg-violet-500" do %>
+        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
+        Scout in Real Battle
+      <% end %>
+      <div class="inline-flex rounded-lg border border-slate-800 bg-slate-900/70 p-0.5 text-sm" role="group" aria-label="Banlist format">
+        <% { "md" => "Master Duel", "tcg" => "TCG" }.each do |key, label| %>
+          <%= link_to label, deck_path(@deck, fmt: key),
+                "aria-current": (@format == key ? "true" : nil),
+                class: "inline-flex min-h-[40px] items-center rounded-md px-3 font-medium #{@format == key ? 'bg-violet-600 text-white' : 'text-slate-400 hover:text-slate-200'}" %>
+        <% end %>
+      </div>
+    </div>
   </div>
+</section>
+
+<%# ---- Signature cards as art (lead with the visual, tap for full card) ---- %>
+<% if @deck.key_cards.any? %>
+  <section class="mt-7">
+    <div class="mb-3 flex items-baseline gap-2">
+      <h2 class="text-[11px] font-semibold uppercase tracking-widest text-rose-400">Know these on sight</h2>
+      <span class="text-xs text-slate-600"><%= @deck.key_cards.size %> signature card<%= "s" if @deck.key_cards.size != 1 %></span>
+    </div>
+    <div class="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+      <% @deck.key_cards.each_with_index do |kc, i| %>
+        <%= render "shared/threat_card", kc: kc, index: i, primary: false, builder: false %>
+      <% end %>
+    </div>
+  </section>
 <% end %>
 
-<%# ---- STOP: interruption points ---- %>
+<%# ---- How they win ---- %>
+<% if @deck.game_plan.present? %>
+  <section class="mt-7 rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+    <h2 class="mb-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-slate-500">
+      <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 1.5 3 6v8l7 4.5L17 14V6l-7-4.5Zm0 2.3 4.6 3-4.6 3-4.6-3 4.6-3Z"/></svg>
+      How they win
+    </h2>
+    <p class="text-sm leading-relaxed text-slate-300"><%= @deck.game_plan %></p>
+  </section>
+<% end %>
+
+<%# ---- Where to interrupt: a connected timeline, not a wall of text ---- %>
 <% if @deck.interruption_points.any? %>
-  <section class="mt-6">
-    <h2 class="mb-2 flex items-center gap-2 text-lg font-bold">
-      <span class="rounded bg-rose-500/20 px-2 py-0.5 text-sm font-bold text-rose-300">STOP</span>
+  <section class="mt-7">
+    <h2 class="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-rose-400">
+      <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M11 1 3 11h5l-1 8 8-10h-5l1-8Z"/></svg>
       Where to interrupt the combo
     </h2>
-    <ol class="space-y-2">
+    <% disrupt_pool = @deck.counter_recommendations.to_a %>
+    <ol class="relative space-y-3 pl-10" role="list">
+      <span class="absolute bottom-4 left-4 top-4 w-px bg-rose-900/60" aria-hidden="true"></span>
       <% @deck.interruption_points.each_with_index do |ip, i| %>
-        <li class="rounded-lg border border-slate-800 bg-slate-950 p-3">
-          <div class="text-sm font-medium text-rose-200"><%= ip["timing"] %></div>
-          <div class="mt-0.5 text-sm text-slate-400"><%= ip["action"] %></div>
+        <li class="relative" role="listitem" aria-label="Interrupt point <%= i + 1 %>">
+          <span class="absolute -left-10 top-0.5 grid h-8 w-8 place-items-center rounded-full border-2 border-rose-800 bg-rose-950 text-rose-300" aria-hidden="true">
+            <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M11 1 3 11h5l-1 8 8-10h-5l1-8Z"/></svg>
+          </span>
+          <div class="rounded-xl border border-rose-900/50 bg-rose-950/15 p-3">
+            <% if ip["timing"].present? %>
+              <div class="text-sm font-semibold text-rose-200"><%= ip["timing"] %></div>
+            <% end %>
+            <% if ip["action"].present? %>
+              <p class="mt-1 text-sm leading-relaxed text-slate-300"><%= ip["action"] %></p>
+            <% end %>
+            <%= render "shared/play_cards", cards: cards_in_text(ip["action"], disrupt_pool, limit: 3), tone: :disrupt, builder: false %>
+          </div>
         </li>
       <% end %>
     </ol>
   </section>
 <% end %>
 
-<%# ---- Key cards to recognize ---- %>
-<% if @deck.key_cards.any? %>
-  <section class="mt-6">
-    <h2 class="mb-3 text-lg font-bold">Cards to recognize</h2>
-    <div class="grid grid-cols-3 gap-3 sm:grid-cols-4">
-      <% @deck.key_cards.each do |kc| %>
-        <div class="flex flex-col items-center gap-1.5 text-center" title="<%= kc.note %>">
-          <%= render "shared/card_thumb", card: kc.card, size: :md %>
-          <span class="text-xs leading-tight text-slate-400"><%= kc.display_name %></span>
-        </div>
-      <% end %>
-    </div>
-  </section>
-<% end %>
-
-<%# ---- HOLD: hand traps ---- %>
+<%# ---- HOLD: hand traps (your outs) ---- %>
 <% if @deck.hand_traps.any? %>
-  <section class="mt-6">
+  <section class="mt-7">
     <h2 class="mb-2 flex items-center gap-2 text-lg font-bold">
       <span class="rounded bg-sky-500/20 px-2 py-0.5 text-sm font-bold text-sky-300">HOLD</span>
       Hand traps that work
@@ -75,9 +127,9 @@
   </section>
 <% end %>
 
-<%# ---- BREAK: board breakers ---- %>
+<%# ---- BREAK: board breakers (going second) ---- %>
 <% if @deck.board_breakers.any? %>
-  <section class="mt-6">
+  <section class="mt-7">
     <h2 class="mb-2 flex items-center gap-2 text-lg font-bold">
       <span class="rounded bg-amber-500/20 px-2 py-0.5 text-sm font-bold text-amber-300">BREAK</span>
       Clear their board (going second)
@@ -91,20 +143,20 @@
 <% end %>
 
 <% if @deck.going_first_vs_second.present? %>
-  <section class="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-4">
+  <section class="mt-7 rounded-xl border border-slate-800 bg-slate-900/50 p-4">
     <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Going first vs second</div>
-    <p class="mt-1 text-sm text-slate-300"><%= @deck.going_first_vs_second %></p>
+    <p class="mt-1 text-sm leading-relaxed text-slate-300"><%= @deck.going_first_vs_second %></p>
   </section>
 <% end %>
 
 <% if @deck.beginner_explanation.present? %>
-  <details class="mt-4 rounded-xl border border-slate-800 bg-slate-900 p-4">
+  <details class="mt-4 rounded-xl border border-slate-800 bg-slate-900/50 p-4">
     <summary class="cursor-pointer text-sm font-semibold text-slate-300">New to this matchup? Read this</summary>
-    <p class="mt-2 text-sm text-slate-400"><%= @deck.beginner_explanation %></p>
+    <p class="mt-2 text-sm leading-relaxed text-slate-400"><%= @deck.beginner_explanation %></p>
   </details>
 <% end %>
 
-<p class="mt-6 text-xs text-slate-600">
+<p class="mt-7 text-xs text-slate-600">
   <% if @deck.confidence.present? %>Draft confidence: <%= @deck.confidence %>. <% end %>
   Counter data is community/AI-drafted and human-reviewed. Always double-check current rulings.
 </p>

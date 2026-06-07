@@ -1,10 +1,22 @@
-<%# Full card detail (effect text + stats). Locals: card. Rendered into the
-    global card-modal overlay. %>
+<%# Full card detail. Locals: card, builder (optional bool). Rendered into the
+    global card-modal overlay. The image is shown large; in the deck builder an
+    "Add to deck" control is appended. %>
+<% builder = local_assigns.fetch(:builder, false) %>
 <% mono = card.frame_type.to_s %>
-<article class="overflow-hidden rounded-2xl border border-slate-700 bg-slate-900">
-  <div class="flex gap-4 border-b border-slate-800 p-4">
-    <%= render "shared/card_thumb", card: card, size: :lg %>
-    <div class="min-w-0 flex-1">
+<% img_src = card.primary_image&.local_path || "/card_images/#{card.ygo_id}.jpg" %>
+<article class="flex max-h-[86vh] flex-col overflow-hidden rounded-2xl border border-slate-700 bg-slate-900 sm:flex-row">
+  <%# ---- Large card image ---- %>
+  <div class="shrink-0 border-b border-slate-800 bg-slate-950/60 p-4 sm:border-b-0 sm:border-r">
+    <div class="mx-auto w-44 overflow-hidden rounded-xl border border-slate-800 shadow-2xl shadow-black/40 sm:w-56">
+      <%= image_tag img_src, alt: card.name, loading: "lazy",
+            data: { art: "1", mono: card.name.to_s[0, 2].upcase },
+            class: "block aspect-[59/86] w-full bg-slate-900 object-cover" %>
+    </div>
+  </div>
+
+  <%# ---- Details (scrolls independently for long effect text) ---- %>
+  <div class="flex min-w-0 flex-1 flex-col overflow-y-auto">
+    <div class="border-b border-slate-800 p-4">
       <h2 class="font-display text-xl font-bold leading-tight text-slate-50"><%= card.name %></h2>
       <p class="mt-1 text-sm text-slate-400"><%= card.card_kind %></p>
       <div class="mt-2 flex flex-wrap gap-1.5 text-xs">
@@ -19,41 +31,56 @@
         <% end %>
       </div>
     </div>
-  </div>
 
-  <% stats = [] %>
-  <% stats << ["Level/Rank", card.level] if card.level.present? && card.level.to_i.positive? %>
-  <% stats << ["Link", card.linkval] if card.linkval.present? && card.linkval.to_i.positive? %>
-  <% stats << ["Pendulum Scale", card.scale] if card.scale.present? && card.scale.to_i.positive? %>
-  <% stats << ["ATK", card.atk] if card.atk.present? %>
-  <% stats << ["DEF", card.defense] if card.defense.present? && !mono.include?("link") %>
-  <% if stats.any? %>
-    <dl class="grid grid-cols-2 gap-px border-b border-slate-800 bg-slate-800 sm:grid-cols-4">
-      <% stats.each do |label, value| %>
-        <div class="bg-slate-900 px-3 py-2">
-          <dt class="text-[10px] uppercase tracking-wide text-slate-500"><%= label %></dt>
-          <dd class="text-sm font-semibold text-slate-100"><%= value %></dd>
-        </div>
-      <% end %>
-    </dl>
-  <% end %>
-
-  <% if card.card_text.present? %>
-    <div class="px-4 py-3">
-      <div class="mb-1 text-[10px] font-semibold uppercase tracking-wide text-slate-500">Card text</div>
-      <p class="whitespace-pre-line text-sm leading-relaxed text-slate-300"><%= card.card_text %></p>
-    </div>
-  <% end %>
-
-  <div class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-800 px-4 py-3 text-xs">
-    <% %w[tcg md].each do |fmt| %>
-      <span class="flex items-center gap-1.5">
-        <span class="uppercase text-slate-500"><%= fmt %></span>
-        <%= render "shared/ban_badge", status: card.banlist_status(fmt) %>
-      </span>
+    <% stats = [] %>
+    <% stats << ["Level/Rank", card.level] if card.level.present? && card.level.to_i.positive? %>
+    <% stats << ["Link", card.linkval] if card.linkval.present? && card.linkval.to_i.positive? %>
+    <% stats << ["Pendulum Scale", card.scale] if card.scale.present? && card.scale.to_i.positive? %>
+    <% stats << ["ATK", card.atk] if card.atk.present? %>
+    <% stats << ["DEF", card.defense] if card.defense.present? && !mono.include?("link") %>
+    <% if stats.any? %>
+      <dl class="grid grid-cols-2 gap-px border-b border-slate-800 bg-slate-800 sm:grid-cols-4">
+        <% stats.each do |label, value| %>
+          <div class="bg-slate-900 px-3 py-2">
+            <dt class="text-[10px] uppercase tracking-wide text-slate-500"><%= label %></dt>
+            <dd class="text-sm font-semibold text-slate-100"><%= value %></dd>
+          </div>
+        <% end %>
+      </dl>
     <% end %>
-    <% if card.lowest_price %>
-      <span class="ml-auto text-slate-500">from $<%= format("%.2f", card.lowest_price) %></span>
+
+    <% if card.card_text.present? %>
+      <div class="px-4 py-3">
+        <div class="mb-1 text-[10px] font-semibold uppercase tracking-wide text-slate-500">Card text</div>
+        <p class="whitespace-pre-line text-sm leading-relaxed text-slate-300"><%= card.card_text %></p>
+      </div>
+    <% end %>
+
+    <div class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-800 px-4 py-3 text-xs">
+      <% %w[tcg md].each do |fmt| %>
+        <span class="flex items-center gap-1.5">
+          <span class="uppercase text-slate-500"><%= fmt %></span>
+          <%= render "shared/ban_badge", status: card.banlist_status(fmt) %>
+        </span>
+      <% end %>
+      <% if card.lowest_price %>
+        <span class="ml-auto text-slate-500">from $<%= format("%.2f", card.lowest_price) %></span>
+      <% end %>
+    </div>
+
+    <% if builder %>
+      <div class="flex gap-2 border-t border-slate-800 p-3">
+        <button type="button" data-action="card-modal#requestAdd"
+                data-ygo="<%= card.ygo_id %>" data-kind="<%= card.card_kind %>" data-name="<%= card.name %>"
+                class="flex-1 rounded-lg bg-violet-600 px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-400">
+          + Add to deck
+        </button>
+        <button type="button" data-action="card-modal#requestAdd"
+                data-ygo="<%= card.ygo_id %>" data-kind="<%= card.card_kind %>" data-name="<%= card.name %>" data-zone="side"
+                class="rounded-lg border border-slate-700 px-3 py-2.5 text-sm font-medium text-slate-300 transition hover:border-violet-600 hover:text-violet-300 focus:outline-none focus:ring-2 focus:ring-violet-400">
+          To side
+        </button>
+      </div>
     <% end %>
   </div>
 </article>

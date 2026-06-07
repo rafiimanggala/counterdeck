@@ -4,7 +4,8 @@ class DeckBuilderTest < ActionDispatch::IntegrationTest
   setup do
     @ash = Card.create!(ygo_id: 14558127, name: "Ash Blossom & Joyous Spring", card_kind: "Effect Monster")
     # A meta deck whose hand-trap counter links to Ash (so a user running Ash covers it).
-    @meta = Deck.create!(name: "Branded Despia")
+    # Verified, since the matchups view only surfaces verified meta decks.
+    @meta = Deck.create!(name: "Branded Despia", status: "verified")
     @meta.counter_recommendations.create!(category: CounterRecommendation::HAND_TRAP, card_name: @ash.name)
   end
 
@@ -41,10 +42,41 @@ class DeckBuilderTest < ActionDispatch::IntegrationTest
     post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }
 
     # Matchups are loaded lazily through a dedicated frame endpoint, not the show body.
-    get matchups_user_deck_path(deck)
+    get matchups_user_deck_path(deck), headers: { "Turbo-Frame" => "matchups" }
     assert_response :success
     assert_match(/Branded Despia/, response.body)
     assert_match(/Ash Blossom/, response.body)
+  end
+
+  # Regression: the banlist format MUST ride on a param named "banlist", never
+  # "format" - Rails reads params[:format] as the response MIME type, so
+  # ?format=md made it hunt for a (nonexistent) matchups.md.erb and 500.
+  # formats: :html keeps even a stale ?format=md client from 500ing.
+  test "matchups frame accepts a banlist format param for tcg and md" do
+    post user_decks_path, params: { user_deck: { name: "My Deck" } }
+    deck = UserDeck.last
+    post user_deck_deck_entries_path(deck), params: { ygo_id: @ash.ygo_id, zone: "main" }
+
+    %w[tcg md].each do |fmt|
+      get matchups_user_deck_path(deck, banlist: fmt), headers: { "Turbo-Frame" => "matchups" }
+      assert_response :success, "banlist=#{fmt} should render the HTML matchups frame"
+      assert_match(/Branded Despia/, response.body)
+    end
+
+    # A stale client still sending ?format=md must NOT 500 (forced HTML render).
+    get matchups_user_deck_path(deck, format: "md"), headers: { "Turbo-Frame" => "matchups" }
+    assert_response :success
+    assert_match(/Branded Despia/, response.body)
+  end
+
+  # The frame endpoint is layout-less; opening it directly (no Turbo-Frame header)
+  # would render unstyled, so it redirects to the full styled deck page.
+  test "matchups opened directly (not a frame request) redirects to the deck" do
+    post user_decks_path, params: { user_deck: { name: "My Deck" } }
+    deck = UserDeck.last
+
+    get matchups_user_deck_path(deck)
+    assert_redirected_to user_deck_path(deck)
   end
 
   test "update quantity and delete an entry" do

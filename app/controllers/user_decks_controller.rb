@@ -28,8 +28,17 @@ class UserDecksController < ApplicationController
   # Loaded lazily (and refreshed after edits) so the expensive reverse
   # counter-match never blocks an add. Renders just the matchups frame.
   def matchups
-    @matchups = DeckMatchup.new(@deck).matchups
-    render :matchups, layout: false
+    # This renders a bare turbo-frame fragment (layout: false). Opened directly in
+    # a browser it would show unstyled (no Tailwind), so bounce a non-frame request
+    # back to the styled deck page where the frame loads in context.
+    return redirect_to(user_deck_path(@deck)) unless turbo_frame_request?
+
+    # The banlist format rides on the "banlist" param (NOT "format": Rails reads
+    # params[:format] as the response MIME type). formats: :html is belt-and-braces
+    # so a stale client still sending ?format=md can never 500 with MissingTemplate.
+    @format = params[:banlist].to_s.presence_in(BanlistEntry::FORMATS)
+    @matchups = DeckMatchup.new(@deck, format: @format).matchups
+    render :matchups, layout: false, formats: :html
   end
 
   def edit; end

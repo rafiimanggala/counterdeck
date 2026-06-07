@@ -17,9 +17,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
+  <% shell = content_for?(:wide) ? "max-w-6xl" : "max-w-3xl" %>
   <body class="h-full bg-slate-950 text-slate-100 antialiased" data-controller="card-modal">
     <header class="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
-      <div class="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
+      <div class="mx-auto flex <%= shell %> items-center justify-between px-4 py-3">
         <%= link_to root_path, class: "flex items-center gap-2 font-bold tracking-tight" do %>
           <span class="inline-block h-5 w-5 rounded bg-violet-500"></span>
           <span class="font-display text-lg tracking-wide">Counter<span class="text-violet-400">Deck</span></span>
@@ -27,6 +28,7 @@
         <nav class="-my-2 flex items-center gap-1 text-sm text-slate-400">
           <%= link_to "Decks", root_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
           <%= link_to "My Decks", user_decks_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
+          <%= link_to "Battle", battle_path, class: "inline-flex min-h-[44px] items-center px-2 font-semibold text-violet-300 hover:text-violet-200" %>
           <%= link_to "Scan", scan_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
           <%= link_to "Admin", admin_root_path, class: "inline-flex min-h-[44px] items-center px-2 hover:text-slate-100" %>
         </nav>
@@ -34,25 +36,26 @@
     </header>
 
     <% if notice.present? %>
-      <div class="mx-auto max-w-3xl px-4 pt-4">
+      <div class="mx-auto <%= shell %> px-4 pt-4">
         <p class="rounded-lg border border-emerald-700 bg-emerald-950 px-4 py-2 text-sm text-emerald-300"><%= notice %></p>
       </div>
     <% end %>
 
-    <main class="mx-auto max-w-3xl px-4 py-6">
+    <main class="mx-auto <%= shell %> px-4 py-6">
       <%= yield %>
     </main>
 
-    <footer class="mx-auto max-w-3xl px-4 py-10 text-xs text-slate-600">
+    <footer class="mx-auto <%= shell %> px-4 py-10 text-xs text-slate-600">
       CounterDeck. Card data via YGOPRODeck. Not affiliated with Konami.
     </footer>
 
     <%# Global card-detail modal (opened by any element with data-action="card-modal#open" data-url="/cards/:id"). %>
     <div data-card-modal-target="overlay" data-action="click->card-modal#backdrop"
+         role="dialog" aria-modal="true" aria-label="Card details"
          class="hidden fixed inset-0 z-50 grid place-items-start overflow-y-auto bg-slate-950/80 p-4 backdrop-blur-sm sm:place-items-center">
-      <div class="relative w-full max-w-md">
+      <div class="relative w-full max-w-2xl sm:my-auto">
         <button type="button" data-action="card-modal#close" aria-label="Close"
-                class="absolute -top-2 -right-2 z-10 grid h-8 w-8 place-items-center rounded-full border border-slate-700 bg-slate-900 text-slate-400 hover:text-slate-100">✕</button>
+                class="absolute -top-3 -right-3 z-10 grid h-9 w-9 place-items-center rounded-full border border-slate-700 bg-slate-900 text-slate-300 shadow-lg hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-400">✕</button>
         <div data-card-modal-target="content"></div>
       </div>
     </div>
