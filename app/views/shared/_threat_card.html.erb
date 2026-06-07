@@ -1,0 +1,50 @@
+<%#
+  One enemy threat: the named card(s) as rose-ringed art (both halves of a
+  "X / Y" descriptor), an index badge, an optional "key" flag, and a tap that
+  opens each card's modal. A legible rose monogram stands in for the few invented
+  archetype pieces with no catalog card. Shared by the Real Battle threat board
+  and the public deck page's "cards to recognize".
+  Locals: kc (CounterRecommendation), index (Integer),
+          primary (bool, default false), builder (bool, default false).
+%>
+<%
+  primary = local_assigns.fetch(:primary, false)
+  builder = local_assigns.fetch(:builder, false)
+  cards   = kc.display_cards.first(3)
+  name    = kc.display_name
+  ring    = primary ? "ring-rose-400" : "ring-rose-500/60"
+%>
+<div class="relative w-24 shrink-0 snap-start sm:w-full" role="group"
+     aria-label="Threat <%= index + 1 %>: <%= name %><%= ', must answer' if primary %>">
+  <div class="flex flex-wrap gap-1">
+    <% if cards.any? %>
+      <%# single card fills the tile; multiple cards each keep a 44px tap target and wrap %>
+      <% width = cards.size == 1 ? "w-full" : "w-11" %>
+      <% cards.each do |c| %>
+        <button type="button" data-action="card-modal#open" data-url="/cards/<%= c.ygo_id %><%= '?builder=1' if builder %>"
+                title="<%= c.name %>" aria-label="<%= c.name %>"
+                class="group relative block <%= width %> rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400">
+          <span class="relative block overflow-hidden rounded-lg ring-2 <%= ring %> transition group-hover:ring-rose-300">
+            <%= image_tag c.primary_image.local_path, alt: "", loading: "lazy", class: "block aspect-[59/86] w-full bg-slate-900 object-cover" %>
+            <span class="absolute inset-x-0 bottom-0 h-1 bg-rose-500" aria-hidden="true"></span>
+          </span>
+        </button>
+      <% end %>
+    <% else %>
+      <span class="relative block w-full overflow-hidden rounded-lg ring-2 <%= ring %>">
+        <span class="flex aspect-[59/86] w-full flex-col items-center justify-center gap-1 bg-rose-950/50 px-1 text-center">
+          <span class="font-display text-base font-bold uppercase text-rose-300"><%= name.to_s.split(%r{[\s/]+}).filter_map { |w| w[0] }.first(3).join %></span>
+          <span class="line-clamp-2 text-[9px] leading-tight text-rose-200/60"><%= name %></span>
+        </span>
+        <span class="absolute inset-x-0 bottom-0 h-1 bg-rose-500" aria-hidden="true"></span>
+      </span>
+    <% end %>
+  </div>
+  <span class="absolute left-1 top-1 z-10 grid h-4 w-4 place-items-center rounded bg-rose-600 text-[10px] font-bold text-white shadow" aria-hidden="true"><%= index + 1 %></span>
+  <% if primary %>
+    <span class="absolute right-1 top-1 z-10 inline-flex items-center gap-0.5 rounded bg-rose-500 px-1 text-[9px] font-bold uppercase text-white shadow" aria-hidden="true">
+      <svg class="h-2.5 w-2.5" viewBox="0 0 20 20" fill="currentColor"><path d="M11 1 3 11h5l-1 8 8-10h-5l1-8Z"/></svg>Key
+    </span>
+  <% end %>
+  <span class="mt-1 block truncate text-[11px] leading-tight text-slate-400" title="<%= name %>"><%= name %></span>
+</div>

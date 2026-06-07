@@ -1,0 +1,45 @@
+<%#
+  One counter shown as its actual card face (the "gambaran"): a thumbnail with
+  a tier-coloured ring (impact), an emerald x-count badge when owned, and a
+  faded look when it is an out you are missing. Clicking opens the big detail
+  modal (with an Add button, since matchups live on the builder page).
+  Falls back to a small text chip for free-text counters with no linked card.
+  Locals: rec, owned (bool), tier (:high|:medium|:low), quantity (Integer|nil)
+%>
+<%
+  t        = tier.to_sym
+  ring     = { high: "ring-rose-500/80", medium: "ring-amber-400/80", low: "ring-sky-400/70" }[t]
+  strip    = { high: "bg-rose-500", medium: "bg-amber-400", low: "bg-sky-400" }[t]
+  cards    = rec.display_cards.first(3)
+  name     = rec.display_name
+  state    = owned ? (quantity ? " (#{quantity} in your deck)" : " (in your deck)") : " (you don't run this)"
+  label    = "#{name} - #{CounterImpact.label(t)} impact#{state}"
+%>
+<% if cards.any? %>
+  <div class="flex shrink-0 gap-1" title="<%= label %>">
+    <% cards.each_with_index do |c, i| %>
+      <button type="button" data-action="card-modal#open" data-url="/cards/<%= c.ygo_id %>?builder=1"
+              class="group relative block w-12 shrink-0 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400" aria-label="<%= i.zero? ? label : c.name %>">
+        <span class="block overflow-hidden rounded-md ring-2 <%= ring %> transition group-hover:ring-4 <%= "opacity-55 saturate-50" unless owned %>">
+          <%= image_tag c.primary_image.local_path, alt: "", loading: "lazy",
+                class: "block aspect-[59/86] w-full bg-slate-900 object-cover" %>
+        </span>
+        <span class="absolute inset-x-0 bottom-0 h-1 <%= strip %>" aria-hidden="true"></span>
+        <% if owned && quantity && i == cards.size - 1 %>
+          <span class="absolute -right-1.5 -top-1.5 grid h-4 min-w-[1rem] place-items-center rounded-full bg-emerald-600 px-1 text-[10px] font-bold text-white shadow ring-1 ring-emerald-900">&times;<%= quantity %></span>
+        <% end %>
+      </button>
+    <% end %>
+  </div>
+<% else %>
+  <%
+    is_break = rec.category == CounterRecommendation::BOARD_BREAKER
+    letter_cls = is_break ? "bg-amber-500/25 text-amber-300" : "bg-sky-500/25 text-sky-300"
+    chip_cls = owned ? "border-emerald-700 bg-emerald-950/40 text-emerald-100" : "border-slate-800 text-slate-400"
+  %>
+  <span class="inline-flex items-center gap-1.5 rounded-lg border <%= chip_cls %> px-2 py-1 text-xs" title="<%= label %>">
+    <span class="grid h-4 w-4 shrink-0 place-items-center rounded text-[10px] font-bold <%= letter_cls %>" aria-hidden="true"><%= is_break ? "B" : "H" %></span>
+    <span class="truncate"><%= name %><%= " ×#{quantity}" if owned && quantity %></span>
+    <span class="h-2 w-2 shrink-0 rounded-full <%= strip %>" role="img" aria-label="<%= t.to_s.titleize %> impact"></span>
+  </span>
+<% end %>

@@ -1,0 +1,29 @@
+<%#
+  A recommendation as card art: one thumbnail per named card (both halves of a
+  "X / Y" counter), or a legible monogram when nothing resolved (a few invented
+  archetype pieces have no catalog card). Tap a thumb to open its card modal.
+  Locals: rec (CounterRecommendation), size (:sm default | :md), builder (bool).
+%>
+<%
+  size    = local_assigns.fetch(:size, :sm)
+  builder = local_assigns.fetch(:builder, false)
+  dims    = { sm: "h-16 w-12", md: "h-20 w-14" }[size] || "h-16 w-12"
+  cards   = rec.display_cards.first(3)
+%>
+<% if cards.any? %>
+  <div class="flex shrink-0 gap-1">
+    <% cards.each do |c| %>
+      <button type="button" data-action="card-modal#open" data-url="/cards/<%= c.ygo_id %><%= '?builder=1' if builder %>"
+              title="<%= c.name %>" aria-label="<%= c.name %>"
+              class="group shrink-0 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400">
+        <%= image_tag c.primary_image.local_path, alt: "", loading: "lazy",
+              class: "#{dims} rounded-lg border border-slate-800 bg-slate-900 object-cover transition group-hover:border-slate-600" %>
+      </button>
+    <% end %>
+  </div>
+<% else %>
+  <div class="<%= dims %> grid shrink-0 place-items-center rounded-lg border border-slate-800 bg-slate-900 px-0.5 text-center text-[10px] font-bold uppercase leading-none text-slate-500"
+       title="<%= rec.display_name %>">
+    <%= rec.display_name.to_s.split(%r{[\s/]+}).filter_map { |w| w[0] }.first(3).join %>
+  </div>
+<% end %>

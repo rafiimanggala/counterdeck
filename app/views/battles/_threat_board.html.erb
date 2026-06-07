@@ -1,0 +1,27 @@
+<%#
+  Their field: the enemy's signature/threat cards as real art, so you read the
+  board you have to beat. The first card is flagged as the must-answer threat.
+  These are NOT faded (present danger). Tap any -> card modal. Locals: enemy.
+%>
+<% threats = enemy.key_cards %>
+<section class="mt-6">
+  <div class="mb-2 flex items-baseline gap-2">
+    <h2 class="text-[11px] font-semibold uppercase tracking-widest text-rose-400">Their board</h2>
+    <span class="text-xs text-slate-600"><%= threats.size %> threat<%= "s" if threats.size != 1 %></span>
+  </div>
+
+  <% if threats.any? %>
+    <div class="flex snap-x gap-3 overflow-x-auto pb-1 sm:grid sm:grid-cols-5 sm:overflow-visible lg:grid-cols-6">
+      <% threats.each_with_index do |kc, i| %>
+        <%= render "shared/threat_card", kc: kc, index: i, primary: i.zero?, builder: true %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="flex gap-3">
+      <% 3.times do %>
+        <span class="block aspect-[59/86] w-20 rounded-lg border border-dashed border-slate-800 bg-slate-900/30"></span>
+      <% end %>
+      <span class="self-center text-xs text-slate-600">No scouted threats yet.</span>
+    </div>
+  <% end %>
+</section>

@@ -1,0 +1,109 @@
+<%#
+  The pre-battle lobby: pick YOUR deck (violet) and the ENEMY meta deck (rose),
+  plus the banlist toggle. Selecting either side is a normal link that preserves
+  the other side's choice (Turbo Drive keeps it fast). Locals: to (lambda that
+  builds a battle_path with the current mine/vs/banlist, overridable per call).
+%>
+<div class="sticky top-0 z-20 -mx-4 mb-6 border-b border-slate-800 bg-slate-950/95 px-4 py-2.5 backdrop-blur">
+  <div class="flex flex-wrap items-center gap-2">
+
+    <%# ---- YOUR deck ---- %>
+    <details class="relative">
+      <summary aria-label="Choose your deck" class="flex min-h-[44px] cursor-pointer list-none items-center gap-2 rounded-xl border border-violet-700 bg-violet-950/40 px-3 py-1.5 hover:border-violet-500">
+        <span class="text-[10px] font-semibold uppercase tracking-wide text-violet-400">You</span>
+        <% if @my_deck %>
+          <span class="max-w-[9rem] truncate text-sm font-semibold text-slate-100"><%= @my_deck.name %></span>
+          <span class="flex" aria-hidden="true">
+            <% @my_deck.main_entries.first(3).each_with_index do |e, i| %>
+              <% img = e.card&.primary_image&.ygo_image_id %>
+              <% if img %>
+                <%= image_tag "/card_images/#{img}.jpg", alt: "", loading: "lazy", class: "h-7 w-5 #{'-ml-2' if i.positive?} rounded border border-slate-950 object-cover" %>
+              <% end %>
+            <% end %>
+          </span>
+        <% else %>
+          <span class="text-sm text-slate-400">Pick your deck</span>
+        <% end %>
+        <svg class="h-4 w-4 text-slate-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.2 7.5a1 1 0 0 1 1.4 0L10 10.9l3.4-3.4a1 1 0 1 1 1.4 1.4l-4.1 4.1a1 1 0 0 1-1.4 0L5.2 8.9a1 1 0 0 1 0-1.4Z" clip-rule="evenodd"/></svg>
+      </summary>
+      <div class="absolute left-0 z-30 mt-1 max-h-80 w-64 overflow-y-auto rounded-xl border border-slate-800 bg-slate-900 p-1 shadow-xl">
+        <% if @my_decks.any? %>
+          <% @my_decks.each do |ud| %>
+            <%= link_to to.call(mine: ud.slug),
+                  "aria-current": (ud == @my_deck).to_s,
+                  class: "flex min-h-[44px] items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm hover:bg-slate-800 #{'bg-slate-800 text-violet-200' if ud == @my_deck}" do %>
+              <span class="truncate"><%= ud.name %></span>
+              <span class="shrink-0 text-xs text-slate-500"><%= ud.card_count %> cards</span>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= link_to "Build a new deck", new_user_deck_path, class: "mt-1 flex min-h-[44px] items-center rounded-lg border-t border-slate-800 px-3 py-2 text-sm text-violet-300 hover:bg-slate-800" %>
+      </div>
+    </details>
+
+    <span class="font-display text-xs font-bold tracking-wider text-slate-600">VS</span>
+
+    <%# ---- ENEMY deck (searchable) ---- %>
+    <details class="relative" data-controller="battle-picker">
+      <summary aria-label="Choose the enemy deck" class="flex min-h-[44px] cursor-pointer list-none items-center gap-2 rounded-xl border border-rose-900 bg-rose-950/30 px-3 py-1.5 hover:border-rose-700">
+        <span class="text-[10px] font-semibold uppercase tracking-wide text-rose-400">Enemy</span>
+        <% if @enemy %>
+          <% is_top = @enemy.tier_rank <= 1 %>
+          <span class="max-w-[9rem] truncate text-sm font-semibold text-slate-100"><%= @enemy.name %></span>
+          <% if (tn = @enemy.tier.to_s[/tier\s*\d+/i]&.titleize) %>
+            <span class="shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide <%= is_top ? 'bg-rose-500/15 text-rose-300' : 'bg-slate-800 text-slate-400' %>"><%= tn %></span>
+          <% end %>
+          <span class="flex" aria-hidden="true">
+            <% @enemy.preview_cards(3).each_with_index do |c, i| %>
+              <% img = c.primary_image&.ygo_image_id %>
+              <% if img %>
+                <%= image_tag "/card_images/#{img}.jpg", alt: "", loading: "lazy", class: "h-7 w-5 #{'-ml-2' if i.positive?} rounded border border-slate-950 object-cover" %>
+              <% end %>
+            <% end %>
+          </span>
+        <% else %>
+          <span class="text-sm text-slate-400">Pick an enemy to scout</span>
+        <% end %>
+        <svg class="h-4 w-4 text-slate-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.2 7.5a1 1 0 0 1 1.4 0L10 10.9l3.4-3.4a1 1 0 1 1 1.4 1.4l-4.1 4.1a1 1 0 0 1-1.4 0L5.2 8.9a1 1 0 0 1 0-1.4Z" clip-rule="evenodd"/></svg>
+      </summary>
+      <div class="absolute left-0 z-30 mt-1 max-h-[26rem] w-72 overflow-y-auto rounded-xl border border-slate-800 bg-slate-900 p-2 shadow-xl">
+        <input type="search" placeholder="Search meta decks..." autocomplete="off" aria-label="Search meta decks"
+               data-battle-picker-target="query" data-action="input->battle-picker#filter"
+               class="mb-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm focus:border-rose-500 focus:outline-none">
+        <div class="grid grid-cols-2 gap-1.5">
+          <% @meta_decks.each do |d| %>
+            <% is_top = d.tier_rank <= 1 %>
+            <%= link_to to.call(vs: d.slug),
+                  data: { "battle-picker-target": "item", name: "#{d.name} #{d.archetype}" },
+                  class: "group rounded-lg border p-1.5 transition hover:border-rose-600 #{d == @enemy ? 'border-rose-600 bg-rose-950/30' : 'border-slate-800 bg-slate-950'}" do %>
+              <div class="flex gap-1" aria-hidden="true">
+                <% d.preview_cards(3).each do |c| %>
+                  <% img = c.primary_image&.ygo_image_id %>
+                  <% if img %>
+                    <%= image_tag "/card_images/#{img}.jpg", alt: "", loading: "lazy", class: "h-12 w-[34px] rounded border border-slate-800 object-cover" %>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="mt-1 truncate text-xs font-semibold text-slate-200 group-hover:text-rose-200"><%= d.name %></div>
+              <div class="flex items-center gap-1">
+                <% if (tn = d.tier.to_s[/tier\s*\d+/i]&.titleize) %>
+                  <span class="rounded px-1 text-[9px] font-semibold uppercase <%= is_top ? 'bg-rose-500/15 text-rose-300' : 'bg-slate-800 text-slate-500' %>"><%= tn %></span>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <p data-battle-picker-target="empty" hidden class="px-2 py-6 text-center text-xs text-slate-500">No meta decks match.</p>
+      </div>
+    </details>
+
+    <%# ---- banlist toggle ---- %>
+    <div class="ml-auto inline-flex rounded-lg border border-slate-800 bg-slate-900 p-0.5 text-xs" role="group" aria-label="Banlist format">
+      <% %w[tcg md].each do |f| %>
+        <%= link_to f.upcase, to.call(banlist: f),
+              "aria-current": (@format == f ? "true" : nil),
+              class: "rounded-md px-2.5 py-1 font-semibold #{@format == f ? 'bg-violet-600 text-white' : 'text-slate-400 hover:text-slate-200'}" %>
+      <% end %>
+    </div>
+  </div>
+</div>

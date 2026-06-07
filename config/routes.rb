@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     member { get :matchups }
     resources :deck_entries, only: %i[create update destroy]
   end
+  # ---- Real Battle: your deck vs one meta deck, head to head ----
+  resource :battle, only: :show, controller: "battles"
+
   get "cards/search", to: "cards#search", as: :cards_search
   get "cards/index", to: "cards#index", as: :cards_index
   get "cards/:ygo_id", to: "cards#show", as: :card, constraints: { ygo_id: /\d+/ }

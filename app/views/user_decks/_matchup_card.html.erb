@@ -1,0 +1,87 @@
+<%#
+  One meta-deck matchup, made for a layperson: a traffic-light readiness pill, a
+  plain-English headline, a "they do X -> you answer with Y" play list, the outs
+  you already run, and the ones you can tap to add. Locals: m (Matchup), format.
+%>
+<%
+  pct       = m.weighted_coverage_pct
+  st        = matchup_status(pct)
+  deck      = m.deck
+  is_top    = deck.tier_rank <= 1
+  tier_name = deck.tier.to_s[/tier\s*\d+/i]&.titleize
+%>
+<div class="p-4">
+  <div class="flex items-start gap-3">
+    <%# traffic-light readiness %>
+    <div class="flex w-14 shrink-0 flex-col items-center gap-1 pt-0.5" role="img" aria-label="<%= st[:label] %> against this deck (<%= pct %>%)">
+      <span class="grid h-10 w-10 place-items-center rounded-full <%= st[:pill] %>">
+        <span class="h-3.5 w-3.5 rounded-full <%= st[:dot] %>"></span>
+      </span>
+      <span class="text-[11px] font-bold <%= st[:text] %>"><%= st[:label] %></span>
+    </div>
+
+    <div class="min-w-0 flex-1">
+      <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <%= link_to deck.name, deck_path(deck), class: "font-semibold hover:text-violet-300" %>
+        <% if tier_name %>
+          <span class="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide <%= is_top ? 'bg-rose-500/15 text-rose-300' : 'bg-slate-800 text-slate-400' %>"><%= tier_name %></span>
+        <% end %>
+        <span class="text-xs text-slate-600"><%= m.have.size %>/<%= m.total %> answers you run</span>
+      </div>
+
+      <%# coverage bar (no SVG -> no sizing surprises) %>
+      <div class="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-slate-800">
+        <div class="h-full rounded-full <%= matchup_bar_color(pct) %>" style="width: <%= [pct, 3].max %>%"></div>
+      </div>
+
+      <% if deck.headline.present? %>
+        <p class="mt-2 text-sm leading-relaxed text-slate-300"><%= deck.headline %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <%# their move -> your answer (the "reading the opponent" part) %>
+  <% if deck.plays.any? %>
+    <details class="mt-3" <%= "open" if is_top %>>
+      <summary class="cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-500 hover:text-slate-300">
+        How the turn goes <span class="font-normal text-slate-600">(<%= deck.plays.size %> moments to disrupt)</span>
+      </summary>
+      <ol class="mt-2 space-y-1.5">
+        <% deck.plays.each do |p| %>
+          <li class="grid gap-1 sm:grid-cols-[1fr_1.1fr] sm:gap-2">
+            <div class="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-xs leading-relaxed text-slate-400">
+              <span class="mr-1 font-semibold uppercase tracking-wide text-slate-500">They</span><%= p["they"] %>
+            </div>
+            <div class="rounded-lg border border-emerald-900/50 bg-emerald-950/30 px-3 py-2 text-xs leading-relaxed text-emerald-100">
+              <span class="mr-1 font-semibold uppercase tracking-wide text-emerald-400">You</span><%= p["you"] %>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </details>
+  <% end %>
+
+  <%# the outs you run, then the ones to add (tap a card to open it + Add) %>
+  <div class="mt-3 space-y-2">
+    <% if m.have.any? %>
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs font-medium text-emerald-400">You run</span>
+        <% m.have.each do |item| %>
+          <%= render "user_decks/impact_chip", rec: item.rec, owned: true, tier: item.tier, quantity: item.quantity %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if m.missing.any? %>
+      <details>
+        <summary class="cursor-pointer text-xs text-slate-500 hover:text-slate-300">
+          <%= m.have.any? ? "#{m.missing.size} more out#{'s' if m.missing.size != 1} you could add" : "#{m.missing.size} out#{'s' if m.missing.size != 1} to add (tap a card to add it)" %>
+        </summary>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <% m.missing.each do |item| %>
+            <%= render "user_decks/impact_chip", rec: item.rec, owned: false, tier: item.tier, quantity: nil %>
+          <% end %>
+        </div>
+      </details>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<%#
+  Inline card-art chips for the catalog cards a play/interruption line names, so
+  the prose reads as a board state, not a paragraph. Tap any chip to open the
+  card modal. Locals: cards (Array<Card> with art), tone (:they | :you |
+  :disrupt | :neutral, picks the ring colour), builder (bool, default false).
+%>
+<%
+  cards   = Array(local_assigns[:cards])
+  builder = local_assigns.fetch(:builder, false)
+  tone    = local_assigns.fetch(:tone, :neutral)
+  ring = {
+    they:    "ring-rose-500/60 group-hover:ring-rose-300",
+    you:     "ring-emerald-500/60 group-hover:ring-emerald-300",
+    disrupt: "ring-amber-500/50 group-hover:ring-amber-300",
+    neutral: "ring-slate-700 group-hover:ring-slate-500"
+  }[tone] || "ring-slate-700 group-hover:ring-slate-500"
+%>
+<% if cards.any? %>
+  <div class="mt-2 flex flex-wrap gap-2">
+    <% cards.each do |c| %>
+      <button type="button" data-action="card-modal#open" data-url="/cards/<%= c.ygo_id %><%= '?builder=1' if builder %>"
+              title="<%= c.name %>" aria-label="<%= c.name %>"
+              class="group shrink-0 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400">
+        <%= image_tag c.primary_image.local_path, alt: "", loading: "lazy",
+              class: "h-16 w-12 rounded border border-slate-950 bg-slate-900 object-cover ring-1 #{ring} transition" %>
+      </button>
+    <% end %>
+  </div>
+<% end %>

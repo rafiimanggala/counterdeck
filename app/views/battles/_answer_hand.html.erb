@@ -1,0 +1,42 @@
+<%#
+  Your side: the outs you already run (full colour, lit) and the recommended outs
+  you are missing (ghosted, tap to add). Reuses user_decks/impact_chip verbatim,
+  which already encodes the tier ring, the owned x-count badge, the faded missing
+  state, and the card modal (with an Add button). Locals: m.
+%>
+<section class="mt-6">
+  <div class="mb-2 flex items-baseline gap-2">
+    <h2 class="text-[11px] font-semibold uppercase tracking-widest text-violet-400">Your answers</h2>
+    <span class="text-xs text-slate-600">You run <%= m.have.size %><% if m.missing.any? %>, missing <%= m.missing.size %><% end %></span>
+  </div>
+
+  <%# ---- outs you run ---- %>
+  <% if m.have.any? %>
+    <div class="flex snap-x flex-nowrap gap-2.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible">
+      <% m.have.each do |item| %>
+        <span class="inline-block shrink-0 snap-start rounded-md sm:shadow-lg sm:shadow-emerald-500/30">
+          <%= render "user_decks/impact_chip", rec: item.rec, owned: true, tier: item.tier, quantity: item.quantity %>
+        </span>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="flex items-center gap-3 rounded-xl border border-dashed border-slate-800 bg-slate-900/30 px-4 py-3">
+      <span class="block aspect-[59/86] w-9 rounded border border-dashed border-slate-700"></span>
+      <p class="text-xs text-slate-500">You run no answers to this deck yet. Start with the cards below.</p>
+    </div>
+  <% end %>
+
+  <%# ---- outs you could add ---- %>
+  <% if m.missing.any? %>
+    <p class="mb-1.5 mt-3 text-[11px] font-medium uppercase tracking-wide text-slate-500">
+      <%= m.have.any? ? "Could add (tap a card to add it)" : "Start here (tap a card to add it)" %>
+    </p>
+    <div class="flex snap-x flex-nowrap gap-2.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible">
+      <% m.missing.each do |item| %>
+        <span class="inline-block shrink-0 snap-start">
+          <%= render "user_decks/impact_chip", rec: item.rec, owned: false, tier: item.tier, quantity: nil %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+</section>

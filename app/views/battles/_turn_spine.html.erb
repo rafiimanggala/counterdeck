@@ -1,0 +1,36 @@
+<%#
+  How the turn goes, as a connected timeline (not stacked paragraphs): each play
+  is a numbered node on a spine with a THEY row (rose) and a YOU row (emerald).
+  No false "this card answers that turn" claim is made (the data has no such
+  link). Locals: enemy.
+%>
+<% plays = enemy.plays %>
+<% their_pool = enemy.key_cards %>
+<% your_pool  = enemy.hand_traps + enemy.board_breakers %>
+<% if plays.any? %>
+  <section class="mt-7">
+    <h2 class="mb-3 text-[11px] font-semibold uppercase tracking-widest text-slate-500">How the turn goes</h2>
+    <ol class="relative space-y-3 pl-10" role="list">
+      <span class="absolute bottom-4 left-4 top-4 w-px bg-slate-800" aria-hidden="true"></span>
+      <% plays.each_with_index do |p, i| %>
+        <li class="relative" role="listitem" aria-label="Turn <%= i + 1 %>">
+          <span class="absolute -left-10 top-1 grid h-8 w-8 place-items-center rounded-full border-2 border-slate-700 bg-slate-950 font-display text-sm font-bold text-slate-300" aria-hidden="true"><%= i + 1 %></span>
+          <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-3">
+            <div class="grid gap-2 md:grid-cols-[1fr_1.1fr]">
+              <div class="rounded-lg border border-rose-900/50 bg-rose-950/20 px-3 py-2">
+                <span class="mb-0.5 inline-block rounded bg-rose-500/10 px-1.5 text-[10px] font-bold uppercase tracking-wide text-rose-400">They</span>
+                <p class="text-sm leading-relaxed text-slate-300"><%= p["they"] %></p>
+                <%= render "shared/play_cards", cards: cards_in_text(p["they"], their_pool), tone: :they, builder: true %>
+              </div>
+              <div class="rounded-lg border border-emerald-900/50 bg-emerald-950/25 px-3 py-2">
+                <span class="mb-0.5 inline-block rounded bg-emerald-500/10 px-1.5 text-[10px] font-bold uppercase tracking-wide text-emerald-400">You</span>
+                <p class="text-sm leading-relaxed text-emerald-100"><%= p["you"] %></p>
+                <%= render "shared/play_cards", cards: cards_in_text(p["you"], your_pool), tone: :you, builder: true %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ol>
+  </section>
+<% end %>

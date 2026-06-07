@@ -1,0 +1,48 @@
+<% content_for :wide, "1" %>
+<% content_for :title, "Real Battle#{" · #{@my_deck.name} vs #{@enemy.name}" if @my_deck && @enemy} · CounterDeck" %>
+<%
+  # Build a battle path that keeps the current picks, overriding one at a time.
+  to = ->(over = {}) { battle_path({ mine: @my_deck&.slug, vs: @enemy&.slug, banlist: @format }.merge(over).compact) }
+%>
+
+<%= render "picker", to: to %>
+
+<% if @my_deck.nil? %>
+  <div class="mt-10 rounded-2xl border border-dashed border-slate-800 bg-slate-900/30 px-6 py-12 text-center">
+    <h1 class="font-display text-xl font-bold text-slate-200">Build a deck to start a battle</h1>
+    <p class="mx-auto mt-1 max-w-sm text-sm text-slate-500">Real Battle pits one of your decks against a meta deck and shows exactly which of your cards answer it.</p>
+    <%= link_to "Build your deck", new_user_deck_path, class: "mt-5 inline-flex min-h-[44px] items-center rounded-lg bg-violet-600 px-5 text-sm font-semibold text-white hover:bg-violet-500" %>
+  </div>
+<% else %>
+  <div class="mb-1 flex items-end justify-between gap-2">
+    <h1 class="font-display text-2xl font-bold tracking-wide">Real Battle</h1>
+  </div>
+
+  <%= render "arena", to: to %>
+
+  <% if @enemy %>
+    <% if @matchup %>
+      <%= render "coverage_meter", m: @matchup %>
+      <%= render "threat_board", enemy: @enemy %>
+      <%= render "answer_hand", m: @matchup %>
+    <% else %>
+      <%= render "threat_board", enemy: @enemy %>
+      <p class="mt-4 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-xs text-slate-400">No counter data for this matchup yet.</p>
+    <% end %>
+
+    <%= render "turn_spine", enemy: @enemy %>
+    <%= render "interruptions", enemy: @enemy %>
+
+    <details class="mt-7 rounded-xl border border-slate-800 bg-slate-900/40">
+      <% if @enemy.game_plan.present? %>
+        <summary class="cursor-pointer px-4 py-3 text-sm font-semibold text-slate-300 hover:text-slate-100">The full game plan</summary>
+        <p class="px-4 pb-4 text-sm leading-relaxed text-slate-400"><%= @enemy.game_plan %></p>
+      <% else %>
+        <summary class="cursor-pointer px-4 py-3 text-sm font-semibold text-slate-400">About this matchup</summary>
+        <p class="px-4 pb-4 text-sm text-slate-500">No long-form game plan recorded for this deck yet.</p>
+      <% end %>
+    </details>
+
+    <p class="mt-3 text-xs text-slate-600">Curated reads (my own analysis), as of <%= Deck::META_AS_OF %>. <%= @format == "md" ? "Master Duel" : "TCG" %> banlist.</p>
+  <% end %>
+<% end %>
