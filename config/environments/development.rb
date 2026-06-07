@@ -3,6 +3,11 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Allow extra hosts for LAN / Tailscale device testing (e.g. opening the dev
+  # server from a phone). Set DEV_HOSTS="192.168.1.10,my-box.ts.net". Dev-only.
+  ENV["DEV_HOSTS"].to_s.split(",").map(&:strip).reject(&:empty?).each { |h| config.hosts << h }
+  config.hosts << /.*\.ts\.net\z/ # Tailscale MagicDNS names
+
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 
