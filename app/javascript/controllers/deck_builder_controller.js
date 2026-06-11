@@ -22,12 +22,15 @@ export default class extends Controller {
   // Banlist copy ceilings per status (total across the whole deck).
   BAN_LIMIT = { forbidden: 0, limited: 1, semi_limited: 2, unlimited: 3 }
   STAPLES = ['Maxx "C"', "Ash Blossom & Joyous Spring", "Effect Veiler", "Infinite Impermanence", "Nibiru, the Primal Being", "Called by the Grave", "Triple Tactics Talent", "Forbidden Droplet"]
+  // How many pool cards to render per page; the rest are reachable via the pager.
+  POOL_PER_PAGE = 60
 
   connect() {
     this.searchAll = true // search the full YGOPRODeck database by default
     this.q = ""
     this.typeFilter = ""
     this.attrFilter = ""
+    this.poolPage = 1
     this.searchTimer = null
     this.matchupTimer = null
     this.toastTimer = null
@@ -230,6 +233,7 @@ export default class extends Controller {
   }
 
   async runSearch() {
+    this.poolPage = 1 // a fresh search/filter always returns to the first page
     const hasQuery = this.q.length >= 1 || this.typeFilter || this.attrFilter
     let results
 
@@ -279,6 +283,9 @@ export default class extends Controller {
   }
 
   renderPool(cards, hasQuery) {
+    this.poolCards = cards
+    this.poolHasQuery = hasQuery
+
     if (hasQuery) {
       if (this.hasRelatedTarget) this.relatedTarget.innerHTML = ""
       this.relatedSortable?.destroy()
@@ -287,18 +294,66 @@ export default class extends Controller {
       this.renderRelated()
     }
 
-    const shown = cards.slice(0, 60)
-    if (!shown.length) {
-      this.poolTarget.innerHTML = hasQuery
+    this.paintPool()
+  }
+
+  // Paints the current pool page. The full result set lives in this.poolCards;
+  // only a window of POOL_PER_PAGE tiles is in the DOM at once and the rest are
+  // reachable via the pager, so the whole catalog is browsable without one giant
+  // render and without the old "search to narrow" dead end.
+  paintPool() {
+    const cards = this.poolCards || []
+    const per = this.POOL_PER_PAGE
+    const total = cards.length
+    const pages = Math.max(1, Math.ceil(total / per))
+    this.poolPage = Math.min(pages, Math.max(1, this.poolPage))
+    const start = (this.poolPage - 1) * per
+    const shown = cards.slice(start, start + per)
+
+    if (!total) {
+      this.poolTarget.innerHTML = this.poolHasQuery
         ? `<p class="col-span-full py-8 text-center text-sm text-slate-600">No cards match.</p>`
         : ""
     } else {
-      const more = cards.length > shown.length
-        ? `<p class="col-span-full pt-2 text-center text-xs text-slate-600">Showing ${shown.length} of ${cards.length} - search to narrow.</p>`
-        : ""
-      this.poolTarget.innerHTML = shown.map((c) => this.poolTile(c)).join("") + more
+      const pager = pages > 1 ? this.poolPager(this.poolPage, pages, total, start, shown.length) : ""
+      this.poolTarget.innerHTML = shown.map((c) => this.poolTile(c)).join("") + pager
     }
     this.initPoolSortable()
+  }
+
+  poolPager(page, pages, total, start, count) {
+    const from = total ? start + 1 : 0
+    const to = start + count
+    const btn = (action, label, disabled) =>
+      `<button type="button" data-action="deck-builder#${action}" ${disabled ? "disabled" : ""}
+        class="rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1 text-xs font-semibold text-slate-200 transition hover:border-violet-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-violet-400">${label}</button>`
+    return `<div class="col-span-full mt-3 flex flex-wrap items-center justify-center gap-2 border-t border-slate-800 pt-3">
+      ${btn("poolFirst", "&laquo;", page <= 1)}
+      ${btn("poolPrev", "Prev", page <= 1)}
+      <span class="px-1 text-xs text-slate-400">Page ${page} of ${pages} <span class="text-slate-600">(${from}-${to} of ${total})</span></span>
+      ${btn("poolNext", "Next", page >= pages)}
+      ${btn("poolLast", "&raquo;", page >= pages)}
+    </div>`
+  }
+
+  poolPageCount() {
+    return Math.max(1, Math.ceil((this.poolCards?.length || 0) / this.POOL_PER_PAGE))
+  }
+
+  poolFirst(event) { event?.preventDefault(); this.goToPoolPage(1) }
+  poolPrev(event) { event?.preventDefault(); this.goToPoolPage(this.poolPage - 1) }
+  poolNext(event) { event?.preventDefault(); this.goToPoolPage(this.poolPage + 1) }
+  poolLast(event) { event?.preventDefault(); this.goToPoolPage(this.poolPageCount()) }
+
+  goToPoolPage(n) {
+    const next = Math.min(this.poolPageCount(), Math.max(1, n))
+    if (next === this.poolPage) return
+    this.poolPage = next
+    this.paintPool()
+    // Jump the pool pane back to the top so the new page starts in view.
+    if (this.hasPoolPaneTarget) {
+      this.poolPaneTarget.scrollTo({ top: 0, behavior: this.reducedMotion ? "auto" : "smooth" })
+    }
   }
 
   poolTile(c) {
