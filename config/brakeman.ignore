@@ -1,0 +1,16 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "eeb65086294710308866f506289847d1363ae2923bb52604877b592640814f56",
+      "check_name": "SendFile",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/card_images_controller.rb",
+      "line": 19,
+      "confidence": "Weak",
+      "note": "params[:ygo_image_id] is coerced with .to_i before it reaches the path (id = params[:ygo_image_id].to_i, app/controllers/card_images_controller.rb:12), so only a plain integer can ever be interpolated into the filename. Path traversal (../) is not possible. Fingerprint is tied to this exact code; if the .to_i coercion is ever removed, Brakeman will flag it again as a new warning."
+    }
+  ],
+  "brakeman_version": "8.0.5"
+}

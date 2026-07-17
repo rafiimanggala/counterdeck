@@ -9,6 +9,6 @@ class CreatePrices < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    add_index :prices, [:card_id, :source], unique: true
+    add_index :prices, [ :card_id, :source ], unique: true
   end
 end

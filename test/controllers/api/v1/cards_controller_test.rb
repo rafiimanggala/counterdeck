@@ -71,7 +71,7 @@ module Api
         @ash.update!(metadata: {
           "sources" => %w[ygoprodeck manual],
           "provenance" => { "atk" => "manual" },
-          "conflicts" => [{ "field" => "atk", "chosen" => 600, "chosen_source" => "manual", "losing_source" => "ygoprodeck" }]
+          "conflicts" => [ { "field" => "atk", "chosen" => 600, "chosen_source" => "manual", "losing_source" => "ygoprodeck" } ]
         })
 
         get "/api/v1/cards/#{@ash.ygo_id}/audit"

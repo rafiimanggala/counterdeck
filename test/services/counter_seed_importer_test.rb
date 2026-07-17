@@ -8,22 +8,22 @@ class CounterSeedImporterTest < ActiveSupport::TestCase
     @ash = card("Ash Blossom & Joyous Spring", 14558127)
 
     @seed = {
-      "counters" => [{
+      "counters" => [ {
         "deck_name" => "Importer Spec Deck",
         "archetype" => "Combo", "tier" => "Tier 1",
-        "key_cards" => [{ "card" => "Effect Veiler / Infinite Impermanence", "role" => "outs" }],
-        "hand_traps" => [{ "card" => "Ash Blossom & Joyous Spring", "why" => "negate", "when" => "on search" }],
-        "board_breakers" => [{ "card" => "floodgate breakers post-board", "why" => "grind" }]
-      }]
+        "key_cards" => [ { "card" => "Effect Veiler / Infinite Impermanence", "role" => "outs" } ],
+        "hand_traps" => [ { "card" => "Ash Blossom & Joyous Spring", "why" => "negate", "when" => "on search" } ],
+        "board_breakers" => [ { "card" => "floodgate breakers post-board", "why" => "grind" } ]
+      } ]
     }
-    @links = { "importer-spec-deck" => { "Effect Veiler / Infinite Impermanence" => [97268402, 10045474] } }
+    @links = { "importer-spec-deck" => { "Effect Veiler / Infinite Impermanence" => [ 97268402, 10045474 ] } }
   end
 
   test "groups a multi-card descriptor into one rec with join rows for every half" do
     import!
     rec = CounterRecommendation.find_by(card_name: "Effect Veiler / Infinite Impermanence")
     assert_nil rec.card_id, "grouped rec keeps card_id nil so the label is shown, not one card's name"
-    assert_equal [@veiler.id, @imperm.id], rec.counter_recommendation_cards.order(:position).map(&:card_id)
+    assert_equal [ @veiler.id, @imperm.id ], rec.counter_recommendation_cards.order(:position).map(&:card_id)
     assert_equal %w[Effect\ Veiler Infinite\ Impermanence], rec.display_cards.map(&:name)
   end
 
@@ -32,7 +32,7 @@ class CounterSeedImporterTest < ActiveSupport::TestCase
     rec = CounterRecommendation.find_by(card_name: "Ash Blossom & Joyous Spring")
     assert_equal @ash.id, rec.card_id
     assert_empty rec.counter_recommendation_cards
-    assert_equal [@ash], rec.display_cards
+    assert_equal [ @ash ], rec.display_cards
   end
 
   test "leaves a role/strategy descriptor as free text" do
@@ -66,10 +66,10 @@ class CounterSeedImporterTest < ActiveSupport::TestCase
   end
 
   def import!
-    seed = Tempfile.new(["seed", ".json"])
+    seed = Tempfile.new([ "seed", ".json" ])
     seed.write(@seed.to_json)
     seed.flush
-    links = Tempfile.new(["links", ".json"])
+    links = Tempfile.new([ "links", ".json" ])
     links.write(@links.to_json)
     links.flush
     CounterSeedImporter.new(path: seed.path, links_path: links.path).import

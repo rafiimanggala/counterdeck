@@ -82,9 +82,9 @@ class CounterSeedImporter
 
     deck.counter_recommendations.destroy_all
     position = 0
-    position = add_recs(deck, entry["key_cards"], CounterRecommendation::KEY_CARD, position) { |c| [c["card"], c["role"], nil] }
-    position = add_recs(deck, entry["hand_traps"], CounterRecommendation::HAND_TRAP, position) { |c| [c["card"], c["why"], c["when"]] }
-    add_recs(deck, entry["board_breakers"], CounterRecommendation::BOARD_BREAKER, position) { |c| [c["card"], c["why"], nil] }
+    position = add_recs(deck, entry["key_cards"], CounterRecommendation::KEY_CARD, position) { |c| [ c["card"], c["role"], nil ] }
+    position = add_recs(deck, entry["hand_traps"], CounterRecommendation::HAND_TRAP, position) { |c| [ c["card"], c["why"], c["when"] ] }
+    add_recs(deck, entry["board_breakers"], CounterRecommendation::BOARD_BREAKER, position) { |c| [ c["card"], c["why"], nil ] }
   end
 
   def add_recs(deck, items, category, position)
@@ -119,7 +119,7 @@ class CounterSeedImporter
     return cards if cards.any?
 
     card = name_fallback(raw)
-    card ? [card] : []
+    card ? [ card ] : []
   end
 
   # exact -> alias -> case-insensitive. Strips parenthetical notes; never links a

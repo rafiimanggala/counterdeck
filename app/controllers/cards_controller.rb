@@ -67,7 +67,7 @@ class CardsController < ApplicationController
   def banlist_map(card)
     card.banlist_entries.each_with_object({}) do |entry, map|
       next if entry.status == BanlistEntry::UNLIMITED
-      next unless [BanlistEntry::TCG, BanlistEntry::MD].include?(entry.format)
+      next unless [ BanlistEntry::TCG, BanlistEntry::MD ].include?(entry.format)
 
       map[entry.format] = entry.status
     end

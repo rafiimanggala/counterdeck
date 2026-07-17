@@ -83,7 +83,7 @@ class DataReconciler
         chosen: winner.attributes[field],
         chosen_source: winner.source,
         losing_source: loser&.source,
-        values: present.to_h { |r| [r.source, r.attributes[field]] }
+        values: present.to_h { |r| [ r.source, r.attributes[field] ] }
       }
     end
 

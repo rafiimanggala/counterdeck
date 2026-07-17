@@ -21,7 +21,7 @@ class CardProvisionerTest < ActiveSupport::TestCase
   end
 
   test "search merges remote-only cards not in the catalog" do
-    remote = [{ "id" => 999, "name" => "Blue-Eyes White Dragon", "type" => "Normal Monster", "frameType" => "normal", "archetype" => "Blue-Eyes" }]
+    remote = [ { "id" => 999, "name" => "Blue-Eyes White Dragon", "type" => "Normal Monster", "frameType" => "normal", "archetype" => "Blue-Eyes" } ]
     results = CardProvisioner.new(client: StubClient.new(remote: remote)).search("blue")
     bew = results.find { |s| s.ygo_id == 999 }
     assert_not_nil bew
@@ -34,7 +34,7 @@ class CardProvisionerTest < ActiveSupport::TestCase
   end
 
   test "ensure ingests an unknown card from the client" do
-    remote = [{ "id" => 999, "name" => "Blue-Eyes White Dragon", "type" => "Normal Monster", "frameType" => "normal" }]
+    remote = [ { "id" => 999, "name" => "Blue-Eyes White Dragon", "type" => "Normal Monster", "frameType" => "normal" } ]
     card = CardProvisioner.new(client: StubClient.new(remote: remote)).ensure(999)
     assert_equal "Blue-Eyes White Dragon", card.name
     assert Card.exists?(ygo_id: 999)

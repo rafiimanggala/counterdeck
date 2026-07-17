@@ -13,18 +13,18 @@ class DataReconcilerTest < ActiveSupport::TestCase
 
   def manual(attributes)
     DataReconciler::HashAdapter.new(source: "manual", priority: 100,
-                                    rows: [{ natural_key: KEY, attributes: attributes }])
+                                    rows: [ { natural_key: KEY, attributes: attributes } ])
   end
 
   test "agreeing sources produce no conflict" do
-    sources = [DataReconciler::YgoprodeckAdapter.new([ygo_row], priority: 50), manual("atk" => 500)]
+    sources = [ DataReconciler::YgoprodeckAdapter.new([ ygo_row ], priority: 50), manual("atk" => 500) ]
     res = DataReconciler.new(sources: sources).reconcile[KEY]
     assert_empty res[:conflicts]
     assert_equal 500, res[:attributes]["atk"]
   end
 
   test "higher-priority source wins a conflict and the divergence is recorded" do
-    sources = [DataReconciler::YgoprodeckAdapter.new([ygo_row("atk" => 500)], priority: 50), manual("atk" => 600)]
+    sources = [ DataReconciler::YgoprodeckAdapter.new([ ygo_row("atk" => 500) ], priority: 50), manual("atk" => 600) ]
     res = DataReconciler.new(sources: sources).reconcile[KEY]
 
     assert_equal 600, res[:attributes]["atk"]
@@ -36,8 +36,8 @@ class DataReconcilerTest < ActiveSupport::TestCase
   end
 
   test "falls back to a lower-priority source when the winner's field is nil" do
-    sources = [manual("atk" => nil, "name" => "Maxx C"),
-               DataReconciler::YgoprodeckAdapter.new([ygo_row("atk" => 500)], priority: 50)]
+    sources = [ manual("atk" => nil, "name" => "Maxx C"),
+               DataReconciler::YgoprodeckAdapter.new([ ygo_row("atk" => 500) ], priority: 50) ]
     res = DataReconciler.new(sources: sources).reconcile[KEY]
 
     assert_equal 500, res[:attributes]["atk"]
@@ -45,7 +45,7 @@ class DataReconcilerTest < ActiveSupport::TestCase
   end
 
   test "apply! upserts a card, stores provenance and conflicts, and is idempotent" do
-    sources = [DataReconciler::YgoprodeckAdapter.new([ygo_row("atk" => 500)], priority: 50), manual("atk" => 600)]
+    sources = [ DataReconciler::YgoprodeckAdapter.new([ ygo_row("atk" => 500) ], priority: 50), manual("atk" => 600) ]
 
     result = nil
     assert_difference "Card.count", 1 do
@@ -67,7 +67,7 @@ class DataReconcilerTest < ActiveSupport::TestCase
   test "a failing source is skipped without aborting the run" do
     broken = Object.new
     def broken.records = raise("boom")
-    sources = [broken, DataReconciler::YgoprodeckAdapter.new([ygo_row], priority: 50)]
+    sources = [ broken, DataReconciler::YgoprodeckAdapter.new([ ygo_row ], priority: 50) ]
 
     assert_difference "Card.count", 1 do
       DataReconciler.new(sources: sources, logger: Logger.new(nil)).apply!

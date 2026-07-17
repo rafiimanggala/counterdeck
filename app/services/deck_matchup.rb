@@ -7,7 +7,7 @@
 # be weighted - owning the single best out matters more than owning three weak
 # ones. Matchups are sorted best-(weighted)-covered first.
 class DeckMatchup
-  COUNTER_CATEGORIES = [CounterRecommendation::HAND_TRAP, CounterRecommendation::BOARD_BREAKER].freeze
+  COUNTER_CATEGORIES = [ CounterRecommendation::HAND_TRAP, CounterRecommendation::BOARD_BREAKER ].freeze
 
   # A high-impact out whose note reads like it shuts off the deck's core engine.
   ENGINE_RE = /shuts? off|shuts? down|turns? off|\bengine\b|\bcore\b|their key|key card|omni-negate|stop the combo/i
@@ -54,7 +54,7 @@ class DeckMatchup
     Deck.verified.includes(counter_recommendations: { card: :card_images })
         .map { |deck| build(deck) }
         .reject { |m| m.total.zero? }
-        .sort_by { |m| [-m.weighted_coverage_pct, -m.high_have_count, m.deck.name.to_s] }
+        .sort_by { |m| [ -m.weighted_coverage_pct, -m.high_have_count, m.deck.name.to_s ] }
   end
 
   # The head-to-head: the single matchup of this user deck against one meta deck
@@ -86,8 +86,8 @@ class DeckMatchup
       end
     end
 
-    have.sort_by!    { |i| [-CounterImpact.weight(i.tier), i.rec.display_name.to_s] }
-    missing.sort_by! { |i| [-CounterImpact.weight(i.tier), i.rec.display_name.to_s] }
+    have.sort_by!    { |i| [ -CounterImpact.weight(i.tier), i.rec.display_name.to_s ] }
+    missing.sort_by! { |i| [ -CounterImpact.weight(i.tier), i.rec.display_name.to_s ] }
     Matchup.new(deck: deck, have: have, missing: missing)
   end
 end
