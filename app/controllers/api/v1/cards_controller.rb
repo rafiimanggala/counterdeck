@@ -12,7 +12,7 @@ module Api
 
         cards, meta = paginate(scope)
 
-        if stale?(etag: [cards.cache_key_with_version, meta], public: true)
+        if stale?(etag: [ cards.cache_key_with_version, meta ], public: true)
           render json: {
             data: cards.map { |c| CardSerializer.new(c) },
             meta: meta

@@ -3,13 +3,13 @@ class BanlistEntry < ApplicationRecord
   LIMITED = "limited".freeze
   SEMI_LIMITED = "semi_limited".freeze
   UNLIMITED = "unlimited".freeze
-  STATUSES = [FORBIDDEN, LIMITED, SEMI_LIMITED, UNLIMITED].freeze
+  STATUSES = [ FORBIDDEN, LIMITED, SEMI_LIMITED, UNLIMITED ].freeze
 
   TCG = "tcg".freeze
   OCG = "ocg".freeze
   GOAT = "goat".freeze
   MD = "md".freeze # Master Duel (derived, not in YGOPRODeck API)
-  FORMATS = [TCG, OCG, GOAT, MD].freeze
+  FORMATS = [ TCG, OCG, GOAT, MD ].freeze
 
   belongs_to :card
 

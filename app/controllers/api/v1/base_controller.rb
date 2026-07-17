@@ -16,14 +16,14 @@ module Api
       private
 
       def paginate(relation)
-        page = [params[:page].to_i, 1].max
+        page = [ params[:page].to_i, 1 ].max
         per_page = params[:per_page].to_i
         per_page = DEFAULT_PER_PAGE if per_page <= 0
-        per_page = [per_page, MAX_PER_PAGE].min
+        per_page = [ per_page, MAX_PER_PAGE ].min
 
         total = relation.count
         records = relation.limit(per_page).offset((page - 1) * per_page)
-        [records, pagination_meta(total, page, per_page)]
+        [ records, pagination_meta(total, page, per_page) ]
       end
 
       def pagination_meta(total, page, per_page)

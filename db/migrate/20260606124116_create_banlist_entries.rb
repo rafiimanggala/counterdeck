@@ -9,6 +9,6 @@ class CreateBanlistEntries < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    add_index :banlist_entries, [:card_id, :format], unique: true
+    add_index :banlist_entries, [ :card_id, :format ], unique: true
   end
 end

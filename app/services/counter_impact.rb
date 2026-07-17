@@ -67,8 +67,8 @@ class CounterImpact
       base += 1 if ALLOWLIST.any? { |n| name.start_with?(n) }
 
       text = "#{rec.note} #{rec.timing}".downcase
-      up   = [UP_KEYWORDS.count { |k| text.include?(k) }, 2].min
-      down = [DOWN_KEYWORDS.count { |k| text.include?(k) }, 2].min
+      up   = [ UP_KEYWORDS.count { |k| text.include?(k) }, 2 ].min
+      down = [ DOWN_KEYWORDS.count { |k| text.include?(k) }, 2 ].min
 
       base + up - down
     end

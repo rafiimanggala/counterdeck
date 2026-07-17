@@ -11,6 +11,6 @@ class CreateCounterRecommendations < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    add_index :counter_recommendations, [:deck_id, :category, :position]
+    add_index :counter_recommendations, [ :deck_id, :category, :position ]
   end
 end

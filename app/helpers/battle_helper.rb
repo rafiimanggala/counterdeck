@@ -6,9 +6,9 @@ module BattleHelper
   RING_R = 54
 
   def readiness_ring(pct)
-    shown = [[pct.to_i, 0].max, 100].min
+    shown = [ [ pct.to_i, 0 ].max, 100 ].min
     circ = 2 * Math::PI * RING_R
-    dash = circ * [shown, 3].max / 100.0
+    dash = circ * [ shown, 3 ].max / 100.0
     { circumference: circ.round(2), dash: dash.round(2), gap: (circ - dash).round(2) }
   end
 
@@ -55,7 +55,7 @@ module BattleHelper
 
       # 1) the catalog (canonical) name of every card the rec names.
       cards.each do |card|
-        card_name_aliases(card.name).each { |a| raw << [card, a.downcase] if a.length >= 4 }
+        card_name_aliases(card.name).each { |a| raw << [ card, a.downcase ] if a.length >= 4 }
       end
       # 2) the prose/draft spellings from the rec's own typed name ("Crosia" for
       # the card catalogued as "Radiant Typhoon Krosea"), mapped to the card it
@@ -64,7 +64,7 @@ module BattleHelper
         target = nearest_card(frag, cards)
         next unless target
 
-        card_name_aliases(frag).each { |a| raw << [target, a.downcase] if a.length >= 4 }
+        card_name_aliases(frag).each { |a| raw << [ target, a.downcase ] if a.length >= 4 }
       end
     end
     raw.uniq!
@@ -89,7 +89,7 @@ module BattleHelper
       next if low[finish_at, 26].to_s.match?(NEGATION_AFTER)
 
       claimed << (pos...finish_at)
-      picks << [card, pos]
+      picks << [ card, pos ]
     end
 
     picks.sort_by(&:last).map(&:first).first(limit)
@@ -106,7 +106,7 @@ module BattleHelper
     return [] if name.blank?
 
     full = name.strip
-    list = [full]
+    list = [ full ]
 
     stripped = full.gsub(/["']/, "").squeeze(" ").strip
     list << stripped if stripped.present? && stripped != full

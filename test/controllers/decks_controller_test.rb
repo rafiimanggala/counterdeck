@@ -12,8 +12,8 @@ class DecksControllerTest < ActionDispatch::IntegrationTest
     @deck = Deck.create!(
       name: "Test Meta", status: "verified", tier: "Tier 1", archetype: "Combo",
       headline: "A combo deck.", game_plan: "Build a board.",
-      interruption_points: [{ "timing" => "On the first search", "action" => "Drop Effect Veiler or Infinite Impermanence." }],
-      plays: [{ "they" => "Summon Kewl Tune Cue.", "you" => "Veiler the search." }]
+      interruption_points: [ { "timing" => "On the first search", "action" => "Drop Effect Veiler or Infinite Impermanence." } ],
+      plays: [ { "they" => "Summon Kewl Tune Cue.", "you" => "Veiler the search." } ]
     )
     # single-card key
     @deck.counter_recommendations.create!(category: CounterRecommendation::KEY_CARD, card_name: @cue.name)

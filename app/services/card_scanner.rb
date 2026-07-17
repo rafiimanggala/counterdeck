@@ -6,9 +6,9 @@ require "tempfile"
 # similarity. Mirrors the "Vision" idea of card-data APIs in a self-hosted way.
 class CardScanner
   THRESHOLD = 0.4
-  TESSERACT_CANDIDATES = ["/opt/homebrew/bin/tesseract", "/usr/local/bin/tesseract", "tesseract"].freeze
-  VIPS_CANDIDATES = ["/opt/homebrew/bin/vips", "/usr/local/bin/vips", "vips"].freeze
-  VIPSHEADER_CANDIDATES = ["/opt/homebrew/bin/vipsheader", "/usr/local/bin/vipsheader", "vipsheader"].freeze
+  TESSERACT_CANDIDATES = [ "/opt/homebrew/bin/tesseract", "/usr/local/bin/tesseract", "tesseract" ].freeze
+  VIPS_CANDIDATES = [ "/opt/homebrew/bin/vips", "/usr/local/bin/vips", "vips" ].freeze
+  VIPSHEADER_CANDIDATES = [ "/opt/homebrew/bin/vipsheader", "/usr/local/bin/vipsheader", "vipsheader" ].freeze
 
   Result = Struct.new(:card, :score, :raw_text, :counters_for, :key_card_of, :error, keyword_init: true) do
     def matched? = card.present?
@@ -46,7 +46,7 @@ class CardScanner
 
     band = name_band_text(image_path)
     full = ocr_bytes(downscaled_for_ocr(image_path), psm: "6")
-    [band, full].reject(&:blank?).join("\n").force_encoding("UTF-8").scrub
+    [ band, full ].reject(&:blank?).join("\n").force_encoding("UTF-8").scrub
   end
 
   # Tesseract runtime is roughly linear in pixel count; raw phone photos are
@@ -61,7 +61,7 @@ class CardScanner
     width = capture_int(hbin, "-f", "width", image_path)
     return File.binread(image_path) if width.zero? || width <= max_w
 
-    tmp = Tempfile.new(["cd_full", ".png"])
+    tmp = Tempfile.new([ "cd_full", ".png" ])
     tmp.close
     _o, _e, st = Open3.capture3(vbin, "thumbnail", image_path, tmp.path, max_w.to_s)
     st.success? ? File.binread(tmp.path) : File.binread(image_path)
@@ -97,13 +97,13 @@ class CardScanner
     crop_w = (width * 0.82).to_i
     crop_h = (height * 0.085).to_i
 
-    tmp = Tempfile.new(["cd_band", ".png"])
+    tmp = Tempfile.new([ "cd_band", ".png" ])
     tmp.close
     _out, _err, status = Open3.capture3(vbin, "crop", image_path, tmp.path, left.to_s, top.to_s, crop_w.to_s, crop_h.to_s)
     return "" unless status.success?
 
     # Upscale 3x so the small title text is large enough for accurate OCR.
-    big = Tempfile.new(["cd_band3x", ".png"])
+    big = Tempfile.new([ "cd_band3x", ".png" ])
     big.close
     _o2, _e2, st2 = Open3.capture3(vbin, "resize", tmp.path, big.path, "3")
     band_path = st2.success? ? big.path : tmp.path
@@ -158,7 +158,7 @@ class CardScanner
       end
     end
 
-    best_score >= THRESHOLD ? [best_card, best_score.round(3)] : [nil, best_score.round(3)]
+    best_score >= THRESHOLD ? [ best_card, best_score.round(3) ] : [ nil, best_score.round(3) ]
   end
 
   # Match every readable line plus the first-two-lines joined (card names can
@@ -169,7 +169,7 @@ class CardScanner
                 .select { |l| l.length >= 4 }
 
     joined = lines.first(2).join(" ")
-    (lines + [joined]).reject(&:blank?).uniq.first(20)
+    (lines + [ joined ]).reject(&:blank?).uniq.first(20)
   end
 
   def match_one(query)
@@ -178,7 +178,7 @@ class CardScanner
               .order(Arel.sql("sim DESC"))
               .limit(1)
               .first
-    row ? [row, row.sim.to_f] : nil
+    row ? [ row, row.sim.to_f ] : nil
   end
 
   def decks_countered_by(card)

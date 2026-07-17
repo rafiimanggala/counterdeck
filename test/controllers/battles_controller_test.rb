@@ -6,8 +6,8 @@ class BattlesControllerTest < ActionDispatch::IntegrationTest
     @meta = Deck.create!(
       name: "Branded Despia", status: "verified", tier: "Tier 1", archetype: "Despia",
       headline: "Builds a board from one card.", game_plan: "Grind you out with Mirrorjade.",
-      plays: [{ "they" => "Play Branded Fusion.", "you" => "Ash the Fusion." }],
-      interruption_points: [{ "timing" => "On Branded Fusion", "action" => "Drop Ash." }]
+      plays: [ { "they" => "Play Branded Fusion.", "you" => "Ash the Fusion." } ],
+      interruption_points: [ { "timing" => "On Branded Fusion", "action" => "Drop Ash." } ]
     )
     @meta.counter_recommendations.create!(category: CounterRecommendation::HAND_TRAP, card_name: @ash.name)
     @meta.counter_recommendations.create!(category: CounterRecommendation::KEY_CARD, card_name: @ash.name)

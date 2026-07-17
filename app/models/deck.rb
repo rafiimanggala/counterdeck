@@ -1,5 +1,5 @@
 class Deck < ApplicationRecord
-  TIERS = ["Tier 0", "Tier 1", "Tier 2", "Tier 3", "Rogue"].freeze
+  TIERS = [ "Tier 0", "Tier 1", "Tier 2", "Tier 3", "Rogue" ].freeze
   STATUSES = %w[draft verified].freeze
   CONFIDENCE = %w[high medium low].freeze
 

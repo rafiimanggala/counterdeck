@@ -8,7 +8,7 @@ class MasterDuelBanlistTest < ActiveSupport::TestCase
     ash = Card.create!(ygo_id: 2, name: "Ash Blossom")
     ash.banlist_entries.create!(format: "tcg", status: "unlimited")
 
-    file = Tempfile.new(["md", ".json"])
+    file = Tempfile.new([ "md", ".json" ])
     file.write({
       source: "test", captured_on: "2026-01-01",
       entries: [
@@ -22,7 +22,7 @@ class MasterDuelBanlistTest < ActiveSupport::TestCase
     result = MasterDuelBanlist.new(path: file.path).import
 
     assert_equal 2, result.imported
-    assert_equal ["Ghost Of Nowhere"], result.unmatched
+    assert_equal [ "Ghost Of Nowhere" ], result.unmatched
     assert_equal "limited", maxx.reload.banlist_status("md")
 
     diverging = result.divergences.map { |d| d.card.name }

@@ -23,9 +23,9 @@ class DeckEntriesController < ApplicationController
         entry.destroy unless entry.new_record?
         return render json: { ok: true, ygo_id: card.ygo_id, zone: zone, quantity: 0 }
       end
-      entry.quantity = [qty, 3].min
+      entry.quantity = [ qty, 3 ].min
     else
-      entry.quantity = entry.new_record? ? 1 : [entry.quantity + 1, 3].min
+      entry.quantity = entry.new_record? ? 1 : [ entry.quantity + 1, 3 ].min
     end
 
     entry.position ||= @deck.deck_entries.size
@@ -40,7 +40,7 @@ class DeckEntriesController < ApplicationController
       entry.destroy
       render json: { ok: true, id: entry.id, quantity: 0 }
     else
-      entry.update(quantity: [qty, 3].min)
+      entry.update(quantity: [ qty, 3 ].min)
       render json: { ok: true, id: entry.id, quantity: entry.quantity }
     end
   end

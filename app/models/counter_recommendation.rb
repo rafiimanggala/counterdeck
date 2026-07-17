@@ -2,7 +2,7 @@ class CounterRecommendation < ApplicationRecord
   KEY_CARD = "key_card".freeze
   HAND_TRAP = "hand_trap".freeze
   BOARD_BREAKER = "board_breaker".freeze
-  CATEGORIES = [KEY_CARD, HAND_TRAP, BOARD_BREAKER].freeze
+  CATEGORIES = [ KEY_CARD, HAND_TRAP, BOARD_BREAKER ].freeze
 
   # Impact tier (nil = auto-derive via CounterImpact; a value = manual override).
   IMPACTS = %w[high medium low].freeze
@@ -34,7 +34,7 @@ class CounterRecommendation < ApplicationRecord
   # art, else the single primary card. Empty only when nothing resolved.
   def display_cards
     cards = art_cards.select { |c| c.primary_image&.ygo_image_id }
-    cards = [card].compact if cards.empty?
+    cards = [ card ].compact if cards.empty?
     cards.select { |c| c.primary_image&.ygo_image_id }
   end
 

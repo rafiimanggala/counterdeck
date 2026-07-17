@@ -11,6 +11,6 @@ class CreatePrintings < ActiveRecord::Migration[8.1]
       t.timestamps
     end
     add_index :printings, :set_code
-    add_index :printings, [:card_id, :set_code, :set_rarity], unique: true, name: "index_printings_on_card_set_rarity"
+    add_index :printings, [ :card_id, :set_code, :set_rarity ], unique: true, name: "index_printings_on_card_set_rarity"
   end
 end
